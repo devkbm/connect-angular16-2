@@ -1,0 +1,58 @@
+{{fg.getRawValue() | json}}
+<form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
+    <nz-form-item>
+        <nz-form-label nzFor="formId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">식별자</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="formId" formControlName="formId" placeholder="Id를 입력해주세요.">
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="title" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">설문양식명</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="The input is Required!">
+            <input nz-input id="title" formControlName="title" placeholder="설문양식명을 입력해주세요.">
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="comment" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="comment" formControlName="comment" placeholder="설명을 입력해주세요.">
+            <!--
+            <nz-form-explain *ngIf="isFieldErrors(form,'teamName','required')">The input is Required!</nz-form-explain>
+            -->
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+
+<app-survey-item-form></app-survey-item-form>
+
+<div class="footer">
+  <button nz-button (click)="getSurveyForm(this.fg.get('formId')?.value)">
+    <span nz-icon nzType="form" nzTheme="outline"></span>
+    조회
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="closeForm()">
+    <span nz-icon nzType="close" nzTheme="outline"></span>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    nzPopconfirmPlacement="top"
+    (nzOnConfirm)="saveSurveyForm()" (nzOnCancel)="false"
+    nz-button nzType="primary">
+    <span nz-icon nzType="save" nzTheme="outline"></span>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+      nzPopconfirmPlacement="top"
+      (nzOnConfirm)="deleteSurveyForm(this.fg.get('formId')?.value)" (nzOnCancel)="false">
+      <span nz-icon nzType="delete" nzTheme="outline"></span>
+      삭제
+  </button>
+</div>

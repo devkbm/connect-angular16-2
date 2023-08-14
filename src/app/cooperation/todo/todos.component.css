@@ -1,0 +1,43 @@
+.title {
+  background-color: blueviolet;
+  padding:  46px 26px 26px 16px;
+  color: white;
+  font-weight: normal;
+}
+
+.todo-body {
+  display: grid;
+  height: calc(100% - 158px);
+  padding-top: 10px;
+
+  /*grid-template-rows: 220px 1fr;*/
+  grid-template-columns: 200px 1fr;
+  grid-template-areas:
+    "todo-group todo";
+    /*"title calendar";*/
+}
+
+.todo-group {
+  grid-area: todo-group;
+  overflow: auto;
+  background-color: orange;
+}
+
+.todo {
+  grid-area: todo;
+  overflow: auto;
+}
+
+h1, h2 {
+  margin: 0;
+  font-weight: normal;
+}
+
+h2 {
+  margin-bottom: 16px;
+}
+
+app-todo, app-add-todo {
+  border-bottom: 1px solid #cccccc;
+}
+

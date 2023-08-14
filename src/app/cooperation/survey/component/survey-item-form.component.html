@@ -1,0 +1,104 @@
+{{fg.getRawValue() | json}}
+<!--
+<div class="footer">
+
+    <button nz-button (click)="getSurveyItem(this.fg.get('formId').value, this.fg.get('itemId').value)">
+        <span nz-icon type="close" nzTheme="outline"></span>
+        조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="closeForm()">
+        <span nz-icon type="close" nzTheme="outline"></span>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-popconfirm
+        nzPopconfirmTitle="저장하시겠습니까?"
+        nzPopconfirmPlacement="top"
+        (nzOnConfirm)="saveSurveyItem()"
+        (nzOnCancel)="false"
+        nz-button nzType="primary">
+        <span nz-icon type="save" nzTheme="outline"></span>
+        저장
+    </button>
+
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nzDanger
+        nz-popconfirm
+        nzPopconfirmTitle="삭제하시겠습니까?"
+        nzPopconfirmPlacement="top"
+        (nzOnConfirm)="deleteSurveyItem(this.fg.get('formId').value, this.fg.get('itemId').value)"
+        (nzOnCancel)="false"
+        nz-button nzType="primary" nzDanger>
+        <span nz-icon type="delete" nzTheme="outline"></span>
+        삭제
+    </button>
+
+</div>
+-->
+
+
+<form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzFor="item_formId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">설문 식별자</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="item_formId" formControlName="formId" placeholder="Id를 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzFor="item_itemId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">식별자</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="item_itemId" formControlName="itemId" placeholder="Id를 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzFor="item_itemType" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">종류</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="The input is Required!">
+            <input nz-input id="item_itemType" formControlName="itemType" placeholder="종류을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzFor="item_label" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">라벨</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="The input is Required!">
+            <input nz-input id="item_label" formControlName="label" placeholder="종류을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <nz-form-item>
+    <nz-form-label nzFor="item_value" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">벨류</nz-form-label>
+    <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="The input is Required!">
+        <input nz-input id="item_value" formControlName="value" placeholder="종류을 입력해주세요.">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="item_required" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">필수</nz-form-label>
+    <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="The input is Required!">
+        <input nz-input id="item_required" formControlName="required" placeholder="종류을 입력해주세요.">
+    </nz-form-control>
+  </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="item_comment" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="item_comment" formControlName="comment" placeholder="설명을 입력해주세요.">
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+

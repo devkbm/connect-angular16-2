@@ -1,0 +1,14 @@
+.grid-title {
+  height: 26px;
+  margin-top: 6px;
+  margin-left: 6px;
+  padding-left: 6px;
+  border-left: 6px solid green;
+  vertical-align: text-top;
+}
+
+/* 페이지 헤더 98px, 조회조건 46px, 그리드 제목 26px, 푸터 24px 제외 */
+.grid-wrapper {
+  height: calc(100% - 194px)
+}
+

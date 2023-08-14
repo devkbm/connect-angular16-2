@@ -1,0 +1,168 @@
+{{fg.getRawValue() | json}}
+{{fg.get('fixedLengthYn')?.value}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+
+    <!--시스템구분코드 필드-->
+    <div nz-col nzSpan="4">
+      <app-nz-input-select
+        formControlName="systemTypeCode" itemId="systemTypeCode"
+        [options]="systemTypeCodeList" [opt_value]="'value'" [opt_label]="'label'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">시스템구분코드
+      </app-nz-input-select>
+    </div>
+
+    <!--상위 공통코드 필드-->
+    <div nz-col nzSpan="8">
+      <app-nz-input-tree-select
+        formControlName="parentId"
+        [nodes]="nodeItems"
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="false">상위 공통코드
+      </app-nz-input-tree-select>
+
+      <!--
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="parentId" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">상위 공통코드</nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-tree-select
+              style="width: 250px"
+              [nzNodes]="nodeItems"
+              nzShowSearch
+              nzAllowClear
+              nzPlaceHolder="Please select"
+              formControlName="parentId"
+              (ngModelChange)="true">
+          </nz-tree-select>
+        </nz-form-control>
+      </nz-form-item>
+      -->
+    </div>
+
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+         formControlName="code" itemId="code"
+        placeholder="코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+         formControlName="codeName" itemId="codeName"
+        placeholder="코드명 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드명
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+         formControlName="codeNameAbbreviation" itemId="codeNameAbbreviation"
+        placeholder="코드약어를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">코드약어
+      </app-nz-input-text>
+    </div>
+
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="5">
+      <!--시작일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="fromDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">시작일</nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <nz-date-picker id="fromDate" formControlName="fromDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="5">
+      <!--종료일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="toDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">종료일</nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <nz-date-picker id="toDate" formControlName="toDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="5">
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="seq" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">출력 순번</nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <nz-input-number id="seq" formControlName="seq" [nzMin]="0" [nzMax]="9999" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="5">
+      <nz-form-item class="form-item">
+          <nz-form-label nzFor="lowLevelCodeLength" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">하위 코드 길이</nz-form-label>
+          <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+            <nz-input-number id="lowLevelCodeLength" formControlName="lowLevelCodeLength" [nzMax]="255" [nzStep]="1"></nz-input-number>
+          </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 4 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-textarea
+         formControlName="cmt" itemId="cmt"
+        placeholder="비고를 입력해주세요."
+        [rows]="13"
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+</form>
+
+<!--<div class="footer">
+    <button
+        nz-button
+        (click)="closeForm()">
+        <span nz-icon type="form" nzTheme="outline"></span>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="primary"
+        nz-popconfirm
+        nzTitle="저장하시겠습니까?"
+        (nzOnConfirm)="submitCommonCode()"
+        (nzOnCancel)="false">
+        <span nz-icon type="save" nzTheme="outline"></span>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzDanger
+        nz-popconfirm
+        nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteCommonCode()"
+        (nzOnCancel)="false">
+        <span nz-icon type="delete" nzTheme="outline"></span>
+        삭제
+    </button>
+
+</div>
+-->

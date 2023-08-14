@@ -1,0 +1,46 @@
+<app-nz-page-header-custom title="팀 정보" subtitle="팀 정보 관리"></app-nz-page-header-custom>
+
+<div nz-row class="btn-group">
+  <button nz-button (click)="getGridList('d')">
+    <span nz-icon nzType="search"></span>조회
+  </button>
+
+  <nz-divider nzType="vertical"></nz-divider>
+
+  <button nz-button (click)="newTeam()">
+    <span nz-icon nzType="form"></span>팀등록
+  </button>
+</div>
+
+<div style="height:300px">
+  <app-team-grid [list]="gridList"
+    (editButtonClicked)="editTeam($event)"
+    (rowDoubleClicked)="editTeam($event)">
+  </app-team-grid>
+</div>
+
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerTeamForm.visible"
+    nzTitle="코드분류 등록"
+    (nzOnClose)="drawerTeamForm.visible = false">
+
+    <app-team-form *nzDrawerContent
+      [initLoadId]="drawerTeamForm.initLoadId"
+      (formSaved)="getGridList('d')"
+      (formDeleted)="getGridList('d')"
+      (formClosed)="drawerTeamForm.visible = false">
+    </app-team-form>
+    <!--
+    <app-hrm-code-type-form #formHrmType *nzDrawerContent
+      [initLoadId]="drawerCodeType.initLoadId"
+      (formSaved)="getGridHrmCodeType()"
+      (formDeleted)="getGridHrmCodeType()"
+      (formClosed)="drawerCodeType.visible = false">
+    </app-hrm-code-type-form>
+    -->
+</nz-drawer>

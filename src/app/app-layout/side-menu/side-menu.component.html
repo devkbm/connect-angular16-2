@@ -1,0 +1,47 @@
+<nz-sider
+    class="sidebar"
+    nzCollapsible
+    [(nzCollapsed)]="menuInfo.isCollapsed"
+    [nzCollapsedWidth]="0"
+    [nzWidth]="200"
+    [nzTrigger]="triggerTemplate">
+
+    <div class="logo">LOGO</div>
+
+    <ul class="menu" nz-menu [nzTheme]="menuInfo.theme" [nzMode]="menuInfo.mode" [nzInlineIndent]="menuInfo.inline_indent">
+
+      <ul *ngFor="let level1 of menuInfo.menuItems">
+        <li nz-menu-item *ngIf="level1.menuType === 'ITEM'" (click)="moveToUrl(level1.url)">
+          <span nz-icon nzType="file" nzTheme="outline" style="margin-right: 10px"></span> {{level1.title}}
+        </li>
+
+        <li nz-submenu *ngIf="level1.menuType === 'SUBMENU'">
+          <span title>{{level1.title}}</span>
+
+          <ul *ngFor="let level2 of level1.children">
+            <li nz-menu-item *ngIf="level2.menuType === 'ITEM'" (click)="moveToUrl(level2.url)">
+              <span nz-icon nzType="file" nzTheme="outline"></span> <span title>{{level2.title}}</span>
+            </li>
+            <li nz-submenu *ngIf="level2.menuType === 'SUBMENU'">
+              <span nz-icon nzType="file" nzTheme="outline"></span> <span title>{{level2.title}}</span>
+
+              <ul *ngFor="let level3 of level2.children">
+                <li nz-menu-item *ngIf="level3.menuType === 'ITEM'" (click)="moveToUrl(level3.url)">
+                  <span nz-icon nzType="file" nzTheme="outline"></span> {{level3.title}}
+                </li>
+              </ul>
+            </li>
+            <li nz-menu-group *ngIf="level2.menuType === 'GROUP'">
+              <span title>{{level2.title}}</span>
+            </li>
+
+          </ul>
+        </li>
+
+        <li nz-menu-group *ngIf="level1.menuType === 'GROUP'">
+          <span title>{{level1.title}}</span>
+        </li>
+      </ul>
+    </ul>
+
+  </nz-sider>

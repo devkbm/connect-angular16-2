@@ -1,0 +1,48 @@
+<app-nz-page-header-custom title="권한 등록" subtitle="This is a subtitle"></app-nz-page-header-custom>
+
+<app-nz-search-area>
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getAuthorityList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+      <nz-select [(ngModel)]="queryKey">
+        <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      </nz-select>
+    </ng-template>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </div>
+
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <app-nz-buttons [buttons]="buttons"></app-nz-buttons>
+  </div>
+</app-nz-search-area>
+
+<h3 class="grid-title">권한 목록</h3>
+
+<div class="grid-wrapper">
+  <app-authority-grid #authGrid
+    (rowClicked)="selectedItem($event)"
+    (editButtonClicked)="editDrawOpen($event)"
+    (rowDoubleClicked)="editDrawOpen($event)">
+  </app-authority-grid>
+</div>
+
+
+<nz-drawer #drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px'}"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="drawerAuthority.visible"
+  nzTitle="권한 등록"
+  (nzOnClose)="closeDrawer()">
+    <app-authority-form #form *nzDrawerContent
+      [initLoadId]="drawerAuthority.initLoadId"
+      (formSaved)="getAuthorityList()"
+      (formDeleted)="getAuthorityList()"
+      (formClosed)="closeDrawer()">
+    </app-authority-form>
+</nz-drawer>
+

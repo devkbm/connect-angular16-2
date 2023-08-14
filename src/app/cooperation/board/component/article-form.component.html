@@ -1,0 +1,65 @@
+<!--{{fg.getRawValue() | json}}-->
+<!--{{fileList | json}}-->
+
+<form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
+
+  <!-- ERROR TEMPLATE-->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+  </ng-template>
+
+  <input type="hidden" formControlName="boardId">
+  <input type="hidden" formControlName="articleId">
+  <input type="hidden" formControlName="articleParentId">
+
+  <!--일정ID 필드-->
+  <app-nz-input-text #title
+     formControlName="title"
+    [itemId]="'title'"
+    placeholder="제목을 입력해주세요."
+    [required]="false" [nzErrorTip]="errorTpl">제목
+  </app-nz-input-text>
+
+  <app-nz-input-ckeditor
+     formControlName="contents"
+    [itemId]="'contents'"
+    [height]="'45vh'"
+    >내용
+  </app-nz-input-ckeditor>
+
+  <app-nz-file-upload
+    [fileList]="fileList">
+  </app-nz-file-upload>
+
+<!--
+  <div class="clearfix" nz-row style="height: 100px">
+      <nz-upload #upload class="upload-list-inline"
+          [nzAction]="fileUploadUrl"
+          nzMultiple
+          [nzListType]="'text'"
+          [nzWithCredentials]="true"
+          [nzData]="imageUploadParam"
+          [nzHeaders]="fileUploadHeader"
+          [nzFileList]="fileList"
+          (nzChange)="fileUploadChange($event)">
+          <button nz-button>
+            <span nz-icon nzType="upload"></span>
+            <span>첨부파일</span>
+          </button>
+      </nz-upload>
+  </div>
+-->
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    [searchVisible]="false"
+    [isSavePopupConfirm]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('articleId')?.value)">
+  </app-nz-crud-button-group>
+</div>

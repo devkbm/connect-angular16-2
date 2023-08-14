@@ -1,0 +1,21 @@
+.grid-wrapper {
+  height: calc(100% - 32px);
+  display: grid;
+
+  grid-template-rows: 220px 1fr;
+  grid-template-columns: 200px 1fr;
+  grid-template-areas:
+    "navi calendar"
+    "title calendar";
+}
+
+.navi {
+  grid-area: navi;
+  padding-top: 10px
+}
+.title {
+  grid-area: title;
+}
+.calendar {
+  grid-area: calendar;
+}

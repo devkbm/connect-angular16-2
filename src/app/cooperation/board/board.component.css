@@ -1,0 +1,33 @@
+.content {
+  height: calc(100vh - 140px);
+  display: grid;
+  grid-template-rows: 24px 1fr;
+  grid-template-columns: 200px 1fr;
+}
+
+.grid {
+  height: calc(100vh - 200px);
+}
+
+.tree {
+  width: 200px;
+  height: calc(100vh - 140px);
+  float: left;
+  /*background-color:burlywood*/
+}
+
+:host ::ng-deep .ck-editor__editable {
+  min-height: 700px !important;
+}
+
+.pgm-title {
+  padding-left: 5px;
+  border-left: 5px solid green;
+}
+
+.ime {
+  -webkit-ime-mode:active;
+  -moz-ime-mode:active;
+  -ms-ime-mode:active;
+  ime-mode:active;
+}

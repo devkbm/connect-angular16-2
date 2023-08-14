@@ -1,0 +1,73 @@
+<app-nz-page-header-custom title="인사시스템 코드 정보" subtitle="인사시스템 구분 코드 정보 관리"></app-nz-page-header-custom>
+
+<div nz-row class="btn-group">
+
+  <div nz-col [nzSpan]="24" style="text-align: right;">
+    <button nz-button (click)="newHrmCodeType()">
+      <span nz-icon nzType="search"></span>코드분류등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="newHrmCode()">
+      <span nz-icon nzType="form"></span>코드등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="getGridHrmCodeType()">
+      <span nz-icon nzType="form"></span>조회
+    </button>
+  </div>
+</div>
+
+<div class="content">
+    <h3 class="pgm-title">코드 분류 목록 {{drawerCodeType | json}}</h3>
+    <app-hrm-code-type-grid #gridHrmType
+      [list]="gridHrmCodeTypeList"
+      (rowSelected)="rowClickHrmCodeType($event)"
+      (rowDoubleClicked)="editHrmCodeType($event)"
+      (editButtonClicked)="editHrmCodeType($event)">
+    </app-hrm-code-type-grid>
+
+    <h3 class="pgm-title">코드 목록 {{drawerCode | json}}</h3>
+    <app-hrm-code-grid #gridHrmTypeCode
+      [list]="gridHrmCodeList"
+      (rowSelected)="rowClickHrmCode($event)"
+      (rowDoubleClicked)="editHrmCode($event)"
+      (editButtonClicked)="editHrmCode($event)">
+    </app-hrm-code-grid>
+</div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerCodeType.visible"
+    nzTitle="코드분류 등록"
+    (nzOnClose)="drawerCodeType.visible = false">
+    <app-hrm-code-type-form #formHrmType *nzDrawerContent
+      [initLoadId]="drawerCodeType.initLoadId"
+      (formSaved)="getGridHrmCodeType()"
+      (formDeleted)="getGridHrmCodeType()"
+      (formClosed)="drawerCodeType.visible = false">
+    </app-hrm-code-type-form>
+</nz-drawer>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerCode.visible"
+    nzTitle="코드 등록"
+    (nzOnClose)="drawerCode.visible = false">
+
+    <app-hrm-code-form #formHrmTypeCode *nzDrawerContent
+      [initLoadId]="drawerCode.initLoadId"
+      (formSaved)="getGridHrmCode()"
+      (formDeleted)="getGridHrmCode()"
+      (formClosed)="drawerCode.visible = false">
+    </app-hrm-code-form>
+</nz-drawer>
+
+
+
