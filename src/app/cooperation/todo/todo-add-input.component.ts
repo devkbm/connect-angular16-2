@@ -25,7 +25,7 @@ import { TodoModel } from './todo.model';
   styles: [`
     :host {
       display: flex;
-      background-color: white;
+      background-color: grey;
       align-items: stretch;
     }
   `]
