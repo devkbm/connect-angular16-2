@@ -58,7 +58,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
-import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
 import { StaffGridComponent } from './staff-grid.component';
 import { StaffManagementComponent } from './staff-management.component';
 import { StaffCurrentAppointmentDescriptionComponent } from './staff-current-appointment-description.component';
@@ -85,6 +84,7 @@ import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzListRoadAddressComponent } from 'src/app/shared/nz-list-road-address/nz-list-road-address.component';
 import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
 
 
 
@@ -111,12 +111,12 @@ import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custo
     StaffAppointmentRecordGridComponent,
     StaffFamilyGridComponent,
     StaffLicenseGridComponent,
-    StaffSchoolCareerGridComponent
+    StaffSchoolCareerGridComponent,
+    NewStaffFormComponent,
+    StaffAppointmentRecordFormComponent
   ],
   declarations: [
     StaffRegistFormComponent,
-    StaffAppointmentRecordFormComponent,
-    NewStaffFormComponent,
     StaffGridComponent,
     StaffCurrentAppointmentDescriptionComponent,
     StaffDutyResponsibilityFormComponent,
@@ -131,7 +131,6 @@ import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custo
   ],
   exports: [
     StaffRegistFormComponent,
-    StaffAppointmentRecordFormComponent,
     StaffManagementComponent
   ]
 })

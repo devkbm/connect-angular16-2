@@ -9,7 +9,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { Staff } from './staff.model';
-import { NewStaff } from './new-staff-form/new-staff.model';
+import { NewStaff } from './new-staff-form/new-staff-form.model';
 import { SearchStaff } from './search-staff.request';
 import { StaffCurrentAppointment } from './staff-current-appointment-description.component';
 

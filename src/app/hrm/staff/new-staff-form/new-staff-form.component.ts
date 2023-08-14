@@ -1,18 +1,90 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { StaffService } from '../staff.service';
-import { NewStaff } from './new-staff.model';
+import { NewStaff } from './new-staff-form.model';
+
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+
 
 @Component({
   selector: 'app-new-staff-form',
-  templateUrl: './new-staff-form.component.html',
-  styleUrls: ['./new-staff-form.component.css']
+  standalone: true,
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NzFormModule, NzInputTextComponent, NzInputRregnoComponent, NzCrudButtonGroupComponent],
+  template: `
+    {{fg.getRawValue() | json}}
+    {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text #staffNo
+            formControlName="staffNo" itemId="staffNo"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="name" itemId="name"
+            placeholder="직원명을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원명
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-rregno
+            formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
+            placeholder="주민등록번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">주민등록번호
+          </app-nz-input-rregno>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        [deleteVisible]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()">
+      </app-nz-crud-button-group>
+    </div>
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+      padding: 10px 16px;
+      border-top: 1px solid rgb(232, 232, 232);
+      text-align: right;
+      /*background-color: black;*/
+    }
+  `]
 })
 export class NewStaffFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
