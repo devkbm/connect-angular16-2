@@ -65,11 +65,11 @@ export class UserGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '아이디',        field: 'userId',  width: 100 },
-      {headerName: '이름',          field: 'name',    width: 100 },
-      {headerName: '부서',          field: 'dept.deptNameKorean',    width: 100 },
-      {headerName: '핸드폰번호',    field: 'mobileNum', width: 100 },
-      {headerName: '이메일',        field: 'email',     width: 100 },
+      { headerName: '아이디',        field: 'userId',    width: 100 },
+      { headerName: '이름',          field: 'name',      width: 100 },
+      { headerName: '부서',          field: 'deptName',  width: 100 },
+      { headerName: '핸드폰번호',    field: 'mobileNum', width: 100 },
+      { headerName: '이메일',        field: 'email',     width: 100 },
       {
         headerName: '사용여부',
         field: 'enabled',

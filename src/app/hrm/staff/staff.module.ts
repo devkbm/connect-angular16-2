@@ -9,9 +9,12 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
+/* Shared Component */
 import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
 
+/* Inner Component */
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
@@ -32,6 +35,7 @@ import { StaffCardListComponent } from './staff-card/staff-card-list.component';
 import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -44,6 +48,7 @@ import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component
     NzDividerModule,
     NzGridModule,
     NzButtonModule,
+    NzIconModule,
     
     NzPageHeaderCustomComponent,
 

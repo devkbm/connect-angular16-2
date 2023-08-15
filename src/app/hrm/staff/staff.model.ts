@@ -1,4 +1,5 @@
 export interface Staff {
+  organizationCode: string | null;
   staffNo: string | null;
   name: string | null;
   nameEng: string | null;

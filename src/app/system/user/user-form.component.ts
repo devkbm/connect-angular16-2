@@ -256,22 +256,25 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.previewImage = '';
 
     this.fg.reset();
-
+    
     this.fg.controls.userId.setAsyncValidators(existingUserValidator(this.service));
-    this.fg.controls.organizationCode.setValue(sessionStorage.getItem('organizationCode'));
+    this.fg.controls.organizationCode.setValue(sessionStorage.getItem('organizationCode'));    
+    this.fg.controls.staffNo.enable();
+    this.fg.controls.enabled.setValue(true);
+
     this.fg.controls.staffNo.valueChanges.subscribe(x => {
       if (x === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
       this.fg.controls.userId.setValue(organizationCode + x);
       this.fg.controls.userId.markAsTouched();
     });
-    this.fg.controls.enabled.setValue(true);
   }
 
   modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
 
     this.fg.controls.userId.setAsyncValidators(null);
+    this.fg.controls.staffNo.disable();
 
     this.fg.patchValue(formData);
   }
