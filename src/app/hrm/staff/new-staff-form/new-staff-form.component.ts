@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
 import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -12,15 +15,15 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffService } from '../staff.service';
 import { NewStaff } from './new-staff-form.model';
 
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
 
 @Component({
   selector: 'app-new-staff-form',
   standalone: true,
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NzFormModule, NzInputTextComponent, NzInputRregnoComponent, NzCrudButtonGroupComponent],
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
+    NzInputTextComponent, NzInputRregnoComponent, NzCrudButtonGroupComponent
+  ],
   template: `
     {{fg.getRawValue() | json}}
     {{fg.valid}}

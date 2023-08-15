@@ -7,9 +7,9 @@ import { CommonModule } from '@angular/common';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-user-profile',
+  standalone: true,
   imports: [
     CommonModule, NzAvatarModule, NzIconModule
   ],

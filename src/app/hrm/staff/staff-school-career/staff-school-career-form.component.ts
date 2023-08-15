@@ -1,3 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
+import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -12,8 +22,178 @@ import { StaffSchoolCareerService } from './staff-school-career.service';
 
 @Component({
   selector: 'app-staff-school-career-form',
-  templateUrl: './staff-school-career-form.component.html',
-  styleUrls: ['./staff-school-career-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
+    NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent,
+    NzInputNumberCustomComponent, NzInputDateComponent, NzCrudButtonGroupComponent
+  ],
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 Row -->
+      <!--
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text #staffId
+            formControlName="staffId" itemId="contact_staffId"
+            placeholder="직원ID를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="staffNo" itemId="contact_staffNo"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="staffName" itemId="contact_staffName"
+            placeholder="직원명을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원명
+          </app-nz-input-text>
+        </div>
+      </div>
+      -->
+
+      <!-- 2 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="6">
+          <app-nz-input-select
+            formControlName="schoolCareerType" itemId="schoolCareerType"
+            [options]="schoolCareerTypeList" [opt_value]="'code'" [opt_label]="'codeName'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">학력
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-select
+            formControlName="schoolCode" itemId="schoolCode"
+            [options]="schoolCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">학교
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-date
+            formControlName="fromDate" itemId="fromDate"
+            [required]="false" [nzErrorTip]="errorTpl">시작일
+          </app-nz-input-date>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-date
+            formControlName="toDate" itemId="toDate"
+            [required]="false" [nzErrorTip]="errorTpl">종료일
+          </app-nz-input-date>
+        </div>
+      </div>
+
+      <!-- 3 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="majorName" itemId="majorName"
+            placeholder="전공을 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">전공
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="pluralMajorName" itemId="pluralMajorName"
+            placeholder="부전공을 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">부전공
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="location" itemId="location"
+            placeholder="지역을 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">지역
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-number-custom
+            formControlName="lessonYear" itemId="lessonYear"
+            [required]="false" [nzErrorTip]="errorTpl">수업년한
+          </app-nz-input-number-custom>
+        </div>
+      </div>
+
+      <!-- 4 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="comment" itemId="comment"
+            placeholder="비고를 입력해주세요."
+            [rows]="23"
+            [required]="false" [nzErrorTip]="errorTpl">비고
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        [deleteVisible]="true"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove(fg.controls.staffNo.value!, fg.controls.seq.value!)">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .form-item {
+      margin-top: 0px;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class StaffSchoolCareerFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 

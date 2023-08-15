@@ -13,9 +13,9 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
 import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-user-grid',
+  standalone: true,
   imports: [
     CommonModule, AgGridModule
   ],

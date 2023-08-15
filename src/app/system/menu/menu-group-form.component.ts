@@ -14,15 +14,90 @@ import { existingMenuGroupValidator } from './menu-group-duplication-validator.d
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-menu-group-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzCrudButtonGroupComponent, NzInputTextComponent, NzInputTextareaComponent
-  ],
-  templateUrl: './menu-group-form.component.html',
-  styleUrls: ['./menu-group-form.component.css']
+  ],  
+  template: `
+    {{fg.value | json}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+            필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+            기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="menuGroupId" itemId="menuGroupId"
+            placeholder="메뉴그룹ID를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text #menuGroupCode
+            formControlName="menuGroupCode" itemId="menuGroupCode"
+            placeholder="메뉴그룹코드를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="menuGroupName" itemId="menuGroupName"
+            placeholder="메뉴그룹명을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴그룹명
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="description" itemId="description"
+            placeholder="비고를 입력해주세요."
+            [rows]="25">비고
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class MenuGroupFormComponent extends FormBase implements OnInit, AfterViewInit {
 

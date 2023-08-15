@@ -1,5 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputCheckboxComponent } from 'src/app/shared/nz-input-checkbox/nz-input-checkbox.component';
+import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+
 import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -13,8 +22,128 @@ import { StaffDutyResponsibilityService } from './staff-duty-responsibility.serv
 
 @Component({
   selector: 'app-staff-duty-responsibility-form',
-  templateUrl: './staff-duty-responsibility-form.component.html',
-  styleUrls: ['./staff-duty-responsibility-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
+    NzInputTextComponent, NzInputSelectComponent, NzInputDateComponent, NzInputCheckboxComponent, NzCrudButtonGroupComponent
+  ],
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="staffNo" itemId="duty_staffNo"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="staffName" itemId="duty_staffName"
+            placeholder="직원명을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원명
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+
+        <div nz-col nzSpan="4">
+          <app-nz-input-text
+            formControlName="seq" itemId="seq"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">순번
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-select
+            formControlName="dutyResponsibilityCode" itemId="dutyResponsibilityCode"
+            [options]="dutyResponsibilityCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">직책
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-date
+            formControlName="fromDate" itemId="fromDate"
+            [required]="true" [nzErrorTip]="errorTpl">시작일
+          </app-nz-input-date>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-date
+            formControlName="toDate" itemId="toDate"
+            [required]="false" [nzErrorTip]="errorTpl">종료일
+          </app-nz-input-date>
+        </div>
+
+        <div nz-col nzSpan="2">
+          <app-nz-input-checkbox
+            formControlName="isPayApply"
+            checkboxText="Y"
+            [required]="false">급여적용
+          </app-nz-input-checkbox>
+        </div>
+
+      </div>
+    </form>
+
+
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        (searchClick)="get(fg.controls.staffNo.value!, fg.controls.seq.value!)"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="true">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .form-item {
+      margin-top: 0px;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 50px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class StaffDutyResponsibilityFormComponent extends FormBase implements OnInit, AfterViewInit {
 

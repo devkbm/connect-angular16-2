@@ -1,3 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { NzFormModule } from 'ng-zorro-antd/form';
+
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzDeptTreeSelectComponent } from 'src/app/shared/nz-dept-tree-select/nz-dept-tree-select.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { UserImageUploadComponent } from './user-image-upload.component';
+import { NzInputSwitchComponent } from 'src/app/shared/nz-input-switch/nz-input-switch.component';
+
 import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -15,24 +25,157 @@ import { existingUserValidator } from './user-duplication-validator.directive';
 import { DeptHierarchy } from '../dept/dept-hierarchy.model';
 import { DeptService } from '../dept/dept.service';
 import { GlobalProperty } from 'src/app/core/global-property';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { CommonModule } from '@angular/common';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzDeptTreeSelectComponent } from 'src/app/shared/nz-dept-tree-select/nz-dept-tree-select.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
-import { UserImageUploadComponent } from './user-image-upload.component';
-import { NzInputSwitchComponent } from 'src/app/shared/nz-input-switch/nz-input-switch.component';
-import { NzFormModule } from 'ng-zorro-antd/form';
 
 @Component({
-  standalone: true,
   selector: 'app-user-form',
+  standalone: true,  
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
-    UserImageUploadComponent, NzCrudButtonGroupComponent, NzInputTextComponent, NzDeptTreeSelectComponent, NzInputSelectComponent, NzInputSwitchComponent
-  ],
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+    UserImageUploadComponent, NzCrudButtonGroupComponent, NzInputTextComponent, 
+    NzDeptTreeSelectComponent, NzInputSelectComponent, NzInputSwitchComponent
+  ],  
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <!--{{fileList | json}}-->
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 아이디가 존재합니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('email')">
+          이메일을 확인해주세요.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <app-user-image-upload
+            [userId]="this.fg.controls.userId.value!"
+            [pictureFileId]="imageBase64">
+          </app-user-image-upload>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="userId" itemId="userId"
+            [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">아이디
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="organizationCode" itemId="organizationCode"
+            placeholder="조직코드를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">조직코드
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-text #staffNo
+            formControlName="staffNo" itemId="staffNo"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <app-nz-input-text
+            formControlName="name" itemId="name"
+            placeholder="이름을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">이름
+          </app-nz-input-text>
+        </div>
+
+      </div>
+
+      <!-- 3 row -->
+      <div nz-row nzGutter="8">
+
+        <div nz-col nzSpan="4">
+          <app-nz-input-switch formControlName="enabled" >
+            사용여부
+          </app-nz-input-switch>
+        </div>
+
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            formControlName="mobileNum" itemId="mobileNum"
+            placeholder="휴대폰 번호을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">휴대폰번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            formControlName="email" itemId="email"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">이메일
+          </app-nz-input-text>
+        </div>
+
+      </div>
+
+      <!--<nz-divider nzPlain nzText="기타정보" nzOrientation="left"></nz-divider>-->
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            formControlName="authorityList" itemId="formauth"
+            [options]="authList" [opt_value]="'authority'" [opt_label]="'description'" [mode]="'tags'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">권한
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            formControlName="menuGroupList" itemId="menuGroupList"
+            [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">메뉴그룹
+          </app-nz-input-select>
+        </div>
+
+      </div>
+
+        <app-nz-dept-tree-select
+          formControlName="deptId"
+          placeholder="부서 없음">부서
+        </app-nz-dept-tree-select>
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [searchVisible]="false"
+        [isSavePopupConfirm]="true"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class UserFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 

@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
 
+/* Inner Component */
 import { WorkCalendarComponent } from './work-calendar.component';
 import { WorkCalendarEventFormComponent } from './event/work-calendar-event-form.component';
 import { WorkCalendarService } from './calendar/work-calendar.service';
@@ -17,11 +19,13 @@ import { MyWorkCalendarGridComponent } from './calendar/my-work-calendar-grid.co
 import { WorkCalendarFormComponent } from './calendar/work-calendar-form.component';
 import { MyWorkCalendarListComponent } from './calendar/my-work-calendar-list.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
     NzDrawerModule,
     NzButtonModule,
+    NzIconModule,
 
     CalendarModule,
 

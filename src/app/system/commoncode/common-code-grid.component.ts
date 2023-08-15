@@ -11,9 +11,9 @@ import { CommonCodeService } from './common-code.service';
 import { CommonCode } from './common-code.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-common-code-grid',
+  standalone: true,
   imports: [ CommonModule, AgGridModule ],
   template: `
     <ag-grid-angular

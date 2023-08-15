@@ -19,15 +19,103 @@ import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-work-calendar-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzCrudButtonGroupComponent, NzInputSimpleColorPickerComponent, NzInputSelectComponent
-  ],
-  templateUrl: './work-calendar-form.component.html',
-  styleUrls: ['./work-calendar-form.component.css']
+  ],  
+  template: `
+    {{fg.getRawValue() | json}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="workCalendarId"
+            itemId="workCalendarId"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">CALEDNAR ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text #workCalendarName
+            formControlName="workCalendarName"
+            itemId="workCalendarName"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">CALENDAR NAME
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-simple-color-picker
+            formControlName="color"
+            [itemId]="'color'"
+            [colorPalette]="preset_colors"
+            [required]="false" [nzErrorTip]="errorTpl">색상
+          </app-nz-input-simple-color-picker>
+
+          <!--
+          <app-nz-input-color-picker
+            formControlName="color"
+            [itemId]="'color'"
+            placeholder="색상을 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">색상
+          </app-nz-input-color-picker>
+          -->
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            [mode]="'multiple'"
+            formControlName="memberList"
+            [itemId]="'memberList'"
+            [options]="memberList" [opt_value]="'userId'" [opt_label]="'name'" [mode]="'tags'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">팀원
+          </app-nz-input-select>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove(fg.get('workCalendarId')?.value)">
+      </app-nz-crud-button-group>
+    </div>
+  
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class WorkCalendarFormComponent extends FormBase implements OnInit, AfterViewInit {
 

@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffService } from './staff.service';
+import { CommonModule } from '@angular/common';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 export interface StaffCurrentAppointment {
 	organizationCode: string;
@@ -25,6 +27,10 @@ export interface StaffCurrentAppointment {
 
 @Component({
   selector: 'app-staff-current-appointment-description',
+  standalone: true,
+  imports: [
+    CommonModule, NzDescriptionsModule
+  ],
   template: `
     <nz-descriptions>
       <nz-descriptions-item nzTitle="소속부서">{{info?.blngDeptName}}</nz-descriptions-item>

@@ -9,9 +9,9 @@ import { WorkCalendarService } from './work-calendar.service';
 import { WorkCalendar } from './work-calendar.model';
 
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-my-work-calendar-list',
+  standalone: true,
   imports: [ CommonModule, MatListModule ],
   template: `
     <mat-selection-list #list (selectionChange)="selectionChanged($event, list)" color="primary">

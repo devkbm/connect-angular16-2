@@ -1,3 +1,15 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputRadioGroupComponent } from 'src/app/shared/nz-input-radio-group/nz-input-radio-group.component';
+import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
+
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,13 +20,144 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { StaffService } from './staff.service';
 import { Staff } from './staff.model';
 import { GlobalProperty } from 'src/app/core/global-property';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-staff-regist-form',
-  templateUrl: './staff-regist-form.component.html',
-  styleUrls: ['./staff-regist-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    NzFormModule, NzButtonModule, NzIconModule, NzAvatarModule, NzUploadModule, NzDividerModule,
+    NzInputTextComponent, NzInputRadioGroupComponent, NzInputRregnoComponent, NzInputDateComponent
+  ],
+  template: `
+    <!--{{fg.getRawValue() | json}}-->
+    <!--{{formModel | json}}-->
+    <!--{{fileList | json}}-->
+
+    <form nz-form [formGroup]="fg" nzLayout="vertical" style="padding: 0px; margin: 0px;">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="6">
+          <div class="img">
+            <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='96' [nzSrc]="imageUrl"></nz-avatar>
+          </div>
+        </div>
+        <div nz-col>
+            <nz-upload
+                [nzAction]="upload.url"
+                [nzWithCredentials]="true"
+                [nzShowUploadList]="false"
+                [nzHeaders]="upload.headers"
+                [nzData]="upload.data"
+                (nzChange)="handleChange($event)">
+              <button nz-button nzType="default" nzShape="round">
+                <span nz-icon nzType="upload"></span>
+              </button>
+            </nz-upload>
+            <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><span nz-icon nzType="download"></span></button>
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="staffNo" itemId="staffNo"
+            placeholder=""
+            [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">직원번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="name" itemId="name"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">직원명
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-radio-group
+            formControlName="gender" itemId="gender"
+            placeholder=""
+            [options]="genderOptions"
+            [required]="false" [nzErrorTip]="errorTpl">성별
+          </app-nz-input-radio-group>
+          <!--
+          <nz-form-item>
+            <nz-form-label nzFor="gender">성별
+            </nz-form-label>
+            <nz-radio-group id="gender" formControlName="gender">
+              <label nz-radio nzValue="M">남</label>
+              <label nz-radio nzValue="F">여</label>
+            </nz-radio-group>
+          </nz-form-item>
+          -->
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="nameEng" itemId="nameEng"
+            placeholder=""
+            [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="nameChi" itemId="nameChi"
+            placeholder=""
+            [required]="false" [nzErrorTip]="errorTpl">직원명(한문)
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12" >
+          <app-nz-input-rregno
+            formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
+            placeholder=""
+            [required]="false" [readonly]="true" [nzErrorTip]="errorTpl">주민등록번호
+          </app-nz-input-rregno>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-date
+            formControlName="birthday" itemId="birthday"
+            [required]="true" [nzErrorTip]="errorTpl">생년월일
+          </app-nz-input-date>
+        </div>
+      </div>
+    </form>
+    <nz-divider></nz-divider>
+
+    <!--
+    <div>
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (searchClick)="get(fg.get('staffId')?.value)"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove(this.fg.get('id')?.value)">
+      </app-nz-crud-button-group>
+    </div>
+    -->
+
+  `,
+  styles: [``]
 })
 export class StaffRegistFormComponent extends FormBase implements OnInit {
 

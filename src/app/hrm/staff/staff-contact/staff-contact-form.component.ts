@@ -1,5 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzListRoadAddressComponent } from 'src/app/shared/nz-list-road-address/nz-list-road-address.component';
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -8,8 +16,14 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffContactService } from './staff-contact.service';
 import { StaffContact } from './staff-contact.model';
 
+
 @Component({
   selector: 'app-staff-contact-form',
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule, NzFormModule, NzDividerModule,
+    NzInputTextComponent, NzListRoadAddressComponent, NzCrudButtonGroupComponent
+  ],
   template: `
     <app-nz-crud-button-group
         [isSavePopupConfirm]="false"

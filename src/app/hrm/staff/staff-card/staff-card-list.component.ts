@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { StaffCardComponent } from './staff-card.component';
+
 import { Component, OnInit } from '@angular/core';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { StaffCardModel } from './staff-card.model';
@@ -5,6 +8,10 @@ import { StaffCardService } from './staff-card.service';
 
 @Component({
   selector: 'app-staff-card-list',
+  standalone: true,
+  imports: [
+    CommonModule, StaffCardComponent
+  ],
   template: `
     <div *ngFor="let item of _list; trackBy:trackByItem">
       <app-staff-card [data]="item">

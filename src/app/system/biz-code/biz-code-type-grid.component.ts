@@ -11,9 +11,9 @@ import { BizCodeType } from './biz-code-type.model';
 import { BizCodeTypeService } from './biz-code-type.service';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-biz-type-grid',
+  standalone: true,
   imports: [ CommonModule, AgGridModule ],
   template: `
     <ag-grid-angular

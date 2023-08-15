@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -7,8 +10,6 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { MenuService } from './menu.service';
 import { Menu } from './menu.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
-import { CommonModule } from '@angular/common';
-import { AgGridModule } from 'ag-grid-angular';
 
 @Component({
   standalone: true,

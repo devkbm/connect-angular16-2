@@ -1,3 +1,10 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,12 +15,79 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { WordService } from './word.service';
 import { Word } from './word.model';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-word-form',
-  templateUrl: './word-form.component.html',
-  styleUrls: ['./word-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent, NzCrudButtonGroupComponent
+  ],
+  template: `
+    {{initLoadId | json}} - {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text #logicalName
+            formControlName="logicalName" itemId="logicalName"
+            placeholder="logicalName을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">logicalName
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="physicalName" itemId="physicalName"
+            placeholder="physicalName 입력해주세요."
+            [nzErrorTip]="errorTpl" [required]="true">physicalName
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="logicalNameEng" itemId="logicalNameEng"
+            placeholder="logicalNameEng 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">logicalNameEng
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 2 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="comment" itemId="comment"
+            placeholder="비고를 입력해주세요."
+            [rows] = "25"
+            [required]="false" [nzErrorTip]="errorTpl">비고
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [``]
 })
 export class WordFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 

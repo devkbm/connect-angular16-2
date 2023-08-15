@@ -13,6 +13,7 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { HolidayService } from './holiday.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { Holiday } from './holiday.model';
+import { style } from '@angular/animations';
 
 @Component({
   standalone: true,
@@ -20,9 +21,93 @@ import { Holiday } from './holiday.model';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzCrudButtonGroupComponent, NzInputTextComponent, NzInputTextareaComponent, NzInputDateComponent
-  ],
-  templateUrl: './holiday-form.component.html',
-  styleUrls: ['./holiday-form.component.css']
+  ],  
+  template: `
+    {{fg.value | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <!--휴일 필드-->
+          <app-nz-input-date
+            formControlName="date" itemId="date"
+            [required]="true" [nzErrorTip]="errorTpl">휴일
+          </app-nz-input-date>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <!--휴일명 필드 -->
+          <app-nz-input-text
+            formControlName="holidayName" itemId="holidayName"
+            placeholder="휴일명을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">휴일명
+          </app-nz-input-text>
+        </div>
+
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <!--설명 필드-->
+          <app-nz-input-textarea
+            formControlName="comment" itemId="comment"
+            placeholder="설명을 입력해주세요."
+            [rows]="25"
+            [required]="false" [nzErrorTip]="errorTpl">설명
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [searchVisible]="false"
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+
+  `]
 })
 export class HolidayFormComponent extends FormBase implements OnInit, AfterViewInit {
 

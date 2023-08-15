@@ -1,9 +1,17 @@
+import { CommonModule } from '@angular/common';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalProperty } from 'src/app/core/global-property';
 import { StaffCardModel } from './staff-card.model';
 
 @Component({
   selector: 'app-staff-card',
+  standalone: true,
+  imports: [
+    CommonModule, NzCardModule, NzAvatarModule
+  ],
   template: `
     <nz-card class="card" nzHoverable nz-card-grid nzSize="small">
       <nz-card-meta

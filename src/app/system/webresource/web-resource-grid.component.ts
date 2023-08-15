@@ -12,11 +12,9 @@ import { WebResourceService } from './web-resource.service';
 import { WebResource } from './web-resource.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-
-
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-web-resource-grid',
+  standalone: true,
   imports: [
     CommonModule, AgGridModule, NzSpinModule
   ],

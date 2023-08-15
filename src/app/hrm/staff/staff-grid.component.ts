@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -8,6 +11,10 @@ import { Staff } from './staff.model';
 
 @Component({
   selector: 'app-staff-grid',
+  standalone: true,
+  imports: [
+    CommonModule, AgGridModule
+  ],
   template: `
    <ag-grid-angular
       [ngStyle]="style"

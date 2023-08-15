@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -11,6 +14,10 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
 
 @Component({
   selector: 'app-term-grid',
+  standalone: true,
+  imports: [
+    CommonModule, AgGridModule
+  ],
   template: `
     <ag-grid-angular
       [ngStyle]="style"

@@ -29,16 +29,115 @@ export interface NewFormValue {
   end: Date;
 }
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-work-calendar-event-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzCrudButtonGroupComponent, NzInputSimpleColorPickerComponent,
     NzInputSelectComponent, NzInputTextareaComponent, NzInputDateTimeComponent, NzInputCheckboxComponent
-  ],
-  templateUrl: './work-calendar-event-form.component.html',
-  styleUrls: ['./work-calendar-event-form.component.css']
+  ],  
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <!--작업그룹ID 필드-->
+          <app-nz-input-select
+            formControlName="workCalendarId"
+            [itemId]="'workCalendarId'"
+            [options]="workGroupList" [opt_value]="'id'" [opt_label]="'name'"
+            [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">작업그룹 ID
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <!--일정ID 필드-->
+          <app-nz-input-text
+            formControlName="id"
+            [itemId]="'id'"
+            placeholder="일정ID를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">일정ID
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <!--
+        <div nz-col nzSpan="20">
+          <nz-form-item class="form-item">
+            <nz-form-label nzFor="start" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">기간</nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+              <nz-date-picker formControlName="start" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+              <nz-time-picker formControlName="start" [nzMinuteStep]="30" [nzFormat]="'HH:mm'" style="width: 90px" [nzNowText]="' '"></nz-time-picker> ~
+              <nz-date-picker formControlName="end" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+              <nz-time-picker formControlName="end" [nzMinuteStep]="30" [nzFormat]="'HH:mm'" style="width: 90px" [nzNowText]="' '"></nz-time-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        -->
+        <div nz-col nzSpan="10">
+          <app-nz-input-datetime
+            formControlName="start" itemId="start" [timeFormat]="timeFormat"
+            [required]="true" [nzErrorTip]="errorTpl">시작일
+          </app-nz-input-datetime>
+        </div>
+        <div nz-col nzSpan="10">
+          <app-nz-input-datetime
+            formControlName="end" itemId="end"
+            [required]="true" [nzErrorTip]="errorTpl">종료일
+          </app-nz-input-datetime>
+        </div>
+        <div nz-col nzSpan="4">
+          <app-nz-input-checkbox
+            formControlName="allDay"
+            [required]="false">종일
+          </app-nz-input-checkbox>
+        </div>
+
+      </div>
+
+      <!--제목 필드-->
+      <!-- [nzAutoSize]="{ minRows: 10, maxRows: 20 }" -->
+      <app-nz-input-textarea #text
+        formControlName="text" itemId="text"
+        placeholder="제목을 입력해주세요."
+        [rows] = "20"
+        [required]="true" [nzErrorTip]="errorTpl">제목
+      </app-nz-input-textarea>
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove(fg.get('id')?.value)">
+      </app-nz-crud-button-group>
+    </div>
+  
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class WorkCalendarEventFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 

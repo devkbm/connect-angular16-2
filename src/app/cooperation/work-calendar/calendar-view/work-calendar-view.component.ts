@@ -17,9 +17,9 @@ export interface NewDateSelectedArgs {
   end: Date;
 }
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-work-calendar-view',
+  standalone: true,
   imports: [
     CommonModule, CalendarModule
   ],

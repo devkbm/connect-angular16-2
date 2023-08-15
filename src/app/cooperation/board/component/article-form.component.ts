@@ -1,5 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputCkeditorComponent } from 'src/app/shared/nz-input-ckeditor/nz-input-ckeditor.component';
+import { NzFileUploadComponent } from 'src/app/shared/nz-file-upload/nz-file-upload.component';
+
 import { AfterViewInit, Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { BoardService } from './board.service';
 
@@ -9,12 +17,110 @@ import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-a
 import { GlobalProperty } from 'src/app/core/global-property';
 // import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from './article.model';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+
 
 @Component({
-  selector: 'app-article-form',
-  templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.css']
+  selector: 'app-article-form',  
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    NzFormModule, NzInputTextComponent, NzInputCkeditorComponent, NzCrudButtonGroupComponent,
+    NzFileUploadComponent
+  ],
+  template: `
+    <!--{{fg.getRawValue() | json}}-->
+    <!--{{fileList | json}}-->
+
+    <form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
+
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+      </ng-template>
+
+      <input type="hidden" formControlName="boardId">
+      <input type="hidden" formControlName="articleId">
+      <input type="hidden" formControlName="articleParentId">
+
+      <!--일정ID 필드-->
+      <app-nz-input-text #title
+        formControlName="title"
+        [itemId]="'title'"
+        placeholder="제목을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">제목
+      </app-nz-input-text>
+
+      <app-nz-input-ckeditor
+        formControlName="contents"
+        [itemId]="'contents'"
+        [height]="'45vh'"
+        >내용
+      </app-nz-input-ckeditor>
+
+      <app-nz-file-upload
+        [fileList]="fileList">
+      </app-nz-file-upload>
+
+    <!--
+      <div class="clearfix" nz-row style="height: 100px">
+          <nz-upload #upload class="upload-list-inline"
+              [nzAction]="fileUploadUrl"
+              nzMultiple
+              [nzListType]="'text'"
+              [nzWithCredentials]="true"
+              [nzData]="imageUploadParam"
+              [nzHeaders]="fileUploadHeader"
+              [nzFileList]="fileList"
+              (nzChange)="fileUploadChange($event)">
+              <button nz-button>
+                <span nz-icon nzType="upload"></span>
+                <span>첨부파일</span>
+              </button>
+          </nz-upload>
+      </div>
+    -->
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [searchVisible]="false"
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove(fg.get('articleId')?.value)">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+      z-index: 900;
+    }
+
+    :host ::ng-deep .ck-editor__editable {
+      height: 45vh;
+      color: black;
+      /*min-height: calc(100% - 300px) !important;*/
+    }
+
+    :host ::ng-deep .upload-list-inline .ant-upload-list-item {
+      float: left;
+      width: 200px;
+      margin-right: 8px;
+    }
+
+  `]
 })
 export class ArticleFormComponent extends FormBase implements OnInit, AfterViewInit {
   //public Editor = ClassicEditor;

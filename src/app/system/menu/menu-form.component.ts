@@ -19,16 +19,143 @@ import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-cus
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custom/nz-tree-select-custom.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-menu-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzCrudButtonGroupComponent, NzInputTextComponent,
     NzInputTextareaComponent, NzInputNumberCustomComponent, NzInputSelectComponent, NzTreeSelectCustomComponent
-  ],
-  templateUrl: './menu-form.component.html',
-  styleUrls: ['./menu-form.component.css']
+  ],  
+  template: `
+    {{fg.getRawValue() | json}}
+    {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            formControlName="menuGroupId" itemId="menuGroupId"
+            (ngModelChange)="selectMenuGroup($event)"
+            [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'"
+            [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">메뉴그룹아이디
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <!--상위메뉴코드 필드-->
+          <app-nz-tree-select-custom
+            formControlName="parentMenuId" itemId="parentMenuId"
+            [nodes]="menuHiererachy"
+            [placeholder]="'상위 메뉴 없음'">상위 메뉴코드
+          </app-nz-tree-select-custom>
+        </div>
+      </div>
+
+      <!-- 2 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="menuId" itemId="menuId"
+            placeholder="메뉴Id를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text #menuCode
+            formControlName="menuCode" itemId="menuCode"
+            placeholder="메뉴코드를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴코드
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="menuName" itemId="menuName"
+            placeholder="메뉴명을 입력해주세요."
+            [nzErrorTip]="errorTpl" [required]="true">메뉴명
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 3 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            formControlName="menuType" itemId="menuType"
+            [options]="menuTypeList" [opt_value]="'value'" [opt_label]="'label'"
+            [placeholder]="'메뉴타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">메뉴타입
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="appUrl" itemId="appUrl"
+            placeholder="URL을 입력해주세요."
+            [nzErrorTip]="errorTpl" [required]="true">APP URL
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 4 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-number-custom
+            formControlName="sequence" itemId="sequence"
+            placeholder="순번을 입력해주세요."
+            [nzErrorTip]="errorTpl" [required]="true">순번
+          </app-nz-input-number-custom>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,  
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+
+  `]
 })
 export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 

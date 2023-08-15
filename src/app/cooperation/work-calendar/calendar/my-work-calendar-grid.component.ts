@@ -10,9 +10,9 @@ import { WorkCalendarService } from './work-calendar.service';
 import { WorkCalendar } from './work-calendar.model';
 
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-my-work-calendar-grid',
+  standalone: true,
   imports: [
     CommonModule, AgGridModule
   ],

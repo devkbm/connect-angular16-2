@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { NzListModule } from 'ng-zorro-antd/list';
+
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ResponseList } from 'src/app/core/model/response-list';
 
@@ -6,6 +9,10 @@ import { StaffDutyResponsibilityService } from './staff-duty-responsibility.serv
 
 @Component({
   selector: 'app-staff-duty-responsibility-list',
+  standalone: true,
+  imports: [
+    CommonModule, NzListModule
+  ],
   template: `
    <nz-list>
       <nz-list-item *ngFor="let item of _list">

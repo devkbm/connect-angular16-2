@@ -8,9 +8,9 @@ import { HrmCode } from './hrm-code.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-hrm-code-grid',
+  standalone: true,
   imports: [CommonModule, AgGridModule],
   template: `
     <ag-grid-angular

@@ -1,3 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
+import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+
 import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -9,10 +20,177 @@ import { HrmCodeService } from './hrm-code.service';
 import { HrmCode } from './hrm-code.model';
 import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-validator';
 
+
+
 @Component({
   selector: 'app-hrm-code-form',
-  templateUrl: './hrm-code-form.component.html',
-  styleUrls: ['./hrm-code-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent, 
+    NzInputSelectComponent, NzInputDateComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent,
+  ],
+  template: `
+    {{fg.getRawValue() | json}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="4">
+          <app-nz-input-text
+            formControlName="typeId" itemId="typeId"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">구분ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="4">
+          <app-nz-input-text
+            formControlName="code" itemId="code"
+            placeholder="코드를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">코드
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            formControlName="codeName" itemId="codeName"
+            placeholder="코드명를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">코드명
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="4">
+          <app-nz-input-number-custom
+            formControlName="sequence" itemId="sequence"
+            [required]="true" [nzErrorTip]="errorTpl">출력 순번
+          </app-nz-input-number-custom>
+        </div>
+
+        <div nz-col nzSpan="2">
+          <app-nz-input-checkbox
+            formControlName="useYn"
+            checkboxText=""
+            [required]="true">사용
+          </app-nz-input-checkbox>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="comment" itemId="comment"
+            placeholder="설명을 입력해주세요."
+            [rows] = "10"
+            [required]="false" [nzErrorTip]="errorTpl">설명
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+      <!-- 3 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-textarea
+            formControlName="the1AddInfo" itemId="the1AddInfo"
+            placeholder="설명을 입력해주세요."
+            [rows] = "5"
+            [required]="false" [nzErrorTip]="errorTpl">추가정보1
+          </app-nz-input-textarea>
+        </div>
+        <div nz-col nzSpan="12">
+          <app-nz-input-textarea
+            formControlName="the2AddInfo" itemId="the2AddInfo"
+            placeholder="설명을 입력해주세요."
+            [rows] = "5"
+            [required]="false" [nzErrorTip]="errorTpl">추가정보2
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+      <!-- 4 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-textarea
+            formControlName="the3AddInfo" itemId="the3AddInfo"
+            placeholder="설명을 입력해주세요."
+            [rows] = "5"
+            [required]="false" [nzErrorTip]="errorTpl">추가정보3
+          </app-nz-input-textarea>
+        </div>
+        <div nz-col nzSpan="12">
+          <app-nz-input-textarea
+            formControlName="the4AddInfo" itemId="the4AddInfo"
+            placeholder="설명을 입력해주세요."
+            [rows] = "5"
+            [required]="false" [nzErrorTip]="errorTpl">추가정보4
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+      <!-- 5 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-textarea
+            formControlName="the5AddInfo" itemId="the5AddInfo"
+            placeholder="설명을 입력해주세요."
+            [rows] = "5"
+            [required]="false" [nzErrorTip]="errorTpl">추가정보5
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (searchClick)="get(this.fg.controls.typeId.value!, this.fg.controls.code.value!)"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+  `,
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .form-item {
+      margin-top: 0px;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      background: black;
+    }
+
+  `]
 })
 export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterViewInit {
 

@@ -13,9 +13,9 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-team-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzCrudButtonGroupComponent, NzInputSelectComponent

@@ -1,3 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { DutyDateListComponent } from './duty-date-list.component';
+import { NzInputSelectStaffComponent } from 'src/app/shared/nz-input-select-staff/nz-input-select-staff.component';
+
 import { formatDate } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,10 +24,129 @@ import { DutyDate, DutyApplication } from './duty-application.model';
 import { DutyApplicationService } from './duty-application.service';
 import { DutyCodeService } from './duty-code.service';
 
+
 @Component({
   selector: 'app-duty-application-form',
-  templateUrl: './duty-application-form.component.html',
-  styleUrls: ['./duty-application-form.component.css']
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputSelectComponent, NzInputDateComponent, NzCrudButtonGroupComponent,
+    DutyDateListComponent, NzInputSelectStaffComponent
+  ],
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+          기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="dutyId" itemId="dutyId"
+            placeholder=""
+            [required]="false" [nzErrorTip]="errorTpl">근태신청ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-select-staff
+            formControlName="staffId" itemId="staffId"
+            placeholder="비고를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">직원
+          </app-nz-input-select-staff>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <!--
+          <app-nz-input-text
+            formControlName="dutyCode" itemId="dutyCode"
+            placeholder=""
+            [required]="false" [nzErrorTip]="errorTpl">근태코드
+          </app-nz-input-text>
+          -->
+
+          <app-nz-input-select
+            formControlName="dutyCode" itemId="dutyCode"
+            [options]="dutyCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+            [placeholder]="'Please select'"
+            [nzErrorTip]="errorTpl" [required]="true">근태코드
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="dutyReason" itemId="dutyReason"
+            placeholder="근태사유를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">근태사유
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 3 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-date
+            formControlName="fromDate" itemId="fromDate"
+            [required]="true" [nzErrorTip]="errorTpl">근태 시작일
+          </app-nz-input-date>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-date
+            formControlName="toDate" itemId="toDate"
+            [required]="true" [nzErrorTip]="errorTpl">근태 종료일
+          </app-nz-input-date>
+        </div>
+      </div>
+
+      <!-- 4 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-duty-date-list [data]="this.fg.get('selectedDate')?.value!" [height]="'100px'">
+          </app-duty-date-list>
+        </div>
+      </div>
+    </form>
+
+
+    <app-nz-crud-button-group
+      [isSavePopupConfirm]="false"
+      [deleteVisible]="true"
+      (searchClick)="get(fg.value.dutyId!)"
+      (saveClick)="save()"
+      (deleteClick)="remove()"
+      (closeClick)="closeForm()">
+    </app-nz-crud-button-group>
+
+    <div class="footer">
+    </div>
+
+
+  `,
+  styles: [`
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+  `]
 })
 export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 

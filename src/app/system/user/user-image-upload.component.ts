@@ -9,9 +9,9 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-user-image-upload',
+  standalone: true,
   imports: [
     CommonModule, NzButtonModule, NzUploadModule, NzAvatarModule, NzIconModule, NzSpaceModule
   ],

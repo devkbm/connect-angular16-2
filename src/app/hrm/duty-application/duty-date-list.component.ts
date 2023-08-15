@@ -1,8 +1,16 @@
+import { CommonModule } from '@angular/common';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { DutyDate } from './duty-application.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-duty-date-list',
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, NzCheckboxModule
+  ],
   template: `
     <div class="container" [style.height]="height">
       <div *ngFor="let item of data">

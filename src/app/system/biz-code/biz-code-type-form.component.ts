@@ -19,15 +19,118 @@ import { BizCodeTypeService } from './biz-code-type.service';
 import { SelectControlModel } from 'src/app/core/model/select-control.model.ts';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-biz-code-type-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzInputTextareaComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent, NzInputSelectComponent
-  ],
-  templateUrl: './biz-code-type-form.component.html',
-  styleUrls: ['./biz-code-type-form.component.css']
+  ],  
+  template: `
+    {{fg.getRawValue() | json}} - {{fg.valid}}
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+      <!-- ERROR TEMPLATE-->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          필수 입력 값입니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="typeId" itemId="typeId"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">코드분류ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="typeName" itemId="typeName"
+            [required]="true" [nzErrorTip]="errorTpl">코드분류명
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-number-custom
+            formControlName="sequence" itemId="sequence"
+            [required]="true"
+            [nzErrorTip]="errorTpl">순번
+          </app-nz-input-number-custom>
+        </div>
+
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-select
+            formControlName="bizType"
+            [itemId]="'bizType'"
+            [options]="bizTypeList" [opt_value]="'value'" [opt_label]="'label'"
+            [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">시스템
+          </app-nz-input-select>
+        </div>
+      </div>
+
+      <!-- 3 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="comment" itemId="comment"
+            placeholder="비고를 입력해주세요."
+            [rows]="24"
+            [required]="false" [nzErrorTip]="errorTpl">비고
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (searchClick)="get(fg.controls.typeId.value!)"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+
+  `,
+  styles: [`
+    [nz-button] {
+      margin-right: 8px;
+    }
+
+    .form-item {
+      margin-top: 0px;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      border-top: 1px solid rgb(232, 232, 232);
+      padding: 10px 16px;
+      text-align: right;
+      left: 0px;
+      /*background: #fff;*/
+    }
+
+  `]
 })
 export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterViewInit {
 

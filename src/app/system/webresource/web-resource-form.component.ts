@@ -18,15 +18,111 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-web-resource-form',
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzInputTextComponent, NzInputTextareaComponent, NzCrudButtonGroupComponent, NzInputSelectComponent
-  ],
-  templateUrl: './web-resource-form.component.html',
-  styleUrls: ['./web-resource-form.component.css']
+  ],  
+  template: `
+    {{fg.getRawValue()| json}} - {{fg.valid}}
+
+    <form nz-form [formGroup]="fg" nzLayout="vertical">
+      <!-- 폼 오류 메시지 템플릿 -->
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+            필수 입력 값입니다.
+        </ng-container>
+        <ng-container *ngIf="control.hasError('exists')">
+            기존 코드가 존재합니다.
+        </ng-container>
+      </ng-template>
+
+      <!-- 1 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-text #resourceCode
+            formControlName="resourceId" itemId="resourceId"
+            placeholder="리소스ID를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">리소스ID
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="resourceName" itemId="resourceName"
+            [required]="true" [nzErrorTip]="errorTpl">리소스명
+          </app-nz-input-text>
+        </div>
+      </div>
+
+      <!-- 2 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <app-nz-input-select
+            formControlName="resourceType" itemId="resourceType"
+            [options]="resourceTypeList"
+            [placeholder]="'리소스타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">리소스타입
+          </app-nz-input-select>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            formControlName="url" itemId="url"
+            placeholder="URL 정보를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">URL 정보
+          </app-nz-input-text>
+
+        </div>
+      </div>
+
+      <!-- 3 row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <app-nz-input-textarea
+            formControlName="description" itemId="description"
+            placeholder="설명를 입력해주세요."
+            [rows]="20">설명
+          </app-nz-input-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()"
+        (deleteClick)="remove()">
+      </app-nz-crud-button-group>
+    </div>
+
+  `,
+  styles: [`
+    [nz-button] {
+        margin-right: 8px;
+    }
+
+    .btn-group {
+        padding: 6px;
+        /*background: #fbfbfb;*/
+        border: 1px solid #d9d9d9;
+        border-radius: 6px;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        border-top: 1px solid rgb(232, 232, 232);
+        padding: 10px 16px;
+        text-align: right;
+        left: 0px;
+        /*background: #fff;*/
+    }
+  `]
 })
 export class WebResourceFormComponent extends FormBase implements OnInit, AfterViewInit {
 

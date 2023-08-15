@@ -1,5 +1,8 @@
+import { CommonModule, Location } from '@angular/common';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
+
 import { AppBase } from 'src/app/core/app/app-base';
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffGridComponent } from './staff-grid.component';
@@ -14,6 +17,10 @@ import { StaffSchoolCareerGridComponent } from './staff-school-career/staff-scho
 
 @Component({
   selector: 'app-staff-management',
+  /*standalone: true,
+  imports: [
+    CommonModule, NzDrawerModule
+  ],*/
   templateUrl: './staff-management.component.html',
   styleUrls: ['./staff-management.component.css']
 })

@@ -70,11 +70,12 @@ const nzModules = [
     NzInputSelectComponent,
     NzInputSelectStaffComponent,
     NzPageHeaderCustomComponent,
-    DutyApplicationGridComponent
-  ],
-  declarations: [
-    DutyApplicationFormComponent,
+
     DutyDateListComponent,
+    DutyApplicationGridComponent,
+    DutyApplicationFormComponent
+  ],
+  declarations: [        
     DutyApplicationComponent
   ],
   providers: [
