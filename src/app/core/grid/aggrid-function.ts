@@ -2,6 +2,8 @@ import { EventEmitter, HostListener, Injectable, Output } from '@angular/core';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './renderer/checkbox-renderer.component';
 
+import { ColDef } from 'ag-grid-community';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +16,10 @@ export class AggridFunction {
   gridColumnApi: any;
   frameworkComponents: any;
 
-  columnDefs: object[] = [];
-  defaultColDef: {};
+  columnDefs: ColDef[] = [];
+  defaultColDef:ColDef = {};
 
-  style = {
+  style: {width: string, height: string} = {
       width: '100%',
       height: '100%'
   };
@@ -49,7 +51,7 @@ export class AggridFunction {
     */
   }
 
-  setWidthAndHeight(width: any, height: any) {
+  setWidthAndHeight(width: string, height: string) {
     this.style = {
       width: width,
       height: height
