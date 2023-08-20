@@ -1,6 +1,6 @@
 export interface Dept {
-  parentDeptId: string | null;
-  deptId: string | null;
+  parentDeptCode: string | null;
+  //deptId: string | null;
   deptCode: string | null;
   deptNameKorean: string | null;
   deptAbbreviationKorean: string | null;

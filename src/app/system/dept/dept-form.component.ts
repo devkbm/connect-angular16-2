@@ -20,14 +20,14 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 
-@Component({  
+@Component({
   selector: 'app-dept-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule, NzTreeSelectModule,
     NzInputTextComponent, NzInputTextareaComponent, NzInputNumberCustomComponent,
     NzInputDateComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue()| json}} - {{fg.valid}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -44,29 +44,22 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 
       <!-- 1 row -->
       <div nz-row nzGutter="8">
-        <div nz-col nzSpan="12">
-          <app-nz-input-text
-            formControlName="deptId" itemId="deptId"
-            placeholder=""
-            [readonly]="true" [required]="true" [nzErrorTip]="errorTpl">부서ID
-          </app-nz-input-text>
-        </div>
 
         <div nz-col nzSpan="12">
           <nz-form-item class="form-item">
             <nz-form-label
-                nzFor="parentDeptId"
+                nzFor="parentDeptCode"
                 [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
                 상위 부서코드
             </nz-form-label>
 
             <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" >
                 <nz-tree-select
-                    id="parentDeptId"
+                    id="parentDeptCode"
                     [nzNodes]="deptHierarchy"
                     [nzAllowClear]="true"
                     [nzPlaceHolder]="'상위 부서 없음'"
-                    formControlName="parentDeptId">
+                    formControlName="parentDeptCode">
                 </nz-tree-select>
             </nz-form-control>
           </nz-form-item>
@@ -225,12 +218,12 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
   deptHierarchy: DeptHierarchy[] = [];
 
   override fg = this.fb.group({
-    parentDeptId            : new FormControl<string | null>(null),
-    deptId                  : new FormControl<string | null>(null, {
+    parentDeptCode          : new FormControl<string | null>(null),
+    /*deptId                  : new FormControl<string | null>(null, {
                                 validators: Validators.required,
                                 asyncValidators: [existingDeptValidator(this.service)],
                                 updateOn: 'blur'
-                              }),
+                              }),*/
     deptCode                : new FormControl<string | null>(null),
     deptNameKorean          : new FormControl<string | null>(null, { validators: [Validators.required] }),
     deptAbbreviationKorean  : new FormControl<string | null>(null),
@@ -261,13 +254,13 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.controls.deptId.setAsyncValidators(existingDeptValidator(this.service));
+    //this.fg.controls.deptId.setAsyncValidators(existingDeptValidator(this.service));
     this.fg.controls.deptCode.enable();
 
     this.fg.controls.deptCode.valueChanges.subscribe(value => {
       if (value === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.controls.deptId.setValue(organizationCode + value);
+      //this.fg.controls.deptId.setValue(organizationCode + value);
     });
 
     /*
@@ -286,8 +279,8 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.getDeptHierarchy();
 
-    this.fg.get('deptId')?.setAsyncValidators(null);
-    this.fg.get('deptCode')?.disable();
+    //this.fg.get('deptId')?.setAsyncValidators(null);
+    this.fg.controls.deptCode.disable();
 
     this.fg.patchValue(formData);
   }
@@ -330,7 +323,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
   remove(): void {
     this.service
-        .deleteDept(this.fg.controls.deptId.value!)
+        .deleteDept(this.fg.controls.deptCode.value!)
         .subscribe(
             (model: ResponseObject<Dept>) => {
             this.appAlarmService.changeMessage(model.message);

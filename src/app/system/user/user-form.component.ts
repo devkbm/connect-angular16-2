@@ -28,12 +28,12 @@ import { GlobalProperty } from 'src/app/core/global-property';
 
 @Component({
   selector: 'app-user-form',
-  standalone: true,  
+  standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
-    UserImageUploadComponent, NzCrudButtonGroupComponent, NzInputTextComponent, 
+    UserImageUploadComponent, NzCrudButtonGroupComponent, NzInputTextComponent,
     NzDeptTreeSelectComponent, NzInputSelectComponent, NzInputSwitchComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}} - {{fg.valid}}
     <!--{{fileList | json}}-->
@@ -256,16 +256,17 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.previewImage = '';
 
     this.fg.reset();
-    
+
     this.fg.controls.userId.setAsyncValidators(existingUserValidator(this.service));
-    this.fg.controls.organizationCode.setValue(sessionStorage.getItem('organizationCode'));    
+    this.fg.controls.organizationCode.setValue(sessionStorage.getItem('organizationCode'));
     this.fg.controls.staffNo.enable();
     this.fg.controls.enabled.setValue(true);
 
     this.fg.controls.staffNo.valueChanges.subscribe(x => {
       if (x === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.controls.userId.setValue(organizationCode + x);
+      //this.fg.controls.userId.setValue(organizationCode + x);
+      this.fg.controls.userId.setValue(x);
       this.fg.controls.userId.markAsTouched();
     });
   }
