@@ -12,7 +12,7 @@ import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({  
+@Component({
   selector: 'app-authority-grid',
   standalone: true,
   imports: [ CommonModule, AgGridModule, NzSpinModule ],
@@ -96,13 +96,6 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
           cellStyle: {'text-align': 'center'}
         },
         {
-          headerName: '권한ID',
-          headerClass: 'header-center',
-          field: 'id',
-          suppressSizeToFit: true,
-          width: 150
-        },
-        {
           headerName: '권한코드',
           field: 'authorityCode',
           suppressSizeToFit: true,
@@ -115,7 +108,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
     ];
 
     this.getRowId = function(params: any) {
-      return params.data.id;
+      return params.data.authorityCode;
     };
   }
 

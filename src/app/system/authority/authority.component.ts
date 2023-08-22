@@ -77,7 +77,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
 
   selectedItem(data: any): void {
     if (data) {
-      this.drawerAuthority.initLoadId = data.id;
+      this.drawerAuthority.initLoadId = data.authorityCode;
     } else {
       this.drawerAuthority.initLoadId = null;
     }
@@ -104,7 +104,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }
 
   deleteAuthority(): void {
-    const id = this.grid.getSelectedRows()[0].authority;
+    const id = this.grid.getSelectedRows()[0].authorityCode;
 
     this.service
         .deleteAuthority(id)

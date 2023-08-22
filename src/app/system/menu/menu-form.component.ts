@@ -19,14 +19,14 @@ import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-cus
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custom/nz-tree-select-custom.component';
 
-@Component({  
+@Component({
   selector: 'app-menu-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzCrudButtonGroupComponent, NzInputTextComponent,
     NzInputTextareaComponent, NzInputNumberCustomComponent, NzInputSelectComponent, NzTreeSelectCustomComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}}
     {{fg.valid}}
@@ -130,7 +130,7 @@ import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custo
       </app-nz-crud-button-group>
     </div>
 
-  `,  
+  `,
   styles: [`
     [nz-button] {
       margin-right: 8px;
@@ -172,16 +172,15 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   menuHiererachy: MenuHierarchy[] = [];
 
   override fg = this.fb.group({
-      menuGroupId       : new FormControl<string | null>(null, { validators: Validators.required }),
-      menuId            : new FormControl<string | null>(null, {
+      menuGroupCode       : new FormControl<string | null>(null, { validators: Validators.required }),
+      menuCode            : new FormControl<string | null>(null, {
         validators: Validators.required,
         asyncValidators: [existingMenuValidator(this.menuService)],
         updateOn: 'blur'
       }),
-      menuCode          : new FormControl<string | null>(null, { validators: Validators.required }),
       menuName          : new FormControl<string | null>(null, { validators: Validators.required }),
       menuType          : new FormControl<string | null>(null, { validators: Validators.required }),
-      parentMenuId      : new FormControl<string | null>(null),
+      parentMenuCode    : new FormControl<string | null>(null),
       sequence          : new FormControl<number | null>(null),
       appUrl            : new FormControl<string | null>(null, { validators: Validators.required })
     });
@@ -199,7 +198,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
   ngAfterViewInit(): void {
     if (this.initLoadId) {
-      this.get(this.initLoadId);
+      this.get(this.initLoadId.menuGroupCode, this.initLoadId.menuCode);
     } else {
       this.newForm();
     }
@@ -214,17 +213,8 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.getMenuHierarchy(this.menuGroupId);
 
-    this.fg.controls.menuGroupId.setValue(this.menuGroupId);
-    this.fg.controls.menuId.disable();
-    this.fg.controls.menuCode.valueChanges.subscribe(x => {
-      if (x) {
-        const menuGroupId = this.fg.controls.menuGroupId.value;
-        this.fg.controls.menuId.setValue(menuGroupId + x);
-        this.fg.controls.menuId.markAsTouched();
-      } else {
-        this.fg.controls.menuId.setValue(null);
-      }
-    });
+    this.fg.controls.menuGroupCode.setValue(this.menuGroupId);
+    this.fg.controls.menuCode.disable();
 
     this.menuCode.focus();
   }
@@ -232,8 +222,8 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   modifyForm(formData: Menu): void {
     this.formType = FormType.MODIFY;
 
-    this.getMenuHierarchy(formData.menuGroupId!);
-    this.fg.controls.menuId.disable();
+    this.getMenuHierarchy(formData.menuGroupCode!);
+    this.fg.controls.menuCode.disable();
 
     this.fg.patchValue(formData);
   }
@@ -242,10 +232,10 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  get(menuId: string) {
+  get(menuGroupCode: string, menuCode: string) {
 
     this.menuService
-        .getMenu(menuId)
+        .getMenu(menuGroupCode, menuCode)
         .subscribe(
           (model: ResponseObject<Menu>) => {
             if ( model.total > 0 ) {

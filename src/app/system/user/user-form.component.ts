@@ -129,7 +129,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
         <div nz-col nzSpan="12">
           <app-nz-input-select
             formControlName="authorityList" itemId="formauth"
-            [options]="authList" [opt_value]="'authority'" [opt_label]="'description'" [mode]="'tags'"
+            [options]="authList" [opt_value]="'authorityCode'" [opt_label]="'description'" [mode]="'tags'"
             [placeholder]="'Please select'"
             [nzErrorTip]="errorTpl" [required]="true">권한
           </app-nz-input-select>
@@ -138,7 +138,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
         <div nz-col nzSpan="12">
           <app-nz-input-select
             formControlName="menuGroupList" itemId="menuGroupList"
-            [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
+            [options]="menuGroupList" [opt_value]="'menuGroupCode'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
             [placeholder]="'Please select'"
             [nzErrorTip]="errorTpl" [required]="true">메뉴그룹
           </app-nz-input-select>

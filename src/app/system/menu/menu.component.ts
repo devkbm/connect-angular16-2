@@ -21,7 +21,7 @@ export class MenuComponent extends AppBase implements OnInit {
     key: 'menuGroupId',
     value: '',
     list: [
-      {label: '메뉴그룹ID', value: 'menuGroupId'},
+      {label: '메뉴그룹ID', value: 'menuGroupCode'},
       {label: '메뉴그룹명', value: 'menuGroupName'}
     ]
   }
@@ -30,7 +30,7 @@ export class MenuComponent extends AppBase implements OnInit {
     key: 'menuId',
     value: '',
     list: [
-      {label: '메뉴ID', value: 'menuId'},
+      {label: '메뉴ID', value: 'menuCode'},
       {label: '메뉴명', value: 'menuName'}
     ]
   }
@@ -70,12 +70,12 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   editMenuGroup(item: any) {
-    this.drawerMenuGroup.initLoadId = item.menuGroupId;
+    this.drawerMenuGroup.initLoadId = item.menuGroupCode;
     this.drawerMenuGroup.visible = true;
   }
 
   menuGroupGridRowClicked(row: any): void {
-    this.drawerMenuGroup.initLoadId = row.menuGroupId;
+    this.drawerMenuGroup.initLoadId = row.menuGroupCode;
     this.getMenuList();
   }
   //#endregion 메뉴그룹
@@ -83,7 +83,7 @@ export class MenuComponent extends AppBase implements OnInit {
   //#region 메뉴
   getMenuList(): void {
     let params: any = new Object();
-    params['menuGroupId'] = this.drawerMenuGroup.initLoadId;
+    params['menuGroupCode'] = this.drawerMenuGroup.initLoadId;
 
     if ( this.queryMenu.value !== '') {
       params[this.queryMenu.key] = this.queryMenu.value;
@@ -99,12 +99,12 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   editMenu(item: any) {
-    this.drawerMenu.initLoadId = item.menuId;
+    this.drawerMenu.initLoadId = {menuGroupCode: item.menuGroupCode, menuCode: item.menuCode};
     this.drawerMenu.visible = true;
   }
 
   menuGridRowClicked(row: any): void {
-    this.drawerMenu.initLoadId = row.menuId;
+    this.drawerMenu.initLoadId =  {menuGroupCode: row.menuGroupCode, menuCode: row.menuCode};
   }
   //#endregion 메뉴
 

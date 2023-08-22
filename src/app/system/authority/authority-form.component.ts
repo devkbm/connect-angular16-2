@@ -15,13 +15,13 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
 
-@Component({  
+@Component({
   selector: 'app-authority-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzInputTextComponent, NzInputTextareaComponent, NzCrudButtonGroupComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}} - {{fg.valid}}
 
@@ -37,13 +37,6 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
       </ng-template>
 
       <div class="card-1">
-        <!--권한ID 필드-->
-        <app-nz-input-text
-          formControlName="id" itemId="id"
-          placeholder="권한ID를 입력해주세요."
-          [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">권한ID
-        </app-nz-input-text>
-
         <!--권한 필드-->
         <app-nz-input-text #authorityCode
           formControlName="authorityCode" itemId="authorityCode"
@@ -91,7 +84,7 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
     .box2 {
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
-    
+
     .card {
       border-radius: 2px;
       display: inline-block;
@@ -187,12 +180,11 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
   @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
 
   override fg = this.fb.group({
-    id: new FormControl<string | null>(null, {
-                                              validators: Validators.required,
-                                                asyncValidators: [existingAuthorityValidator(this.service)],
-                                                updateOn: 'blur'
-                                             }),
-    authorityCode : new FormControl<string | null>('', { validators: [Validators.required] }),
+    authorityCode : new FormControl<string | null>('', {
+                                                          validators: Validators.required,
+                                                           asyncValidators: [existingAuthorityValidator(this.service)],
+                                                           updateOn: 'blur'
+                                                       }),
     description   : new FormControl<string | null>(null)
   });
 
@@ -230,13 +222,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.controls.id.setAsyncValidators(existingAuthorityValidator(this.service));
-    this.fg.controls.authorityCode.valueChanges.subscribe(x => {
-      if (x === null) return;
-      const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.get('id')?.setValue(organizationCode + x);
-      this.fg.get('id')?.markAsTouched();
-    });
+    this.fg.controls.authorityCode.setAsyncValidators(existingAuthorityValidator(this.service));
 
     this.fg.controls.authorityCode.enable();
   }
@@ -244,7 +230,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
   modifyForm(formData: Authority): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.controls.id.setAsyncValidators(null);
+    this.fg.controls.authorityCode.setAsyncValidators(null);
     this.fg.controls.authorityCode.disable();
 
     this.fg.patchValue(formData);
@@ -287,7 +273,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   remove(): void {
     this.service
-        .deleteAuthority(this.fg.controls.id.value!)
+        .deleteAuthority(this.fg.controls.authorityCode.value!)
         .subscribe(
           (model: ResponseObject<Authority>) => {
             this.appAlarmService.changeMessage(model.message);

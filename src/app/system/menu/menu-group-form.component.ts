@@ -14,13 +14,13 @@ import { existingMenuGroupValidator } from './menu-group-duplication-validator.d
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 
-@Component({  
+@Component({
   selector: 'app-menu-group-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzCrudButtonGroupComponent, NzInputTextComponent, NzInputTextareaComponent
-  ],  
+  ],
   template: `
     {{fg.value | json}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -37,14 +37,6 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 
       <!-- 1 row -->
       <div nz-row nzGutter="8">
-        <div nz-col nzSpan="8">
-          <app-nz-input-text
-            formControlName="menuGroupId" itemId="menuGroupId"
-            placeholder="메뉴그룹ID를 입력해주세요."
-            [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
-          </app-nz-input-text>
-        </div>
-
         <div nz-col nzSpan="8">
           <app-nz-input-text #menuGroupCode
             formControlName="menuGroupCode" itemId="menuGroupCode"
@@ -135,22 +127,13 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
     this.fg.reset();
 
-    this.fg.controls.menuGroupCode.valueChanges.subscribe(x => {
-      if (x) {
-        const organizationCode = sessionStorage.getItem('organizationCode');
-        this.fg.controls.menuGroupId.setValue(organizationCode + x);
-        this.fg.controls.menuGroupId.markAsTouched();
-      } else {
-        this.fg.controls.menuGroupId.setValue(null);
-      }
-    });
-
+    this.fg.controls.menuGroupCode.enable();
     this.menuGroupCode.focus();
   }
 
   modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
-    this.fg.controls.menuGroupId.disable();
+    this.fg.controls.menuGroupCode.disable();
 
     this.fg.patchValue(formData);
   }
@@ -192,7 +175,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   remove() {
     this.menuService
-        .deleteMenuGroup(this.fg.controls.menuGroupId.value!)
+        .deleteMenuGroup(this.fg.controls.menuGroupCode.value!)
         .subscribe(
           (model: ResponseObject<MenuGroup>) => {
             this.formDeleted.emit(this.fg.getRawValue());

@@ -66,7 +66,7 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
       },
       {
         headerName: '메뉴그룹코드',
-        field: 'menuGroupId',
+        field: 'menuGroupCode',
         width: 120,
         cellStyle: {'text-align': 'center'}
       },
@@ -89,7 +89,7 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
     };
 
     this.getRowId = function(data: any) {
-        return data.data.menuGroupId;
+        return data.data.menuGroupCode;
     };
   }
 
