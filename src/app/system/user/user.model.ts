@@ -4,7 +4,7 @@ export interface User {
   staffNo: string | null;
   password?: string | null;
   name: string | null;
-  deptId: string | null;
+  deptCode: string | null;
   mobileNum: string | null;
   email: string | null;
   imageBase64: string | null;

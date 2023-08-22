@@ -147,7 +147,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
       </div>
 
         <app-nz-dept-tree-select
-          formControlName="deptId"
+          formControlName="deptCode"
           placeholder="부서 없음">부서
         </app-nz-dept-tree-select>
     </form>
@@ -215,7 +215,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     staffNo: new FormControl<string | null>(null),
     name: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
     enabled: new FormControl<boolean>(true),
-    deptId: new FormControl<string | null>(null),
+    deptCode: new FormControl<string | null>(null),
     mobileNum: new FormControl<string | null>(null),
     email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
     imageBase64: new FormControl<string | null>(null),
