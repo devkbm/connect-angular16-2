@@ -130,14 +130,14 @@ import { StaffAppointmentRecordService } from './staff-appointment-record.servic
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <app-nz-dept-tree-select
-            formControlName="blngDeptId"
+            formControlName="blngDeptCode"
             placeholder="부서 없음">소속부서
           </app-nz-dept-tree-select>
         </div>
 
         <div nz-col nzSpan="12">
           <app-nz-dept-tree-select
-            formControlName="workDeptId"
+            formControlName="workDeptCode"
             placeholder="부서 없음">근무부서
           </app-nz-dept-tree-select>
         </div>
@@ -316,8 +316,8 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       recordName              : new FormControl<string | null>(null),
       comment                 : new FormControl<string | null>(null),
       isCompleted             : new FormControl<boolean | null>(null),
-      blngDeptId              : new FormControl<string | null>(null),
-      workDeptId              : new FormControl<string | null>(null),
+      blngDeptCode            : new FormControl<string | null>(null),
+      workDeptCode            : new FormControl<string | null>(null),
       jobGroupCode            : new FormControl<string | null>(null),
       jobPositionCode         : new FormControl<string | null>(null),
       occupationCode          : new FormControl<string | null>(null),

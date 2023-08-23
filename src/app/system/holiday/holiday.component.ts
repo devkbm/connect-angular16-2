@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { formatDate, Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -15,9 +15,9 @@ import { Holiday } from './holiday.model';
   templateUrl: './holiday.component.html',
   styleUrls: ['./holiday.component.css']
 })
-export class HolidayComponent extends AppBase implements OnInit {
+export class HolidayComponent extends AppBase implements OnInit, AfterViewInit {
 
-  @ViewChild('holidayGrid') grid!: HolidayGridComponent;
+  @ViewChild(HolidayGridComponent) grid!: HolidayGridComponent;
 
   query: { key: string, value: string, list: {label: string, value: string}[], year: Date } = {
     key: 'resourceCode',
@@ -38,6 +38,9 @@ export class HolidayComponent extends AppBase implements OnInit {
               private service: HolidayService,
               private appAlarmService: AppAlarmService) {
     super(location);
+  }
+  ngAfterViewInit(): void {
+    this.getHolidayList();
   }
 
   ngOnInit(): void {
