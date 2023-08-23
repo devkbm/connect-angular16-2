@@ -45,33 +45,25 @@ import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custo
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <app-nz-input-select
-            formControlName="menuGroupId" itemId="menuGroupId"
+            formControlName="menuGroupCode" itemId="menuGroupCode"
             (ngModelChange)="selectMenuGroup($event)"
-            [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'"
-            [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">메뉴그룹아이디
+            [options]="menuGroupList" [opt_value]="'menuGroupCode'" [opt_label]="'menuGroupName'"
+            [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">메뉴그룹
           </app-nz-input-select>
         </div>
 
         <div nz-col nzSpan="12">
           <!--상위메뉴코드 필드-->
           <app-nz-tree-select-custom
-            formControlName="parentMenuId" itemId="parentMenuId"
+            formControlName="parentMenuCode" itemId="parentMenuCode"
             [nodes]="menuHiererachy"
-            [placeholder]="'상위 메뉴 없음'">상위 메뉴코드
+            [placeholder]="'상위 메뉴 없음'">상위 메뉴
           </app-nz-tree-select-custom>
         </div>
       </div>
 
       <!-- 2 Row -->
       <div nz-row nzGutter="8">
-        <div nz-col nzSpan="8">
-          <app-nz-input-text
-            formControlName="menuId" itemId="menuId"
-            placeholder="메뉴Id를 입력해주세요."
-            [required]="true" [nzErrorTip]="errorTpl">메뉴ID
-          </app-nz-input-text>
-        </div>
-
         <div nz-col nzSpan="8">
           <app-nz-input-text #menuCode
             formControlName="menuCode" itemId="menuCode"
