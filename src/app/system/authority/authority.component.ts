@@ -19,12 +19,12 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
 
   @ViewChild(AuthorityGridComponent) grid!: AuthorityGridComponent;
 
-  queryKey = 'authority';
-  queryValue = '';
   queryOptionList = [
-    {label: '권한', value: 'authority'},
+    {label: '권한', value: 'authorityCode'},
     {label: '설명', value: 'description'}
   ];
+  queryKey = 'authorityCode';
+  queryValue = '';
 
   drawerAuthority: { visible: boolean, initLoadId: any } = {
     visible: false,
