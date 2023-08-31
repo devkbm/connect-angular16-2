@@ -2,7 +2,7 @@ import { MenuGroup } from '../system/menu/menu-group.model';
 import { Authority } from '../system/authority/authority.model';
 
 export interface UserToken {
-  token: string;
+  sessionId: string;
   userId: string;
   userName: string;
   organizationCode: string;

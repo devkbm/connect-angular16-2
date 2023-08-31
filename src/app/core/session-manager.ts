@@ -14,7 +14,7 @@ export class SessionManager {
   constructor() { }
 
   static saveSessionStorage(data: UserToken) {
-    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('token', data.sessionId);
     sessionStorage.setItem('userId', data.userId);
     sessionStorage.setItem('userName', data.userName);
     sessionStorage.setItem('organizationCode', data.organizationCode);

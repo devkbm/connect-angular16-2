@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivate,CanActivateChild {
     return new Observable<boolean>(e => {
       this.loginService.getAuthToken()
                        .subscribe((model: UserToken) => {
-                        if (this.isAuthenticated(model.token)) {
+                        if (this.isAuthenticated(model.sessionId)) {
                           e.next(true);
                         } else {
                           e.next(false);
@@ -29,7 +29,7 @@ export class AuthGuardService implements CanActivate,CanActivateChild {
       return new Observable<boolean>(e => {
         this.loginService.getAuthToken()
                          .subscribe((model: UserToken) => {
-                          if (this.isAuthenticated(model.token)) {
+                          if (this.isAuthenticated(model.sessionId)) {
                             e.next(true);
                           } else {
                             e.next(false);

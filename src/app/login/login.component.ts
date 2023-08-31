@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
             (model: UserToken) => {
               console.log(model);
 
-              sessionStorage.setItem('token', model.token);
+              sessionStorage.setItem('token', model.sessionId);
               sessionStorage.setItem('imageUrl', model.imageUrl);
               sessionStorage.setItem('menuGroupList', JSON.stringify(model.menuGroupList));
               sessionStorage.setItem('authorityList', JSON.stringify(model.authorities));
