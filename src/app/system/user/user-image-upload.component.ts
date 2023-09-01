@@ -9,7 +9,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-@Component({  
+@Component({
   selector: 'app-user-image-upload',
   standalone: true,
   imports: [
@@ -111,7 +111,7 @@ export class UserImageUploadComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'].currentValue && changes['userId'].currentValue !== null && changes['userId'].currentValue !== undefined) {
       // console.log(changes['userId'].currentValue);
-      this.upload.data = {userId : changes['userId'].currentValue};
+      this.upload.data = {organizationCode: sessionStorage.getItem('organizationCode'),  userId: changes['userId'].currentValue};
     }
   }
 

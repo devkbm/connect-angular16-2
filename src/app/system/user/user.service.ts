@@ -94,7 +94,7 @@ export class UserService extends DataService {
 
   downloadUserImage(userId: string): Observable<Blob> {
     const url = this.API_URL + `/image`;
-    const obj:any = {userId: userId};
+    const obj:any = {organizationCode: sessionStorage.getItem('organizationCode'),  userId: userId};
     const token = sessionStorage.getItem('token') as string;
 
     const options = {
