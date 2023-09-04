@@ -96,11 +96,12 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
   @ViewChild('menuGroupCode') menuGroupCode!: NzInputTextComponent;
 
   override fg = this.fb.group({
+    /*
     menuGroupId     : new FormControl<string | null>(null, {
       validators: Validators.required,
       asyncValidators: [existingMenuGroupValidator(this.menuService)],
       updateOn: 'blur'
-    }),
+    }),*/
     menuGroupCode   : new FormControl<string | null>(null, { validators: Validators.required }),
     menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
     description     : new FormControl<string | null>(null)
@@ -158,10 +159,12 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
   }
 
   save() {
+    /*
     if (this.fg.invalid) {
       this.checkForm()
       return;
     }
+    */
 
     this.menuService
         .registerMenuGroup(this.fg.getRawValue())

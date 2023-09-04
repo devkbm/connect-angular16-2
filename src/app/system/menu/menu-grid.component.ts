@@ -86,7 +86,7 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
       };
 
       this.getRowId = (data: any) => {
-          return data.data.menuCode;
+          return data.data.menuGroupCode + data.data.menuCode;
       };
   }
 

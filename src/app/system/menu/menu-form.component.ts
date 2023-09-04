@@ -241,10 +241,12 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   save() {
+    /*
     if (this.fg.invalid) {
       this.checkForm()
       return;
     }
+    */
 
     this.menuService
         .registerMenu(this.fg.getRawValue())
