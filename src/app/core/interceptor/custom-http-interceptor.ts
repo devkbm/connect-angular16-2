@@ -8,7 +8,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
   headerInfo?: HttpHeaders;
   exceptUrls: string[] = [
     'http://localhost:8090/api/system/user/login',      // 로그인페이지 url
-    'http://localhost:8090/api/system/file/',           // 파일업로드 url
+    'http://localhost:8090/api/system/file',           // 파일업로드 url
     'http://localhost:8090/api/system/user/image',      // 프로필 이미지 url
     'http://localhost:8090/api/hrm/staff/changeimage'   // 직원 사진 url
   ];
