@@ -91,7 +91,7 @@ export class UserImageUploadComponent implements OnInit, OnChanges {
 
   previewImage: string | undefined = '';
 
-  imageSrc: string = GlobalProperty.serverUrl + '/static/';
+  imageSrc: string = GlobalProperty.serverUrl + '/api/system/fileimage/'; //'/static/';
 
   @Input() imageWidth: string = '150px';
   @Input() imageHeight: string = '200px';
