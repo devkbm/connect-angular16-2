@@ -4,23 +4,23 @@ import { Location } from '@angular/common';
 import { AppBase } from 'src/app/core/app/app-base';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
-import { AuthorityGridComponent } from './authority-grid.component';
-import { AuthorityService } from './authority.service';
-import { Authority } from './authority.model';
+import { RoleGridComponent } from './role-grid.component';
+import { RoleService } from './role.service';
+import { Role } from './role.model';
 
 import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-authority',
-  templateUrl: './authority.component.html',
-  styleUrls: ['./authority.component.css']
+  templateUrl: './role.component.html',
+  styleUrls: ['./role.component.css']
 })
-export class AuthorityComponent extends AppBase implements AfterViewInit {
+export class RoleComponent extends AppBase implements AfterViewInit {
 
-  @ViewChild(AuthorityGridComponent) grid!: AuthorityGridComponent;
+  @ViewChild(RoleGridComponent) grid!: RoleGridComponent;
 
   queryOptionList = [
-    {label: '권한', value: 'authorityCode'},
+    {label: '롤', value: 'roleCode'},
     {label: '설명', value: 'description'}
   ];
   queryKey = 'authorityCode';
@@ -56,7 +56,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }];
 
   constructor(private location: Location,
-              private service: AuthorityService) {
+              private service: RoleService) {
     super(location);
     this.appId = "COM002";
   }
@@ -107,9 +107,9 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     const id = this.grid.getSelectedRows()[0].authorityCode;
 
     this.service
-        .deleteAuthority(id)
+        .deleteRole(id)
         .subscribe(
-          (model: ResponseObject<Authority>) => {
+          (model: ResponseObject<Role>) => {
             this.getAuthorityList();
           }
         );

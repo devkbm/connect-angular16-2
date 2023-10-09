@@ -8,8 +8,8 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { ResponseList } from 'src/app/core/model/response-list';
 
-import { AuthorityService } from './authority.service';
-import { Authority } from './authority.model';
+import { RoleService } from './role.service';
+import { Role } from './role.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
 @Component({
@@ -57,16 +57,16 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
     */
   `]
 })
-export class AuthorityGridComponent extends AggridFunction implements OnInit {
+export class RoleGridComponent extends AggridFunction implements OnInit {
 
   isLoading: boolean = false;
-  authorityList: Authority[] = [];
+  authorityList: Role[] = [];
 
   @Output() rowClicked = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private service: AuthorityService,
+  constructor(private service: RoleService,
               private appAlarmService: AppAlarmService) {
     super();
 
@@ -97,7 +97,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         },
         {
           headerName: '권한코드',
-          field: 'authorityCode',
+          field: 'roleCode',
           suppressSizeToFit: true,
           width: 100
       },
@@ -108,7 +108,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
     ];
 
     this.getRowId = function(params: any) {
-      return params.data.authorityCode;
+      return params.data.roleCode;
     };
   }
 
@@ -119,9 +119,9 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
   getList(params?: any): void {
     this.isLoading = true;
     this.service
-        .getAuthorityList(params)
+        .getRoleList(params)
         .subscribe(
-          (model: ResponseList<Authority>) => {
+          (model: ResponseList<Role>) => {
             if (model.total > 0) {
               this.authorityList = model.data;
               this.sizeToFit();

@@ -1,5 +1,5 @@
 import { MenuGroup } from '../system/menu/menu-group.model';
-import { Authority } from '../system/authority/authority.model';
+import { Role } from '../system/role/role.model';
 
 export interface UserToken {
   sessionId: string;
@@ -10,7 +10,7 @@ export interface UserToken {
   email: string;
   imageUrl: string;
   ipAddress: string;
-  authorities: Authority[];
+  authorities: Role[];
   menuGroupList: MenuGroup[];
 }
 

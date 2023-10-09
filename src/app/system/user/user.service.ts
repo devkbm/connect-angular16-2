@@ -14,12 +14,12 @@ import { User } from './user.model';
 
 import { MenuGroup } from '../menu/menu-group.model';
 import { GlobalProperty } from 'src/app/core/global-property';
-import { Authority } from '../authority/authority.model';
+import { Role } from '../role/role.model';
 
 @Injectable()
 export class UserService extends DataService {
 
-  private AUTHORITY_API_URI = '/api/system/authority';
+  private AUTHORITY_API_URI = '/api/system/role';
 
   private MENU_GROUP_API_URI = '/api/system/menugroup';
 
@@ -123,7 +123,7 @@ export class UserService extends DataService {
       );
   }
 
-  getAuthorityList(params?: any): Observable<ResponseList<Authority>> {
+  getAuthorityList(params?: any): Observable<ResponseList<Role>> {
     const url = GlobalProperty.serverUrl + `${this.AUTHORITY_API_URI}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -132,13 +132,13 @@ export class UserService extends DataService {
     };
 
     return this.http
-      .get<ResponseList<Authority>>(url, options)
+      .get<ResponseList<Role>>(url, options)
       .pipe(
-        catchError(this.handleError<ResponseList<Authority>>('getAuthorityList', undefined))
+        catchError(this.handleError<ResponseList<Role>>('getAuthorityList', undefined))
       );
   }
 
-  getAuthority(id: string): Observable<ResponseObject<Authority>> {
+  getAuthority(id: string): Observable<ResponseObject<Role>> {
     const url = GlobalProperty.serverUrl + `${this.AUTHORITY_API_URI}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -146,9 +146,9 @@ export class UserService extends DataService {
     };
 
     return this.http
-      .get<ResponseObject<Authority>>(url, options)
+      .get<ResponseObject<Role>>(url, options)
       .pipe(
-        catchError(this.handleError<ResponseObject<Authority>>('getAuthority', undefined))
+        catchError(this.handleError<ResponseObject<Role>>('getAuthority', undefined))
       );
   }
 
@@ -166,7 +166,7 @@ export class UserService extends DataService {
       );
   }
 
-  registerAuthority(authority: Authority): Observable<ResponseObject<Authority>> {
+  registerAuthority(authority: Role): Observable<ResponseObject<Role>> {
     const url = GlobalProperty.serverUrl + `${this.AUTHORITY_API_URI}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -174,13 +174,13 @@ export class UserService extends DataService {
     };
 
     return this.http
-      .post<ResponseObject<Authority>>(url, authority, options)
+      .post<ResponseObject<Role>>(url, authority, options)
       .pipe(
-        catchError(this.handleError<ResponseObject<Authority>>('registerAuthority', undefined))
+        catchError(this.handleError<ResponseObject<Role>>('registerAuthority', undefined))
       );
   }
 
-  deleteAuthority(id: string): Observable<ResponseObject<Authority>> {
+  deleteAuthority(id: string): Observable<ResponseObject<Role>> {
     const url = GlobalProperty.serverUrl + `${this.AUTHORITY_API_URI}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -188,9 +188,9 @@ export class UserService extends DataService {
     };
 
     return this.http
-      .delete<ResponseObject<Authority>>(url, options)
+      .delete<ResponseObject<Role>>(url, options)
       .pipe(
-        catchError(this.handleError<ResponseObject<Authority>>('deleteAuthority', undefined))
+        catchError(this.handleError<ResponseObject<Role>>('deleteAuthority', undefined))
       );
   }
 

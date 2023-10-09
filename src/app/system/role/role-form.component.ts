@@ -6,9 +6,9 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
-import { Authority } from './authority.model';
-import { existingAuthorityValidator } from './authority-duplication-validator.directive';
-import { AuthorityService } from './authority.service';
+import { Role } from './role.model';
+import { existingRoleValidator } from './role-duplication-validator.directive';
+import { RoleService } from './role.service';
 
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
@@ -38,8 +38,8 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 
       <div class="card-1">
         <!--권한 필드-->
-        <app-nz-input-text #authorityCode
-          formControlName="authorityCode" itemId="authorityCode"
+        <app-nz-input-text #roleCode
+          formControlName="roleCode" itemId="roleCode"
           placeholder="권한코드를 입력해주세요."
           [required]="true" [nzErrorTip]="errorTpl">권한코드
         </app-nz-input-text>
@@ -175,21 +175,21 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 
   `]
 })
-export class AuthorityFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
+export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
 
   override fg = this.fb.group({
-    authorityCode : new FormControl<string | null>('', {
-                                                          validators: Validators.required,
-                                                           asyncValidators: [existingAuthorityValidator(this.service)],
-                                                           updateOn: 'blur'
-                                                       }),
+    roleCode : new FormControl<string | null>('', {
+                                                    validators: Validators.required,
+                                                    asyncValidators: [existingRoleValidator(this.service)],
+                                                    updateOn: 'blur'
+                                                  }),
     description   : new FormControl<string | null>(null)
   });
 
   constructor(private fb: FormBuilder,
-              private service: AuthorityService,
+              private service: RoleService,
               private appAlarmService: AppAlarmService) {
     super();
   }
@@ -222,16 +222,16 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.controls.authorityCode.setAsyncValidators(existingAuthorityValidator(this.service));
+    this.fg.controls.roleCode.setAsyncValidators(existingRoleValidator(this.service));
 
-    this.fg.controls.authorityCode.enable();
+    this.fg.controls.roleCode.enable();
   }
 
-  modifyForm(formData: Authority): void {
+  modifyForm(formData: Role): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.controls.authorityCode.setAsyncValidators(null);
-    this.fg.controls.authorityCode.disable();
+    this.fg.controls.roleCode.setAsyncValidators(null);
+    this.fg.controls.roleCode.disable();
 
     this.fg.patchValue(formData);
   }
@@ -242,9 +242,9 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   get(id: string): void {
     this.service
-        .getAuthority(id)
+        .getRole(id)
         .subscribe(
-          (model: ResponseObject<Authority>) => {
+          (model: ResponseObject<Role>) => {
             if (model.total > 0) {
               this.modifyForm(model.data);
             } else {
@@ -262,9 +262,9 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     }
 
     this.service
-        .registerAuthority(this.fg.getRawValue())
+        .registerRole(this.fg.getRawValue())
         .subscribe(
-          (model: ResponseObject<Authority>) => {
+          (model: ResponseObject<Role>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
           }
@@ -273,9 +273,9 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   remove(): void {
     this.service
-        .deleteAuthority(this.fg.controls.authorityCode.value!)
+        .deleteRole(this.fg.controls.roleCode.value!)
         .subscribe(
-          (model: ResponseObject<Authority>) => {
+          (model: ResponseObject<Role>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
           }

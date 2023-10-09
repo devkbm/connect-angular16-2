@@ -3,11 +3,11 @@ import { AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/fo
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthorityService } from './authority.service';
+import { RoleService } from './role.service';
 
-export function existingAuthorityValidator(service: AuthorityService): AsyncValidatorFn {
+export function existingRoleValidator(service: RoleService): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-    return control.value ? service.getAuthorityDupCheck(control.value)
+    return control.value ? service.getRoleDupCheck(control.value)
                                   .pipe(
                                     map( responseObj => {
                                       if ( responseObj.data === false ) {

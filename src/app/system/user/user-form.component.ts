@@ -18,7 +18,7 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { UserService } from './user.service';
 import { User } from './user.model';
-import { Authority } from '../authority/authority.model';
+import { Role } from '../role/role.model';
 import { MenuGroup } from '../menu/menu-group.model';
 import { existingUserValidator } from './user-duplication-validator.directive';
 
@@ -343,7 +343,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.service
         .getAuthorityList()
         .subscribe(
-          (model: ResponseList<Authority>) => {
+          (model: ResponseList<Role>) => {
             if (model.total > 0) {
               this.authList = model.data;
             }

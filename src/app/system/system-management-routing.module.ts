@@ -6,7 +6,7 @@ import { AppLayoutComponent } from '../app-layout/app-layout.component';
 
 import { AuthGuardService } from '../core/service/auth-guard.service';
 
-import { AuthorityComponent } from '../system/authority/authority.component';
+import { RoleComponent } from './role/role.component';
 import { UserComponent } from '../system/user/user.component';
 import { WebResourceComponent } from '../system/webresource/web-resource.component';
 import { MenuComponent } from '../system/menu/menu.component';
@@ -23,7 +23,7 @@ const layoutroutes: Routes = [
     children: [
       /* 공통 시스템 */
       {path: 'user',          component: UserComponent},
-      {path: 'auth',          component: AuthorityComponent},
+      {path: 'auth',          component: RoleComponent},
       {path: 'program',       component: WebResourceComponent},
       {path: 'menu',          component: MenuComponent},
       {path: 'commoncode',    component: CommonCodeComponent},

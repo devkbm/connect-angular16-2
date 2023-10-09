@@ -15,10 +15,10 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 /* Inner Component */
-import { AuthorityComponent } from './authority.component';
-import { AuthorityService } from './authority.service';
-import { AuthorityFormComponent } from './authority-form.component';
-import { AuthorityGridComponent } from './authority-grid.component';
+import { RoleComponent } from './role.component';
+import { RoleService } from './role.service';
+import { RoleFormComponent } from './role-form.component';
+import { RoleGridComponent } from './role-grid.component';
 
 /* Shared Component */
 import { NzButtonsComponent } from 'src/app/shared/nz-buttons/nz-buttons.component';
@@ -45,20 +45,20 @@ import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-a
     NzPageHeaderCustomComponent,
     NzSearchAreaComponent,
 
-    AuthorityGridComponent,
-    AuthorityFormComponent
+    RoleGridComponent,
+    RoleFormComponent
   ],
   declarations: [
-    AuthorityComponent
+    RoleComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: COMPOSITION_BUFFER_MODE, useValue: false},
-    AuthorityService
+    RoleService
   ],
   exports: [
-    AuthorityComponent
+    RoleComponent
   ]
 })
-export class AutorityModule { }
+export class RoleModule { }
