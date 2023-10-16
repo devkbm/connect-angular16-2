@@ -43,12 +43,12 @@
     <button nz-button (click)="getMenuGroupList()">
       <span nz-icon nzType="form"></span>조회
     </button>
-    
+
   </div>
 </app-nz-search-area>
 
 <div class="content">
-  <h3 class="pgm-title">메뉴 그룹 목록</h3> 
+  <h3 class="pgm-title">메뉴 그룹 목록</h3>
   <app-menu-group-grid
     #menuGroupGrid
     id="menuGroupGrid"
@@ -67,6 +67,9 @@
   </app-menu-grid>
 </div>
 
+<app-menu-role-tree>
+
+</app-menu-role-tree>
 
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"

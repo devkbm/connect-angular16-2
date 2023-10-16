@@ -24,42 +24,43 @@ import { MenuGridComponent } from './menu-grid.component';
 import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
 import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
 import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custom/nz-tree-select-custom.component';
+import { MenuRoleTreeComponent } from "./menu-role-tree.component";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
-    NzFormModule,
-    NzSelectModule,
-    NzInputModule,
-    NzDrawerModule,
-    NzDividerModule,
-    NzButtonModule,
-    NzIconModule,
-    NzPageHeaderCustomComponent,
-    NzSearchAreaComponent,
-    NzTreeSelectCustomComponent,
-
-    MenuGroupGridComponent,
-    MenuGroupFormComponent,
-    MenuFormComponent,
-    MenuGridComponent
-  ],
-  declarations: [
-    MenuComponent
-  ],
-  providers: [
-    { provide: NZ_I18N, useValue: ko_KR },
-    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
-    { provide: COMPOSITION_BUFFER_MODE, useValue: false},
-    MenuService
-  ],
-  exports: [
-    MenuComponent
-  ]
+    declarations: [
+        MenuComponent
+    ],
+    providers: [
+        { provide: NZ_I18N, useValue: ko_KR },
+        { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+        { provide: COMPOSITION_BUFFER_MODE, useValue: false },
+        MenuService
+    ],
+    exports: [
+        MenuComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        HttpClientXsrfModule.withOptions({ cookieName: 'XSRF-TOKEN' }),
+        NzFormModule,
+        NzSelectModule,
+        NzInputModule,
+        NzDrawerModule,
+        NzDividerModule,
+        NzButtonModule,
+        NzIconModule,
+        NzPageHeaderCustomComponent,
+        NzSearchAreaComponent,
+        NzTreeSelectCustomComponent,
+        MenuGroupGridComponent,
+        MenuGroupFormComponent,
+        MenuFormComponent,
+        MenuGridComponent,
+        MenuRoleTreeComponent
+    ]
 })
 export class MenuModule { }

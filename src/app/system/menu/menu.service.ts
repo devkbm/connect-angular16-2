@@ -11,6 +11,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { MenuGroup } from './menu-group.model';
 import { Menu } from './menu.model';
 import { MenuHierarchy } from './menu-hierarchy.model';
+import { MenuRoleHierarchy } from './menu-role-hierarchy.model';
 
 @Injectable()
 export class MenuService extends DataService {
@@ -185,6 +186,20 @@ export class MenuService extends DataService {
 
     return this.http
               .get<ResponseList<MenuHierarchy>>(url, options)
+              .pipe(
+                //catchError((err) => Observable.throw(err))
+              );
+  }
+
+  getMenuRoleHierarchy(menuGroupCode: string, roleCode: string): Observable<ResponseList<MenuRoleHierarchy>> {
+    const url = `${this.API_URL}/menurolehierarchy/${menuGroupCode}/${roleCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+              .get<ResponseList<MenuRoleHierarchy>>(url, options)
               .pipe(
                 //catchError((err) => Observable.throw(err))
               );
