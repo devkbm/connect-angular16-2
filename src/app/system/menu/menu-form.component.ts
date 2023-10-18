@@ -206,7 +206,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.getMenuHierarchy(this.menuGroupId);
 
     this.fg.controls.menuGroupCode.setValue(this.menuGroupId);
-    this.fg.controls.menuCode.disable();
+    //this.fg.controls.menuCode.disable();
 
     this.menuCode.focus();
   }

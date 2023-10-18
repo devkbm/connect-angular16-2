@@ -12,6 +12,7 @@ import { MenuGroup } from './menu-group.model';
 import { Menu } from './menu.model';
 import { MenuHierarchy } from './menu-hierarchy.model';
 import { MenuRoleHierarchy } from './menu-role-hierarchy.model';
+import { MenuRoleMapping } from './menu-role-mapping.model';
 
 @Injectable()
 export class MenuService extends DataService {
@@ -200,6 +201,20 @@ export class MenuService extends DataService {
 
     return this.http
               .get<ResponseList<MenuRoleHierarchy>>(url, options)
+              .pipe(
+                //catchError((err) => Observable.throw(err))
+              );
+  }
+
+  saveMenuRoleMapping(menu: MenuRoleMapping[]): Observable<ResponseList<MenuRoleMapping>> {
+    const url = `${this.API_URL}/menurole`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+              .post<ResponseList<MenuRoleMapping>>(url, menu, options)
               .pipe(
                 //catchError((err) => Observable.throw(err))
               );
