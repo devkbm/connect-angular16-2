@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHeaders, HttpRequest, HttpHandler, HttpEvent, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomHttpInterceptor implements HttpInterceptor {
 
   headerInfo?: HttpHeaders;
@@ -60,6 +62,15 @@ export class CustomHttpInterceptor implements HttpInterceptor {
   }
 
   private setBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
+    // 배열일 경우 객체에 속성 추가
+    if (Array.isArray(req.body)) {
+      for (var rec of req.body) {
+        rec.organizationCode = String(sessionStorage.getItem('organizationCode'));
+        rec.clientAppUrl = window.location.href;
+      }
+      return req;
+    }
+
     return req.clone({
       body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')), clientAppUrl: window.location.href }
     });

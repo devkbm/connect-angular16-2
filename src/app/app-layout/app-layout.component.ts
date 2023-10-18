@@ -73,6 +73,7 @@ export class AppLayoutComponent implements OnInit  {
 
     this.service
         .getMenuHierarchy(menuGroupId)
+        //.getUserMenuHierarchy(this.sessionService, menuGroupId)
         .subscribe(
           (model: ResponseList<MenuHierarchy>) => {
             if ( model.total > 0 ) {

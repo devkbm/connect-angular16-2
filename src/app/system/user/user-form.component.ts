@@ -129,7 +129,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
         <div nz-col nzSpan="12">
           <app-nz-input-select
             formControlName="authorityList" itemId="formauth"
-            [options]="authList" [opt_value]="'authorityCode'" [opt_label]="'description'" [mode]="'tags'"
+            [options]="authList" [opt_value]="'roleCode'" [opt_label]="'description'" [mode]="'tags'"
             [placeholder]="'Please select'"
             [nzErrorTip]="errorTpl" [required]="true">권한
           </app-nz-input-select>

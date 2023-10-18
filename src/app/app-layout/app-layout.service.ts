@@ -31,5 +31,18 @@ export class AppLayoutService extends DataService {
               );
   }
 
+  getUserMenuHierarchy(userId: String, menuGroupId: String): Observable<ResponseList<MenuHierarchy>> {
+    const url = `${this.API_URL}/menuhierarchy/${userId}/${menuGroupId}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+              .get<ResponseList<MenuHierarchy>>(url, options)
+              .pipe(
+                //catchError((err) => Observable.throw(err))
+              );
+  }
 }
 
