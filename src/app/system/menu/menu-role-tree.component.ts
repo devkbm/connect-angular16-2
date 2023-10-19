@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzTreeModule, NzTreeNode } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
@@ -8,22 +9,43 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { MenuService } from './menu.service';
 import { MenuRoleHierarchy } from './menu-role-hierarchy.model';
 import { MenuRoleMapping } from './menu-role-mapping.model';
+import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { UserService } from '../user/user.service';
+import { Role } from '../role/role.model';
+import { MenuGroup } from './menu-group.model';
+
 
 
 @Component({
   standalone: true,
   selector: 'app-menu-role-tree',
-  imports: [ CommonModule, NzTreeModule ],
+  imports: [ CommonModule, FormsModule, NzTreeModule, NzInputSelectComponent ],
   template: `
     <!--
     <button (click)="getCommonCodeHierarchy()">
         조회
     </button>
     -->
+    <div nz-col nzSpan="12">
+      <app-nz-input-select
+        [(ngModel)]="menuGroup.selectedItem"
+        [options]="menuGroup.list" [opt_value]="'menuGroupCode'" [opt_label]="'menuGroupName'"
+        [placeholder]="'Please select'"
+        [required]="true">메뉴그룹
+      </app-nz-input-select>
+    </div>
+    <div nz-col nzSpan="12">
+      <app-nz-input-select
+        [(ngModel)]="role.selectedItem"
+        [options]="role.list" [opt_value]="'roleCode'" [opt_label]="'description'"
+        [placeholder]="'Please select'"
+        [required]="true">롤
+      </app-nz-input-select>
+    </div>
     {{searchValue}}
     <!--{{nodeItems | json}}-->
     {{saveNodes | json}}
-    <button (click)="getDeptHierarchy()">조회</button>
+    <button (click)="getHierarchy()">조회</button>
     <button (click)="save()">저장</button>
     <nz-tree
         #treeComponent
@@ -45,19 +67,25 @@ export class MenuRoleTreeComponent implements OnInit {
   saveNodes: MenuRoleMapping[] = [];
   saveNodeKeys = new Set<string>();
 
+  menuGroup: {list: any, selectedItem: any} = {list: [], selectedItem: null};
+  role: {list: any, selectedItem: any} = {list: [], selectedItem: null};
+
+
   @Input() searchValue = '';
   @Output() itemSelected = new EventEmitter();
   private menuService = inject(MenuService);
+  private userService = inject(UserService);
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log('DeptTreeComponent init');
+    this.getMenuGroupList();
+    this.getRoleList();
   }
 
-  public getDeptHierarchy(): void {
+  public getHierarchy(): void {
     this.menuService
-        .getMenuRoleHierarchy('COM','ROLE_USER')
+        .getMenuRoleHierarchy(this.menuGroup.selectedItem, this.role.selectedItem)
         .subscribe(
             (model: ResponseList<MenuRoleHierarchy>) => {
                 if ( model.total > 0 ) {
@@ -66,6 +94,30 @@ export class MenuRoleTreeComponent implements OnInit {
                 this.nodeItems = [];
                 }
             }
+        );
+  }
+
+  getMenuGroupList(): void {
+    this.menuService
+        .getMenuGroupList()
+        .subscribe(
+          (model: ResponseList<MenuGroup>) => {
+            if (model.total > 0) {
+              this.menuGroup.list = model.data;
+            }
+          }
+        );
+  }
+
+  getRoleList(): void {
+    this.userService
+        .getAuthorityList()
+        .subscribe(
+          (model: ResponseList<Role>) => {
+            if (model.total > 0) {
+              this.role.list = model.data;
+            }
+          }
         );
   }
 
@@ -79,6 +131,18 @@ export class MenuRoleTreeComponent implements OnInit {
   }
 
   save() {
+    this.setSaveNodes();
+
+    this.menuService
+        .saveMenuRoleMapping(this.saveNodes)
+        .subscribe(
+          (model: ResponseList<MenuRoleMapping>) => {
+            this.getHierarchy();
+          }
+      );
+  }
+
+  setSaveNodes() {
     /*
     var saveNodeKeys = new Set<string>();
     let saveNodes: {
@@ -129,14 +193,5 @@ export class MenuRoleTreeComponent implements OnInit {
         });
       }
     }
-    this.menuService
-        .saveMenuRoleMapping(this.saveNodes)
-        .subscribe(
-          (model: ResponseList<MenuRoleMapping>) => {
-            this.getDeptHierarchy();
-          }
-      );
-    console.log(this.saveNodes);
   }
-
 }
