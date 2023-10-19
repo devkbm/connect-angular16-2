@@ -127,7 +127,7 @@ export class MenuRoleTreeComponent implements OnInit {
   }
 
   nzCheck(event: NzFormatEmitEvent): void {
-
+    this.setSaveNodes();
   }
 
   save() {
