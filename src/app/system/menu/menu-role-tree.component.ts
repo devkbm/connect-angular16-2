@@ -45,6 +45,7 @@ import { MenuGroup } from './menu-group.model';
     {{searchValue}}
     <!--{{nodeItems | json}}-->
     {{saveNodes | json}}
+    {{defaultCheckedKeys | json}}
     <button (click)="getHierarchy()">조회</button>
     <button (click)="save()">저장</button>
     <nz-tree
@@ -52,6 +53,7 @@ import { MenuGroup } from './menu-group.model';
         nzCheckable
         [nzData]="nodeItems"
         [nzSearchValue]="searchValue"
+        [(nzCheckedKeys)]="defaultCheckedKeys"
         (nzCheckBoxChange)="nzCheck($event)"
         (nzClick)="nzClick($event)">
     </nz-tree>
@@ -70,6 +72,7 @@ export class MenuRoleTreeComponent implements OnInit {
   menuGroup: {list: any, selectedItem: any} = {list: [], selectedItem: null};
   role: {list: any, selectedItem: any} = {list: [], selectedItem: null};
 
+  defaultCheckedKeys = ['1'];
 
   @Input() searchValue = '';
   @Output() itemSelected = new EventEmitter();
@@ -127,6 +130,7 @@ export class MenuRoleTreeComponent implements OnInit {
   }
 
   nzCheck(event: NzFormatEmitEvent): void {
+    console.log(this.treeComponent.getCheckedNodeList());
     this.setSaveNodes();
   }
 
