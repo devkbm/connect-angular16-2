@@ -11,6 +11,8 @@ import { SelectControlModel } from 'src/app/core/model/select-control.model.ts';
 import { MenuHierarchy } from './app-layout.model';
 import { NzMenuModeType, NzMenuThemeType } from 'ng-zorro-antd/menu';
 
+import { SessionManager } from 'src/app/core/session-manager';
+
 @Component({
   selector: 'app-app-layout',
   templateUrl: './app-layout.component.html',
@@ -72,8 +74,8 @@ export class AppLayoutComponent implements OnInit  {
     sessionStorage.setItem('selectedMenuGroup', menuGroupId);
 
     this.service
-        .getMenuHierarchy(menuGroupId)
-        //.getUserMenuHierarchy(this.sessionService, menuGroupId)
+        //.getMenuHierarchy(menuGroupId)
+        .getUserMenuHierarchy(SessionManager.getUserId() as string, menuGroupId)
         .subscribe(
           (model: ResponseList<MenuHierarchy>) => {
             if ( model.total > 0 ) {
@@ -98,16 +100,16 @@ export class AppLayoutComponent implements OnInit  {
     this.router.navigate([url]);
   }
 
-  moveToMenuGroupUrl(menuGroupId: string) {
+  moveToMenuGroupUrl(menuGroupCode: string) {
     type mapType = {
       [key: string]: string;
     }
     const menuGroupUrls: mapType = {
-      '001HRM': '/hrm',
-      '001GRP': '/grw',
-      '001COM': '/system'
+      'HRM': '/hrm',
+      'GRP': '/grw',
+      'COM': '/system'
     }
-    this.moveToUrl(menuGroupUrls[menuGroupId]);
+    this.moveToUrl(menuGroupUrls[menuGroupCode]);
   }
 
   selectMenu(event: NzFormatEmitEvent): void {
