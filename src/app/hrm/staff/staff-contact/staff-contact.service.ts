@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +14,8 @@ import { StaffContact } from './staff-contact.model';
 })
 export class StaffContactService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm/staff', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm/staff');
   }
 
   get(staffId: string): Observable<ResponseObject<StaffContact>> {

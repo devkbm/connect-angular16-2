@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -24,10 +24,10 @@ export class TeamGridComponent extends AggridFunction implements OnInit {
   @Output()
   editButtonClicked = new EventEmitter();
 
-  constructor(private appAlarmService: AppAlarmService,
-              private teamService: TeamService) {
-    super();
+  private appAlarmService = inject(AppAlarmService);
+  private teamService = inject(TeamService);
 
+  ngOnInit() {
     this.columnDefs = [
       {
           headerName: 'No',
@@ -55,9 +55,7 @@ export class TeamGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(data: any) {
         return data.teamId;
     };
-  }
 
-  ngOnInit() {
     this.sizeToFit();
   }
 

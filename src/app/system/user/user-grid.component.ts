@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -13,7 +13,7 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
 import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
 
-@Component({  
+@Component({
   selector: 'app-user-grid',
   standalone: true,
   imports: [
@@ -42,22 +42,21 @@ export class UserGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private userService: UserService,
-              private appAlarmService: AppAlarmService) {
+  private userService = inject(UserService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
-        {
-          headerName: '',
-          width: 34,
-          cellStyle: {'text-align': 'center', padding: '0px'},
-          cellRenderer: ButtonRendererComponent,
-          cellRendererParams: {
-            onClick: this.onEditButtonClick.bind(this),
-            label: '',
-            iconType: 'form'
-          }
+      {
+        headerName: '',
+        width: 34,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: ButtonRendererComponent,
+        cellRendererParams: {
+          onClick: this.onEditButtonClick.bind(this),
+          label: '',
+          iconType: 'form'
+        }
       },
       {
         headerName: 'No',
@@ -120,9 +119,7 @@ export class UserGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(data: any) {
       return data.data.userId;
     };
-  }
 
-  ngOnInit() {
     this.getUserList();
   }
 

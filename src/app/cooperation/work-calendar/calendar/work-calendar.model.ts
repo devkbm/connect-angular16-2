@@ -1,7 +1,6 @@
 export interface WorkCalendar {
-  workCalendarId: number;
-  workCalendarName: string;
-  color: string;
+  workCalendarId: number | null;
+  workCalendarName: string | null;
+  color: string | null;
   memberList: string[];
-  name: string;
 }

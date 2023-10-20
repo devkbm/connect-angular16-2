@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -179,6 +179,10 @@ export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit
 
   @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(RoleService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     roleCode : new FormControl<string | null>('', {
                                                     validators: Validators.required,
@@ -187,12 +191,6 @@ export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit
                                                   }),
     description   : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: RoleService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
     if (this.initLoadId) {

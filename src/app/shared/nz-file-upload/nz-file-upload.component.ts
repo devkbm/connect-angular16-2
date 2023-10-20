@@ -56,9 +56,6 @@ export class NzFileUploadComponent implements OnInit {
   @Input() fileList: NzUploadFile[] = [];
   @Output() uploadCompleted = new EventEmitter<NzUploadFile[]>();
 
-
-  constructor() { }
-
   ngOnInit() {
     this.fileUploadHeader = {
       Authorization: sessionStorage.getItem('token')

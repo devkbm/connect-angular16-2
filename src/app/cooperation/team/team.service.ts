@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -14,8 +13,8 @@ import { TeamJoinableUserModel, TeamModel } from './team.model';
 })
 export class TeamService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-      super('/api/grw/team', http, tokenExtractor);
+  constructor() {
+    super('/api/grw/team');
   }
 
   /**

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +14,8 @@ import { HtmlSelectOption } from 'src/app/shared/nz-input-select/html-select-opt
 })
 export class DataDomainService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/datadomin', http, tokenExtractor);
+  constructor() {
+    super('/api/system/datadomin');
   }
 
   getDatabaseList(): Observable<ResponseList<HtmlSelectOption>> {

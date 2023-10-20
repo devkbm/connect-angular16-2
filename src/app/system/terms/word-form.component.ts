@@ -5,7 +5,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -93,18 +93,16 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
 
   @ViewChild('logicalName') logicalName?: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(WordService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     logicalName     : new FormControl<string | null>(null, { validators: Validators.required }),
     physicalName    : new FormControl<string | null>(null, { validators: Validators.required }),
     logicalNameEng  : new FormControl<string | null>(null),
     comment         : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: WordService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
     if (this.initLoadId) {

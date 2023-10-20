@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
 
 import { DataService } from '../../../core/service/data.service';
 import { ResponseObject } from '../../../core/model/response-object';
@@ -13,11 +11,13 @@ import { Article } from './article.model';
 import { BoardHierarchy } from './board-hierarchy.model';
 import { GlobalProperty } from 'src/app/core/global-property';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BoardService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-      super('/api/grw', http, tokenExtractor);
+  constructor() {
+      super('/api/grw');
   }
 
   getBoardTypeList(): Observable<ResponseList<any>> {
@@ -172,7 +172,7 @@ export class BoardService extends DataService {
       );
   }
 
-  saveArticleJson(article: Article): Observable<ResponseObject<Article>> {
+  saveArticleJson(article: any): Observable<ResponseObject<Article>> {
     const url = `${this.API_URL}/board/article`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

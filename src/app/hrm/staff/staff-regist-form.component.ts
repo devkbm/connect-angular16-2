@@ -10,7 +10,7 @@ import { NzInputRadioGroupComponent } from 'src/app/shared/nz-input-radio-group/
 import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
 import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
 
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -176,6 +176,10 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     {label: '여', value: 'F'}
   ];
 
+  private fb = inject(FormBuilder);
+  private service = inject(StaffService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     organizationCode            : new FormControl<string | null>(null, { validators: Validators.required }),
     staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -188,12 +192,6 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     workCondition               : new FormControl<string | null>(null),
     imagePath                   : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: StaffService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.newForm();

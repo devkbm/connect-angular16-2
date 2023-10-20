@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -29,14 +29,14 @@ export interface NewFormValue {
   end: Date;
 }
 
-@Component({  
+@Component({
   selector: 'app-work-calendar-event-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzCrudButtonGroupComponent, NzInputSimpleColorPickerComponent,
     NzInputSelectComponent, NzInputTextareaComponent, NzInputDateTimeComponent, NzInputCheckboxComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}} - {{fg.valid}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -120,10 +120,10 @@ export interface NewFormValue {
         [isSavePopupConfirm]="false"
         (closeClick)="closeForm()"
         (saveClick)="save()"
-        (deleteClick)="remove(fg.get('id')?.value)">
+        (deleteClick)="remove(fg.controls.id.value!)">
       </app-nz-crud-button-group>
     </div>
-  
+
   `,
   styles: [`
     .footer {
@@ -149,20 +149,18 @@ export class WorkCalendarEventFormComponent extends FormBase implements OnInit, 
 
   workGroupList: WorkCalendar[] = [];
 
-  constructor(private fb: FormBuilder,
-              private service: WorkCalendarEventService,
-              private workGroupService: WorkCalendarService) {
-    super();
+  private fb = inject(FormBuilder);
+  private service = inject(WorkCalendarEventService);
+  private workGroupService = inject(WorkCalendarService);
 
-    this.fg = this.fb.group({
-      id              : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
-      text            : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      start           : new FormControl<string | null>(null),
-      end             : new FormControl<string | null>(null),
-      allDay          : new FormControl<boolean | null>(null),
-      workCalendarId  : new FormControl<string | null>(null, { validators: [Validators.required] })
-    });
-  }
+  override fg = this.fb.group({
+    id              : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+    text            : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    start           : new FormControl<string | null>(null),
+    end             : new FormControl<string | null>(null),
+    allDay          : new FormControl<boolean | null>(null),
+    workCalendarId  : new FormControl<number | null>(null, { validators: [Validators.required] })
+  });
 
   ngOnInit(): void {
     this.getMyWorkGroupList();
@@ -191,9 +189,11 @@ export class WorkCalendarEventFormComponent extends FormBase implements OnInit, 
     params.end.setSeconds(0);
     params.end.setMilliseconds(0);
 
+    //this.fg.get('workCalendarId')?.setValue(Number.parseInt(params.workCalendarId.toString(),10));
     this.fg.get('workCalendarId')?.setValue(Number.parseInt(params.workCalendarId.toString(),10));
     this.fg.get('start')?.setValue(dateFns.format(params.start, "yyyy-MM-dd HH:mm:ss"));
     this.fg.get('end')?.setValue(dateFns.format(params.end, "yyyy-MM-dd HH:mm:ss"));
+
   }
 
   modifyForm(formData: WorkCalendarEvent): void {
@@ -233,7 +233,7 @@ export class WorkCalendarEventFormComponent extends FormBase implements OnInit, 
         );
   }
 
-  remove(id: number): void {
+  remove(id: string): void {
     this.service.deleteWorkGroupSchedule(id)
         .subscribe(
             (model: ResponseObject<WorkCalendarEvent>) => {

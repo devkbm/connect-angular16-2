@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -13,8 +12,8 @@ import { NzInputDeptSelectModel } from './nz-input-dept-select.model';
 })
 export class NzInputDeptSelectService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/dept', http, tokenExtractor);
+  constructor() {
+    super('/api/system/dept');
   }
 
   getDeptList(params?: any): Observable<ResponseList<NzInputDeptSelectModel>> {

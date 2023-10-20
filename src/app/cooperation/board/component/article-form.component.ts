@@ -6,7 +6,7 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { NzInputCkeditorComponent } from 'src/app/shared/nz-input-ckeditor/nz-input-ckeditor.component';
 import { NzFileUploadComponent } from 'src/app/shared/nz-file-upload/nz-file-upload.component';
 
-import { AfterViewInit, Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { BoardService } from './board.service';
@@ -20,7 +20,7 @@ import { Article } from './article.model';
 
 
 @Component({
-  selector: 'app-article-form',  
+  selector: 'app-article-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
@@ -160,19 +160,29 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
   @ViewChild('title', { static: true }) title!: NzInputTextComponent;
 
-  constructor(private fb: FormBuilder,
-              private boardService: BoardService) {
-    super();
+  private fb = inject(FormBuilder);
+  private boardService= inject(BoardService);
 
-    this.fg = this.fb.group({
-      boardId         : new FormControl<number | null>(null, { validators: [Validators.required] }),
-      articleId       : new FormControl<number | null>(null, { validators: [Validators.required] }),
-      articleParentId : new FormControl<number | null>(null),
-      title           : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      contents        : new FormControl<string | null>(null),
-      attachFile      : new FormControl<any>(null)
-    });
-  }
+  override fg = this.fb.group({
+    boardId         : new FormControl<number | null>(null, { validators: [Validators.required] }),
+    articleId       : new FormControl<number | null>(null, { validators: [Validators.required] }),
+    articleParentId : new FormControl<number | null>(null),
+    title           : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    contents        : new FormControl<string | null>(null),
+    attachFile      : new FormControl<any>(null)
+    /*
+    pwd             : string;
+    hitCnt          : string;
+    fromDate        : string;
+    toDate          : string;
+    seq             : number;
+    depth           : number;
+    articleChecks   : ArticleRead[];
+    fileList        : string[];
+    file            : File;
+    editable        : boolean
+    */
+  });
 
   ngOnInit(): void {
 

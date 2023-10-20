@@ -8,7 +8,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputTreeSelectComponent } from 'src/app/shared/nz-input-tree-select/nz-input-tree-select.component';
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { CommonCodeService } from './common-code.service';
@@ -21,14 +21,14 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { SystemTypeEnum } from './system-type-enum.model';
 
-@Component({  
+@Component({
   selector: 'app-common-code-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzFormModule, NzInputModule, NzInputNumberModule,
     NzInputTextComponent, NzInputTextareaComponent, NzInputTreeSelectComponent, NzInputSelectComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}}
     {{fg.get('fixedLengthYn')?.value}}
@@ -198,7 +198,7 @@ import { SystemTypeEnum } from './system-type-enum.model';
 
     </div>
     -->
-  
+
   `,
   styles: [`
     [nz-button] {
@@ -235,6 +235,10 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   nodeItems: CommonCodeHierarchy[] = [];
   systemTypeCodeList: SystemTypeEnum[] = [];
 
+  private fb = inject(FormBuilder);
+  private commonCodeService = inject(CommonCodeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     systemTypeCode          : new FormControl<string | null>(null),
     codeId                  : new FormControl<string | null>(null),
@@ -249,10 +253,6 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     lowLevelCodeLength      : new FormControl<number | null>(null),
     cmt                     : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private commonCodeService: CommonCodeService,
-              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {
     this.getCommonCodeHierarchy('');

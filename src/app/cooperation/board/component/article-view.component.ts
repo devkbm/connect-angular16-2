@@ -37,8 +37,6 @@ export class ArticleViewComponent implements OnInit {
 
   fileList: any = [];
 
-  constructor() { }
-
   ngOnInit() {
     this.fileList = this.article?.fileList ?? [];
   }

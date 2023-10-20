@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -13,8 +12,8 @@ import { MenuHierarchy } from './app-layout.model';
 })
 export class AppLayoutService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system', http, tokenExtractor);
+  constructor() {
+    super('/api/system');
   }
 
   getMenuHierarchy(menuGroupId: String): Observable<ResponseList<MenuHierarchy>> {

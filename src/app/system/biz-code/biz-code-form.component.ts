@@ -5,7 +5,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -18,7 +18,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
 
 
-@Component({  
+@Component({
   selector: 'app-biz-code-form',
   standalone: true,
   imports:  [
@@ -142,6 +142,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 })
 export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewInit {
 
+  private fb = inject(FormBuilder);
+  private service = inject(BizCodeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     typeId      : new FormControl<string | null>(null, { validators: [Validators.required] }),
     code        : new FormControl<string | null>(null, { validators: [Validators.required] }),
@@ -150,12 +154,6 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
     sequence    : new FormControl<number | null>(null),
     comment     : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: BizCodeService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
   }

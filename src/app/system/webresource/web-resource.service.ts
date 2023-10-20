@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -11,11 +10,13 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { WebResource } from './web-resource.model';
 import { ResouceTypeEnum } from './resource-type-enum';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WebResourceService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/webresource', http, tokenExtractor);
+  constructor() {
+    super('/api/system/webresource');
   }
 
   getWebResourceTypeList(): Observable<ResponseList<ResouceTypeEnum>> {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -16,8 +15,8 @@ import { SelectControlModel } from 'src/app/core/model/select-control.model.ts';
 })
 export class BizCodeTypeService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/bizcodetype', http, tokenExtractor);
+  constructor() {
+    super('/api/system/bizcodetype');
   }
 
   getSystemList(): Observable<ResponseList<SelectControlModel>> {

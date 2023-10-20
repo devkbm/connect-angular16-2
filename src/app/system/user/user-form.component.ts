@@ -8,7 +8,7 @@ import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-
 import { UserImageUploadComponent } from './user-image-upload.component';
 import { NzInputSwitchComponent } from 'src/app/shared/nz-input-switch/nz-input-switch.component';
 
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormType, FormBase } from 'src/app/core/form/form-base';
@@ -205,6 +205,11 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   @ViewChild('staffNo') staffNoField!: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(UserService);
+  private deptService = inject(DeptService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     userId: new FormControl<string | null>(null, {
       validators: Validators.required,
@@ -222,13 +227,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     authorityList: new FormControl<string[] | null>({ value: null, disabled: false }, { validators: Validators.required }),
     menuGroupList: new FormControl<string[] | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: UserService,
-              private deptService: DeptService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.initLoadId) {

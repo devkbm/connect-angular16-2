@@ -39,8 +39,6 @@ export class NzSelectCustomComponent implements ControlValueAccessor {
 
   value!: string;
 
-  constructor() { }
-
   writeValue(obj: any): void {
     this.value = obj;
   }

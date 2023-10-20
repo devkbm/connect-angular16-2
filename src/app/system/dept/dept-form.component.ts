@@ -5,7 +5,7 @@ import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { DeptService } from './dept.service';
@@ -217,6 +217,10 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
   deptHierarchy: DeptHierarchy[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(DeptService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     parentDeptCode          : new FormControl<string | null>(null),
     /*deptId                  : new FormControl<string | null>(null, {
@@ -234,12 +238,6 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     seq                     : new FormControl<number | null>(1, { validators: [Validators.required] }),
     comment                 : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: DeptService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.getDeptHierarchy();

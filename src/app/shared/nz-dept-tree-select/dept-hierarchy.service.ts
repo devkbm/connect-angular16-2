@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -16,8 +15,8 @@ import { GlobalProperty } from 'src/app/core/global-property';
 })
 export class DeptHierarchyService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/dept', http, tokenExtractor);
+  constructor() {
+    super('/api/system/dept');
   }
 
   getDeptHierarchyList(params?: any): Observable<ResponseList<DeptHierarchy>> {

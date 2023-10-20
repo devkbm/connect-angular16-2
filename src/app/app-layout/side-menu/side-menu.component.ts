@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMenuModeType, NzMenuThemeType } from 'ng-zorro-antd/menu';
 import { MenuHierarchy } from '../app-layout.model';
@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
   // 기본 SIDER 메뉴 트리거 숨기기위해 사용
   triggerTemplate: TemplateRef<void> | null = null;
 
-  constructor(private router: Router) { }
+  private router = inject(Router);
 
   ngOnInit() {
   }

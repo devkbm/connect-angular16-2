@@ -9,7 +9,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -27,7 +27,7 @@ import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-valid
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent, 
+    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent,
     NzInputSelectComponent, NzInputDateComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent,
   ],
   template: `
@@ -194,6 +194,10 @@ import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-valid
 })
 export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterViewInit {
 
+  private fb = inject(FormBuilder);
+  private service = inject(HrmCodeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     typeId        : new FormControl<string | null>(null, { validators: Validators.required }),
     code          : new FormControl<string | null>(null, {
@@ -211,12 +215,6 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
     the4AddInfo   : new FormControl<string | null>(null),
     the5AddInfo   : new FormControl<string | null>(null)
   });
-
-  constructor(private fb:FormBuilder,
-              private service: HrmCodeService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
 

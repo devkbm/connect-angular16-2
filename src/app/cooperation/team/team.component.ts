@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -26,8 +26,8 @@ export class TeamComponent implements OnInit {
 
   gridList: TeamModel[] = [];
 
-  constructor(private appAlarmService: AppAlarmService,
-              private service: TeamService) { }
+  private appAlarmService = inject(AppAlarmService);
+  private service = inject(TeamService);
 
   ngOnInit() {
     this.getGridList('');

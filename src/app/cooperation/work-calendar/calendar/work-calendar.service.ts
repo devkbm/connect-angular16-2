@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -16,8 +15,8 @@ import { WorkCalendarMember } from './work-calendar-member.model';
 })
 export class WorkCalendarService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/grw', http, tokenExtractor);
+  constructor() {
+    super('/api/grw');
   }
 
   /**

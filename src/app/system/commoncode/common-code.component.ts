@@ -59,9 +59,8 @@ export class CommonCodeComponent extends AppBase implements OnInit {
     }
   }];
 
-  constructor(location: Location,
-              private commonCodeService: CommonCodeService) {
-      super(location);
+  constructor(private commonCodeService: CommonCodeService) {
+      super();
   }
 
   ngOnInit(): void {

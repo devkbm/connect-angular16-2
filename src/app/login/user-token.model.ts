@@ -13,14 +13,3 @@ export interface UserToken {
   authorities: Role[];
   menuGroupList: MenuGroup[];
 }
-
-/*
-export class UserToken {
-  constructor(
-    public token: string,
-    public organizationCode: string,
-    public imageUrl: string,
-    public authorities: Authority[],
-    public menuGroupList: MenuGroup[]) {}
-}
-*/

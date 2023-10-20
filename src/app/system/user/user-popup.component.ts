@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzCardModule } from 'ng-zorro-antd/card';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { UserSessionService } from 'src/app/core/service/user-session.service';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { User } from './user.model';
 
-@Component({  
+@Component({
   selector: 'app-user-popup',
   standalone: true,
   imports: [
@@ -42,8 +42,8 @@ export class UserPopupComponent implements OnInit {
     imgSrc: any;
     user: any;
 
-    constructor(private sessionService: UserSessionService,
-                private modal: NzModalRef) { }
+    private sessionService = inject(UserSessionService);
+    private modal = inject(NzModalRef);
 
     ngOnInit(): void {
         this.imgSrc = this.sessionService.getAvartarImageString();

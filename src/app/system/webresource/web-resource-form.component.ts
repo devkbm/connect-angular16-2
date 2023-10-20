@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { WebResourceService } from './web-resource.service';
@@ -18,13 +18,13 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 
-@Component({  
+@Component({
   selector: 'app-web-resource-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzInputTextComponent, NzInputTextareaComponent, NzCrudButtonGroupComponent, NzInputSelectComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue()| json}} - {{fg.valid}}
 
@@ -130,6 +130,10 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
 
   resourceTypeList: ResouceTypeEnum[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(WebResourceService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     resourceId   : new FormControl<string | null>(null, {
       validators: Validators.required,
@@ -141,12 +145,6 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     url           : new FormControl<string | null>('', {validators: [Validators.required]}),
     description   : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: WebResourceService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.getCommonCodeList();

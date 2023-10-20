@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -14,11 +13,13 @@ import { MenuHierarchy } from './menu-hierarchy.model';
 import { MenuRoleHierarchy } from './menu-role-hierarchy.model';
 import { MenuRoleMapping } from './menu-role-mapping.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MenuService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system', http, tokenExtractor);
+  constructor() {
+    super('/api/system');
   }
 
   getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {

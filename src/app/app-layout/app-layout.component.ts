@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
@@ -39,10 +39,10 @@ export class AppLayoutComponent implements OnInit  {
 
   footerMessage: string = '';
 
-  constructor(private appAlarmService: AppAlarmService,
-              private sessionService: UserSessionService,
-              private service: AppLayoutService,
-              private router: Router) { }
+  private appAlarmService = inject(AppAlarmService);
+  private sessionService = inject(UserSessionService);
+  private service = inject(AppLayoutService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.appAlarmService.currentMessage.subscribe(message => this.footerMessage = message);

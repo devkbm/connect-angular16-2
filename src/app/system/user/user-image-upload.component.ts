@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
 import { GlobalProperty } from 'src/app/core/global-property';
@@ -106,7 +106,7 @@ export class UserImageUploadComponent implements OnInit, OnChanges {
     }*/
   fileList: NzUploadFile[] = [];
 
-  constructor(private userService: UserService) { }
+  private userService = inject(UserService);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'].currentValue && changes['userId'].currentValue !== null && changes['userId'].currentValue !== undefined) {

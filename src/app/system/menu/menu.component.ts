@@ -45,10 +45,6 @@ export class MenuComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location) {
-    super(location);
-  }
-
   ngOnInit() {
   }
 

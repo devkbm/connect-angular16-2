@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+
 import { DataService} from 'src/app/core/service/data.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -15,8 +15,8 @@ import { TodoModel } from './todo.model';
 })
 export class TodoService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/todo', http, tokenExtractor);
+  constructor() {
+    super('/api/todo');
   }
 
   getMyTodoGroupList(params?: any): Observable<ResponseList<TodoGroupModel>> {

@@ -1,6 +1,5 @@
 import { Holiday } from './holiday.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -14,8 +13,8 @@ import { ResponseList } from 'src/app/core/model/response-list';
 })
 export class HolidayService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system', http, tokenExtractor);
+  constructor() {
+    super('/api/system');
   }
 
   getHolidayList(fromDate: any, toDate: any): Observable<ResponseList<Holiday>> {

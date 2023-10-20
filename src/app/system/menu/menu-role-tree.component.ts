@@ -79,8 +79,6 @@ export class MenuRoleTreeComponent implements OnInit {
   private menuService = inject(MenuService);
   private userService = inject(UserService);
 
-  constructor() { }
-
   ngOnInit(): void {
     this.getMenuGroupList();
     this.getRoleList();

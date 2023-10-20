@@ -8,7 +8,7 @@ import { HrmCode } from './hrm-code.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
-@Component({  
+@Component({
   selector: 'app-hrm-code-grid',
   standalone: true,
   imports: [CommonModule, AgGridModule],
@@ -37,10 +37,7 @@ export class HrmCodeGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor() {
-
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -84,9 +81,6 @@ export class HrmCodeGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
       return params.data.typeId + params.data.code;
     };
-  }
-
-  ngOnInit() {
   }
 
   private onEditButtonClick(e: any) {

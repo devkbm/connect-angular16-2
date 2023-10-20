@@ -10,8 +10,8 @@ import { AppBase } from 'src/app/core/app/app-base';
 })
 export class DutyApplicationComponent extends AppBase implements OnInit, AfterViewInit {
 
-  constructor(location: Location) {
-    super(location);
+  constructor() {
+    super();
   }
 
   ngOnInit() {

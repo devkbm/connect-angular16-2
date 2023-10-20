@@ -18,10 +18,6 @@ export class DeptComponent extends AppBase implements OnInit, AfterViewInit {
 
   queryValue = '';
 
-  constructor(location: Location) {
-    super(location);
-  }
-
   ngOnInit(): void {
   }
 

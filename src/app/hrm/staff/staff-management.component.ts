@@ -70,8 +70,8 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location) {
-    super(location);
+  constructor() {
+    super();
   }
 
   ngOnInit() {

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -66,10 +66,10 @@ export class RoleGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private service: RoleService,
-              private appAlarmService: AppAlarmService) {
-    super();
+  private service = inject(RoleService);
+  private appAlarmService = inject(AppAlarmService);
 
+  ngOnInit() {
     this.defaultColDef = { resizable: true, sortable: true };
 
     this.columnDefs = [
@@ -110,9 +110,7 @@ export class RoleGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
       return params.data.roleCode;
     };
-  }
 
-  ngOnInit() {
     this.getList();
   }
 

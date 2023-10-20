@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -49,10 +49,10 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   @Output()
   editButtonClicked = new EventEmitter();
 
-  constructor(private appAlarmService: AppAlarmService,
-              private boardService: BoardService) {
-    super();
+  private appAlarmService = inject(AppAlarmService);
+  private boardService = inject(BoardService);
 
+  ngOnInit() {
     this.columnDefs = [
       {
           headerName: '번호',
@@ -105,13 +105,10 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
       resizable: true,
     };
 
-
     this.getRowId = function(params: any) {
       return params.data.articleId;
     };
-  }
 
-  ngOnInit() {
     //this.setWidthAndHeight('100%', '100%');
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { UserSessionService } from 'src/app/core/service/user-session.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-@Component({  
+@Component({
   selector: 'app-user-profile',
   standalone: true,
   imports: [
@@ -43,7 +43,7 @@ export class UserProfileComponent implements OnInit {
   profilePictureSrc: any;
   user?: User;
 
-  constructor(private sessionService: UserSessionService) { }
+  private sessionService = inject(UserSessionService);
 
   ngOnInit() {
     this.profilePictureSrc = this.sessionService.getAvartarImageString();

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -10,13 +9,13 @@ import { ResponseList } from '../../../core/model/response-list';
 import { Team } from '../model/team';
 import { TeamMember } from '../model/team-member';
 
-
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TeamService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-      super('/grw', http, tokenExtractor);
+  constructor() {
+      super('/grw');
   }
 
   /**

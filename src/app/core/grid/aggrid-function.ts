@@ -14,27 +14,21 @@ export class AggridFunction {
   getRowId: any;
   gridApi: any;
   gridColumnApi: any;
-  frameworkComponents: any;
+  frameworkComponents = {
+    buttonRenderer: ButtonRendererComponent,
+    checkboxRenderer: CheckboxRendererComponent
+  };
 
   columnDefs: ColDef[] = [];
-  defaultColDef:ColDef = {};
+  defaultColDef:ColDef = {
+    sortable: true,
+    resizable: true
+  };;
 
   style: {width: string, height: string} = {
       width: '100%',
       height: '100%'
   };
-
-  constructor() {
-    this.frameworkComponents = {
-      buttonRenderer: ButtonRendererComponent,
-      checkboxRenderer: CheckboxRendererComponent
-    };
-
-    this.defaultColDef = {
-      sortable: true,
-      resizable: true
-    };
-  }
 
   onGridReady(params: any) {
     this.gridApi = params.api;

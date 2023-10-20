@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/service/data.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
@@ -14,11 +12,13 @@ import { GlobalProperty } from 'src/app/core/global-property';
 import { SystemTypeEnum } from './system-type-enum.model';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CommonCodeService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/code', http, tokenExtractor);
+  constructor() {
+    super('/api/system/code');
   }
 
   getSystemTypeList(): Observable<ResponseList<SystemTypeEnum>> {

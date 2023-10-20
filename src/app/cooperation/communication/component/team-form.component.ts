@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -35,8 +35,8 @@ export class TeamFormComponent extends FormBase implements OnInit {
 
   memberList: TeamMember[] = [];
 
-  constructor(private fb: FormBuilder,
-              private teamService: TeamService) { super(); }
+  private fb = inject(FormBuilder);
+  private teamService = inject(TeamService);
 
   ngOnInit() {
     this.getAllMember();

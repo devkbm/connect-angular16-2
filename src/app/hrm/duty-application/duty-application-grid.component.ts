@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -38,11 +38,10 @@ export class DutyApplicationGridComponent extends AggridFunction implements OnIn
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private appAlarmService: AppAlarmService,
-              private dutyApplicationService: DutyApplicationService) {
+  private appAlarmService = inject(AppAlarmService);
+  private dutyApplicationService = inject(DutyApplicationService);
 
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -77,9 +76,7 @@ export class DutyApplicationGridComponent extends AggridFunction implements OnIn
     this.getRowId = function(params: any) {
       return params.data.dutyId;
     };
-  }
 
-  ngOnInit() {
     this.getGridList('');
   }
 

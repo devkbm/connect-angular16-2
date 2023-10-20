@@ -52,8 +52,6 @@ export class NzTreeSelectCustomComponent implements ControlValueAccessor {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor() { }
-
   writeValue(obj: any): void {
     this.value = obj;
   }

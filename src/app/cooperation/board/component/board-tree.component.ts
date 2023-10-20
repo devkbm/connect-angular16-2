@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
 
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input, inject } from '@angular/core';
 import { BoardService } from './board.service';
 import { ResponseList } from '../../../core/model/response-list';
 import { BoardHierarchy } from './board-hierarchy.model';
@@ -36,7 +36,7 @@ export class BoardTreeComponent implements OnInit {
   @Output() itemSelected = new EventEmitter();
   @Output() itemDbClicked = new EventEmitter();
 
-  constructor(private boardService: BoardService) { }
+  private boardService = inject(BoardService);
 
   ngOnInit(): void {
     console.log('BoardTreeComponent init');

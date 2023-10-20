@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -52,10 +52,8 @@ export class NzListRoadAddressComponent implements OnInit {
   protected _data?: RoadAddress;
   protected _page?: {index: number, total: number};
 
-  constructor(
-    private service: RoadAddressService,
-    private message: NzMessageService
-  ) { }
+  private service = inject(RoadAddressService);
+  private message = inject(NzMessageService);
 
   ngOnInit() {
   }

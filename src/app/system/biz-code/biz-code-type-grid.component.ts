@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -11,7 +11,7 @@ import { BizCodeType } from './biz-code-type.model';
 import { BizCodeTypeService } from './biz-code-type.service';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({  
+@Component({
   selector: 'app-biz-type-grid',
   standalone: true,
   imports: [ CommonModule, AgGridModule ],
@@ -38,11 +38,10 @@ export class BizCodeTypeGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClickedEvent = new EventEmitter();
   @Output() editButtonClickedEvent = new EventEmitter();
 
-  constructor(private service: BizCodeTypeService,
-              private appAlarmService: AppAlarmService) {
+  private service = inject(BizCodeTypeService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
-
+  ngOnInit(): void {
     this.columnDefs = [
       {
         headerName: '',
@@ -71,9 +70,7 @@ export class BizCodeTypeGridComponent extends AggridFunction implements OnInit {
     this.getRowId = (params: any) => {
         return params.data.typeId;
     };
-  }
 
-  ngOnInit(): void {
     this.getList();
   }
 

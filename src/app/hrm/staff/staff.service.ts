@@ -18,8 +18,8 @@ import { StaffCurrentAppointment } from './staff-current-appointment-description
 })
 export class StaffService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm');
   }
 
   getAppointmentCodeList(params?: any): Observable<ResponseList<Staff>> {

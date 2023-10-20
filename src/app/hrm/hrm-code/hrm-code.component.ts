@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppBase } from 'src/app/core/app/app-base';
 import { HrmCodeTypeGridComponent } from './hrm-code-type-grid.component';
@@ -33,12 +33,9 @@ export class HrmCodeComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location,
-              private appAlarmService: AppAlarmService,
-              private hrmCodeService: HrmCodeService,
-              private hrmCodeTypeService: HrmCodeTypeService) {
-    super(location);
-  }
+  private appAlarmService = inject(AppAlarmService);
+  private hrmCodeService = inject(HrmCodeService);
+  private hrmCodeTypeService = inject(HrmCodeTypeService);
 
   ngOnInit() {
   }

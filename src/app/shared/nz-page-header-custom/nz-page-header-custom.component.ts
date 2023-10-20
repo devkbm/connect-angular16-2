@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -26,7 +26,7 @@ export class NzPageHeaderCustomComponent implements OnInit {
   @Input() title: string | TemplateRef<void> = '';
   @Input() subtitle: string | TemplateRef<void> = '';
 
-  constructor(protected _location: Location) { }
+  protected _location = inject(Location);
 
   ngOnInit() {
   }

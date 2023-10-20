@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -11,7 +11,7 @@ import { CommonCodeService } from './common-code.service';
 import { CommonCode } from './common-code.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({  
+@Component({
   selector: 'app-common-code-grid',
   standalone: true,
   imports: [ CommonModule, AgGridModule ],
@@ -38,11 +38,10 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private commonCodeService: CommonCodeService,
-              private appAlarmService: AppAlarmService) {
+  private commonCodeService = inject(CommonCodeService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
-
+  ngOnInit(): void {
     this.columnDefs = [
       {
         headerName: '',
@@ -88,9 +87,7 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
     this.getRowId = (data: any) => {
         return data.id;
     };
-  }
 
-  ngOnInit(): void {
     this.getCommonCodeList();
   }
 

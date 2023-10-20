@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -13,8 +13,8 @@ import { RoadAddressResult } from './road-address.model';
 })
 export class RoadAddressService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api', http, tokenExtractor);
+  constructor() {
+    super('/api');
   }
 
   // RoadAddressResult

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +14,8 @@ import { ResponseList } from 'src/app/core/model/response-list';
 })
 export class BizCodeService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/bizcodetype', http, tokenExtractor);
+  constructor() {
+    super('/api/system/bizcodetype');
   }
 
   getList(typeId: string): Observable<ResponseList<BizCode>> {

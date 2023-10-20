@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { ResponseList } from 'src/app/core/model/response-list';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -41,11 +41,10 @@ export class WordGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClickedEvent = new EventEmitter();
   @Output() editButtonClickedEvent = new EventEmitter();
 
-  constructor(private service: WordService,
-              private appAlarmService: AppAlarmService) {
+  private service = inject(WordService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
-
+  ngOnInit() {
     this.defaultColDef = { resizable: true, sortable: true };
 
     this.columnDefs = [
@@ -75,9 +74,7 @@ export class WordGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
       return params.data.logicalName;
     };
-  }
 
-  ngOnInit() {
     this.getList();
   }
 

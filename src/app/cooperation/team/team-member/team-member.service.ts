@@ -13,8 +13,8 @@ import { TeamMemberModel } from './team-member.model';
 })
 export class TeamMemberService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-      super('/grw', http, tokenExtractor);
+  constructor() {
+      super('/grw');
   }
 
   public getAllMemberList(params?: any): Observable<ResponseList<TeamMemberModel>> {

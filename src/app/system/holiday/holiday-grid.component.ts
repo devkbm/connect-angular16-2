@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
 import { Holiday } from './holiday.model';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -38,11 +38,10 @@ export class HolidayGridComponent extends AggridFunction implements OnInit {
 
   gridList: Holiday[] = [];
 
-  constructor(private appAlarmService: AppAlarmService,
-              private holidayService: HolidayService) {
+  private appAlarmService = inject(AppAlarmService);
+  private holidayService = inject(HolidayService);
 
-    super();
-
+  ngOnInit(): void {
     this.columnDefs = [
       {
         headerName: '',
@@ -75,9 +74,7 @@ export class HolidayGridComponent extends AggridFunction implements OnInit {
     this.getRowId = (params: any) => {
       return params.data.date;
     };
-  }
 
-  ngOnInit(): void {
     //this.getGridList();
   }
 

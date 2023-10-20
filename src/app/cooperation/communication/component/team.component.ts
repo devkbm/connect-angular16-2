@@ -20,8 +20,6 @@ export class TeamComponent implements OnInit {
   @ViewChild('teamForm', {static: false})
   form!: TeamFormComponent;
 
-  constructor() { }
-
   ngOnInit() {
     this.getTeamList();
   }

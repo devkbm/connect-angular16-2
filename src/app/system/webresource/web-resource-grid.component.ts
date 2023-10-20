@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -12,7 +12,7 @@ import { WebResourceService } from './web-resource.service';
 import { WebResource } from './web-resource.model';
 import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
 
-@Component({  
+@Component({
   selector: 'app-web-resource-grid',
   standalone: true,
   imports: [
@@ -62,11 +62,10 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private service: WebResourceService,
-              private appAlarmService: AppAlarmService) {
+  private service = inject(WebResourceService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -100,9 +99,7 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
         return params.data.resourceId;
     };
-  }
 
-  ngOnInit() {
     this.getList();
   }
 

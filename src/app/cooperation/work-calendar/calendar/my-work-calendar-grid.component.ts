@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { AggridFunction } from '../../../core/grid/aggrid-function';
 import { ResponseList } from '../../../core/model/response-list';
 import { AppAlarmService } from '../../../core/service/app-alarm.service';
@@ -10,7 +10,7 @@ import { WorkCalendarService } from './work-calendar.service';
 import { WorkCalendar } from './work-calendar.model';
 
 
-@Component({  
+@Component({
   selector: 'app-my-work-calendar-grid',
   standalone: true,
   imports: [
@@ -35,19 +35,14 @@ export class MyWorkCalendarGridComponent extends AggridFunction implements OnIni
 
   workGroupList: WorkCalendar[] = [];
 
-  @Output()
-  rowSelected = new EventEmitter();
+  @Output() rowSelected = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
 
-  @Output()
-  rowDoubleClicked = new EventEmitter();
+  private appAlarmService = inject(AppAlarmService);
+  private workGroupService = inject(WorkCalendarService);
 
-  @Output()
-  editButtonClicked = new EventEmitter();
-
-  constructor(private appAlarmService: AppAlarmService,
-              private workGroupService: WorkCalendarService) {
-    super();
-
+  ngOnInit(): void {
     this.defaultColDef = {
       sortable: true,
       resizable: true
@@ -89,9 +84,7 @@ export class MyWorkCalendarGridComponent extends AggridFunction implements OnIni
     this.getRowId = (data: any) => {
         return data.data.id;
     };
-  }
 
-  ngOnInit(): void {
     this.sizeToFit();
   }
 

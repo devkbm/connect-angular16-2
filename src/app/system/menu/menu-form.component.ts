@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -163,6 +163,10 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
    */
   menuHiererachy: MenuHierarchy[] = [];
 
+  private fb = inject(FormBuilder);
+  private menuService = inject(MenuService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
       menuGroupCode       : new FormControl<string | null>(null, { validators: Validators.required }),
       menuCode            : new FormControl<string | null>(null, {
@@ -176,12 +180,6 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
       sequence          : new FormControl<number | null>(null),
       appUrl            : new FormControl<string | null>(null, { validators: Validators.required })
     });
-
-  constructor(private fb: FormBuilder,
-              private menuService: MenuService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
     this.getMenuTypeList();

@@ -82,8 +82,6 @@ export class NzCrudButtonGroupComponent implements OnInit {
   @Output() deleteClick = new EventEmitter();
   @Output() closeClick = new EventEmitter();
 
-  constructor() { }
-
   ngOnInit(): void {
   }
 

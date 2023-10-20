@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -10,11 +9,13 @@ import { ResponseList } from 'src/app/core/model/response-list';
 
 import { Term } from './term.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TermService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/terms', http, tokenExtractor);
+  constructor() {
+    super('/api/system/terms');
   }
 
   getTermList(params?: any): Observable<ResponseList<Term>> {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -27,8 +26,8 @@ export interface Staff {
 })
 export class NzInputSelectStaffService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm/staff', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm/staff');
   }
 
   getList(params?: any): Observable<ResponseList<Staff>> {

@@ -11,14 +11,11 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
-import { HrmRelationCodeGridComponent } from './hrm-relation-code-grid.component';
 import { HrmCodeGridComponent } from './hrm-code-grid.component';
 import { HrmCodeTypeGridComponent } from './hrm-code-type-grid.component';
 import { HrmCodeTypeFormComponent } from './hrm-code-type-form.component';
 import { HrmTypeCodeFormComponent } from './hrm-code-form.component';
-import { HrmRelationCodeFormComponent } from './hrm-relation-code-form.component';
 import { HrmCodeComponent } from './hrm-code.component';
-import { HrmRelationCodeComponent } from './hrm-relation-code.component';
 import { HrmCodeService } from './hrm-code.service';
 
 import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
@@ -42,13 +39,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzPageHeaderCustomComponent,
     HrmCodeGridComponent,
     HrmCodeTypeGridComponent,
-    HrmRelationCodeGridComponent,    
     HrmTypeCodeFormComponent,
     HrmCodeTypeFormComponent,
   ],
   declarations: [
-    HrmRelationCodeComponent,
-    HrmRelationCodeFormComponent,    
     HrmCodeComponent
   ],
   providers: [

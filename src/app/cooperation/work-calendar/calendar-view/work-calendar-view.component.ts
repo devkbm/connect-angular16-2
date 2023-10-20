@@ -1,7 +1,7 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
 
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit, inject } from '@angular/core';
 
 import { ResponseList } from 'src/app/core/model/response-list';
 
@@ -17,7 +17,7 @@ export interface NewDateSelectedArgs {
   end: Date;
 }
 
-@Component({  
+@Component({
   selector: 'app-work-calendar-view',
   standalone: true,
   imports: [
@@ -64,8 +64,7 @@ export class WorkCalendarViewComponent implements AfterViewInit {
   eventData: any[] = [];
   mode?: ModeChangedArgs;
 
-  constructor(private service: WorkCalendarEventService) {
-  }
+  private service = inject(WorkCalendarEventService);
 
   ngAfterViewInit(): void {
     //this.from = this.datePipe.transform(this.calendar.start.toDateLocal(),'yyyyMMdd') ?? '';

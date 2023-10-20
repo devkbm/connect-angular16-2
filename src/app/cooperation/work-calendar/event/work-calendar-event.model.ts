@@ -4,6 +4,6 @@ export interface WorkCalendarEvent {
   start: string | null;
   end: string | null;
   allDay: boolean | null;
-  workCalendarId: string | null;
+  workCalendarId: number | null;
   color?: string;
 }

@@ -36,11 +36,7 @@ export class TeamGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(/*private appAlarmService: AppAlarmService,
-              private service: TeamService*/) {
-
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -71,9 +67,6 @@ export class TeamGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
       return params.data.teamId;
     };
-  }
-
-  ngOnInit() {
   }
 
 

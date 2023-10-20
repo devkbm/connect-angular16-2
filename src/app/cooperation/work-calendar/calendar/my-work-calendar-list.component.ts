@@ -9,7 +9,7 @@ import { WorkCalendarService } from './work-calendar.service';
 import { WorkCalendar } from './work-calendar.model';
 
 
-@Component({  
+@Component({
   selector: 'app-my-work-calendar-list',
   standalone: true,
   imports: [ CommonModule, MatListModule ],
@@ -19,7 +19,7 @@ import { WorkCalendar } from './work-calendar.model';
         togglePosition="before"
         *ngFor="let item of workGroupList" [value]="item"
         (dblclick)="rowDbClicked(item)">
-        {{item.name}}
+        {{item.color}}
       </mat-list-option>
     </mat-selection-list>
   `,

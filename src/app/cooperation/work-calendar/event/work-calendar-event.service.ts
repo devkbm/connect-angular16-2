@@ -14,8 +14,8 @@ import { WorkCalendarEvent } from './work-calendar-event.model';
 })
 export class WorkCalendarEventService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/grw', http, tokenExtractor);
+  constructor() {
+    super('/api/grw');
   }
 
   /**
@@ -58,7 +58,7 @@ export class WorkCalendarEventService extends DataService {
    * @description 스케쥴을 삭제한다.
    * @param id 스케쥴id
    */
-  public deleteWorkGroupSchedule(id: number): Observable<ResponseObject<WorkCalendarEvent>> {
+  public deleteWorkGroupSchedule(id: string): Observable<ResponseObject<WorkCalendarEvent>> {
     const url = `${this.API_URL}/workcalendarevent/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

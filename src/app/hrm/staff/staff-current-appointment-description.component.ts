@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffService } from './staff.service';
 import { CommonModule } from '@angular/common';
@@ -50,7 +50,7 @@ export class StaffCurrentAppointmentDescriptionComponent implements OnInit, OnCh
 
   info?: StaffCurrentAppointment;
 
-  constructor(private service: StaffService) { }
+  private service = inject(StaffService);
 
   ngOnInit() {
   }

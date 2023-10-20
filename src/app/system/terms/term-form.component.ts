@@ -5,7 +5,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TermService } from './term.service';
@@ -175,6 +175,12 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
   wordList: Word[] = [];
   dataDomainList: DataDomain[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(TermService);
+  private wordService = inject(WordService);
+  private dataDomainService = inject(DataDomainService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     termId       : new FormControl<string | null>(null),
     system       : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -185,14 +191,6 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
     description  : new FormControl<string | null>(null),
     comment      : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: TermService,
-              private wordService: WordService,
-              private dataDomainService: DataDomainService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.getSystemTypeList();

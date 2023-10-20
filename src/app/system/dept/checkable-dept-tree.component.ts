@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input, inject } from '@angular/core';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { DeptHierarchy } from './dept-hierarchy.model';
 
@@ -42,7 +42,7 @@ export class CheckableDeptTreeComponent implements OnInit {
     @Output() itemSelected = new EventEmitter();
     @Output() itemChecked = new EventEmitter();
 
-    constructor(private deptService: DeptService) { }
+    private deptService = inject(DeptService);
 
     ngOnInit(): void {
         console.log('CheckableDeptTreeComponent init');

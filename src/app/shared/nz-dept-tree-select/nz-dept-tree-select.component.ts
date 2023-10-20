@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, inject, Input, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormGroup, FormsModule, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
@@ -40,7 +40,7 @@ import { DeptHierarchyService } from './dept-hierarchy.service';
     }
   ]
 })
-export class NzDeptTreeSelectComponent implements ControlValueAccessor {
+export class NzDeptTreeSelectComponent implements ControlValueAccessor, OnInit {
 
   @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
@@ -56,7 +56,9 @@ export class NzDeptTreeSelectComponent implements ControlValueAccessor {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor(private deptService: DeptHierarchyService) {
+  private deptService = inject(DeptHierarchyService);
+
+  ngOnInit(): void {
     this.getDeptHierarchy();
   }
 

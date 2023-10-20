@@ -12,9 +12,9 @@ import { BizCodeGridComponent } from './biz-code-grid.component';
   styleUrls: ['./biz-code.component.css']
 })
 export class BizCodeComponent extends AppBase implements OnInit {
-  
+
   @ViewChild(BizCodeTypeGridComponent) gridCodeType!: BizCodeTypeGridComponent;
-  @ViewChild(BizCodeGridComponent) gridCode!: BizCodeGridComponent;  
+  @ViewChild(BizCodeGridComponent) gridCode!: BizCodeGridComponent;
 
   drawerCodeType: { visible: boolean, initLoadId: any } = {
     visible: false,
@@ -26,14 +26,9 @@ export class BizCodeComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location) {
-    super(location);
-    this.appId = "COM013";
-  }
-
   ngOnInit(): void {
   }
-  
+
   selectBizCodeTypeList() {
     this.drawerCodeType.visible = false;
 
@@ -51,7 +46,7 @@ export class BizCodeComponent extends AppBase implements OnInit {
   }
 
   codeTypeGridRowClicked(params: any) {
-    this.drawerCodeType.initLoadId = params.typeId;   
+    this.drawerCodeType.initLoadId = params.typeId;
     this.drawerCode.initLoadId = {typeId: params.typeId};
 
     this.gridCode.getList(this.drawerCode.initLoadId.typeId);
@@ -62,7 +57,7 @@ export class BizCodeComponent extends AppBase implements OnInit {
     this.gridCode.getList(this.drawerCode.initLoadId.typeId);
   }
 
-  newCode() {    
+  newCode() {
     this.drawerCode.visible = true;
   }
 
@@ -71,7 +66,7 @@ export class BizCodeComponent extends AppBase implements OnInit {
     this.drawerCode.visible = true;
   }
 
-  codeGridRowClicked(params: any) {    
+  codeGridRowClicked(params: any) {
     this.drawerCode.initLoadId = {typeId: params.typeId, code: params.code};
   }
 

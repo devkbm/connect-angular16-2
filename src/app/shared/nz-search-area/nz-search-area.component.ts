@@ -23,8 +23,6 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 })
 export class NzSearchAreaComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
   }
 

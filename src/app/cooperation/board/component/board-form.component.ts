@@ -7,7 +7,7 @@ import { NzInputTreeSelectComponent } from 'src/app/shared/nz-input-tree-select/
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BoardService } from './board.service';
@@ -19,11 +19,11 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 
 @Component({
-  selector: 'app-board-form',  
+  selector: 'app-board-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    NzFormModule, NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent, 
+    NzFormModule, NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent,
     NzInputTreeSelectComponent, NzCrudButtonGroupComponent
   ],
   template: `
@@ -92,7 +92,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
         (deleteClick)="remove()">
       </app-nz-crud-button-group>
     </div>
-  
+
   `,
   styles: [`
     [nz-button] {
@@ -127,6 +127,9 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
 
   boardTypeList: any;
 
+  private fb = inject(FormBuilder);
+  private service = inject(BoardService);
+
   override fg = this.fb.group({
     boardId         : new FormControl<string | null>(null),
     boardParentId   : new FormControl<string | null>(null),
@@ -134,11 +137,6 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     boardType       : new FormControl<string | null>('', { validators: [Validators.required] }),
     boardDescription: new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: BoardService) {
-    super();
-  }
 
   ngOnInit() {
     this.getboardHierarchy();

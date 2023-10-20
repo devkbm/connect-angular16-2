@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
@@ -41,11 +41,14 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
   @Output() editButtonClicked = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
 
-  constructor(private menuService: MenuService,
-              private appAlarmService: AppAlarmService) {
+  private menuService = inject(MenuService);
+  private appAlarmService = inject(AppAlarmService);
 
-    super();
+  private onEditButtonClick(e: any) {
+    this.editButtonClicked.emit(e.rowData);
+  }
 
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -91,13 +94,7 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(data: any) {
         return data.data.menuGroupCode;
     };
-  }
 
-  private onEditButtonClick(e: any) {
-    this.editButtonClicked.emit(e.rowData);
-  }
-
-  ngOnInit() {
     this.getMenuGroupList();
   }
 

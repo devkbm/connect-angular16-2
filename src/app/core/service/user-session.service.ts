@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 import { DataService } from './data.service';
 import { ResponseObject } from '../model/response-object';
@@ -9,12 +8,14 @@ import { User } from '../../system/user/user.model';
 import { GlobalProperty } from 'src/app/core/global-property';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserSessionService extends DataService {
   private STATIC_URI = '/static/';
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/user', http, tokenExtractor);
+  constructor() {
+    super('/api/system/user');
     this.STATIC_URI = GlobalProperty.serverUrl + '/static/';
   }
 

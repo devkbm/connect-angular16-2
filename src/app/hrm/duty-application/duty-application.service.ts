@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +14,8 @@ import { DutyDate } from './duty-application.model';
 })
 export class DutyApplicationService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm');
   }
 
   /**

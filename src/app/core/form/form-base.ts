@@ -48,9 +48,6 @@ export abstract class FormBase {
   @Output() formDeleted = new EventEmitter();
   @Output() formClosed = new EventEmitter();
 
-  constructor() {
-  }
-
   /**
    *
    * @param formGroup 폼그룹
@@ -61,7 +58,7 @@ export abstract class FormBase {
       return formGroup.get(fieldName)?.dirty
           && formGroup.get(fieldName)?.hasError(errorName) ? true : false;
   }
-  
+
   checkForm() {
     for (const i in this.fg.controls) {
       this.fg.controls[i].markAsDirty();

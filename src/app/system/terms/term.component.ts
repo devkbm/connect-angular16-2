@@ -13,21 +13,21 @@ import { WordGridComponent } from './word-grid.component';
   styleUrls: ['./term.component.css']
 })
 export class TermComponent extends AppBase implements OnInit {
-  
+
   @ViewChild('termGrid') termGrid!: TermGridComponent;
   @ViewChild('wordGrid') wordGrid!: WordGridComponent;
-  @ViewChild('domainGrid') domainGrid!: DataDomainGridComponent;  
+  @ViewChild('domainGrid') domainGrid!: DataDomainGridComponent;
 
   query: { key: string, value: string, list: {label: string, value: string}[] } = {
     key: 'term',
     value: '',
     list: [
       {label: '용어', value: 'term'},
-      {label: '업무영역', value: 'domain'}  
+      {label: '업무영역', value: 'domain'}
     ]
   }
 
-  tabIndex: number = 0;  
+  tabIndex: number = 0;
 
   termDrawer: { visible: boolean, initLoadId: any } = {
     visible: false,
@@ -44,14 +44,10 @@ export class TermComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location) {
-    super(location);
-  }
-
   ngOnInit(): void {
   }
 
-  getList() {    
+  getList() {
     if (this.tabIndex === 0) {
       this.getTermList();
     } else if (this.tabIndex === 1) {
@@ -67,22 +63,22 @@ export class TermComponent extends AppBase implements OnInit {
     if ( this.query.value !== '') {
       params[this.query.key] = this.query.value;
     }
-    
+
     this.termDrawer.visible = false;
     this.termGrid.getList(params);
   }
 
-  newTerm() {    
+  newTerm() {
     this.termDrawer.initLoadId = null;
     this.termDrawer.visible = true;
   }
-  
-  editTerm(item: any) {    
+
+  editTerm(item: any) {
     this.termDrawer.initLoadId = item.termId;
     this.termDrawer.visible = true;
   }
 
-  termGridSelected(item: any) {        
+  termGridSelected(item: any) {
     this.termDrawer.initLoadId = item.termId;
   }
   //#endregion 용어사전
@@ -98,7 +94,7 @@ export class TermComponent extends AppBase implements OnInit {
     this.wordDrawer.visible = true;
   }
 
-  editWord(item: any) {    
+  editWord(item: any) {
     this.wordDrawer.initLoadId = item.logicalName;
     this.wordDrawer.visible = true;
   }
@@ -117,9 +113,9 @@ export class TermComponent extends AppBase implements OnInit {
   newDomain() {
     this.domainDrawer.initLoadId = null;
     this.domainDrawer.visible = true;
-  }  
-      
-  domainGridSelected(item: any) {    
+  }
+
+  domainGridSelected(item: any) {
     this.domainDrawer.initLoadId = item.domainId;
   }
   //#endregion 도메인

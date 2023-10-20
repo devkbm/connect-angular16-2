@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -13,7 +13,7 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-@Component({  
+@Component({
   selector: 'app-team-form',
   standalone: true,
   imports: [
@@ -90,19 +90,17 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 export class TeamFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('teamName') teamName?: NzInputTextComponent;
 
+  members: TeamJoinableUserModel[] = [];
+
+  private fb = inject(FormBuilder);
+  private service = inject(TeamService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     teamId      : new FormControl<string | null>(null, { validators: [Validators.required] }),
     teamName    : new FormControl<string | null>(null, { validators: [Validators.required] }),
     memberList  : new FormControl<string[] | null>(null)
   });
-
-  members: TeamJoinableUserModel[] = [];
-
-  constructor(private fb: FormBuilder,
-              private service: TeamService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
     this.getMembers();

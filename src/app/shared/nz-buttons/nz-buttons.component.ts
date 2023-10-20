@@ -85,8 +85,6 @@ export class NzButtonsComponent implements OnInit {
   @Input() buttons!: ButtonTemplate[];
   @Input() isAutoDevider: boolean = true;
 
-  constructor() { }
-
   ngOnInit() {
   }
 

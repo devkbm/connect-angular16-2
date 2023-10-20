@@ -1,14 +1,10 @@
 import { Location } from '@angular/common';
+import { inject } from '@angular/core';
 
 export class AppBase {
 
   protected appId: string = '';
-
-  //private programService: WebResourceService;
-
-  constructor(protected _location: Location) {
-    //this.programService = AppInjector.injector.get(WebResourceService);
-  }
+  protected _location = inject(Location);
 
   goBack() {
     this._location.back();
@@ -17,9 +13,5 @@ export class AppBase {
   goFoward() {
     this._location.forward();
   }
-
-  //getAppInfo(): Observable<ResponseObject<WebResource>> {
-    //return this.programService.getProgram(this.appId);
-  //}
 
 }

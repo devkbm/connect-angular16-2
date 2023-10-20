@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { GlobalProperty } from 'src/app/core/global-property';
 import { UnauthorizedError } from '../error/unauthorized-error';
 
-// @Injectable()
 export class DataService {
 
   protected responseMap =  (res: Response) => res;
   protected serverUrl;
   protected API_URL;
 
-  constructor(protected API_URI: string, protected http: HttpClient, protected tokenExtractor: HttpXsrfTokenExtractor) {
+  protected http = inject(HttpClient);
+  protected tokenExtractor = inject(HttpXsrfTokenExtractor);
+
+  constructor(protected API_URI: string) {
     this.serverUrl = GlobalProperty.serverUrl;
     this.API_URL = this.serverUrl + API_URI;
   }

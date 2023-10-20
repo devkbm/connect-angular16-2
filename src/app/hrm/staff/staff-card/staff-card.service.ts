@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/service/data.service';
 import { ResponseList } from 'src/app/core/model/response-list';
-import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffCardModel } from './staff-card.model';
 
 @Injectable({
@@ -14,8 +12,8 @@ import { StaffCardModel } from './staff-card.model';
 })
 export class StaffCardService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm/staff-card', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm/staff-card');
   }
 
   getList(): Observable<ResponseList<StaffCardModel>> {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 
 import { SessionManager } from 'src/app/core/session-manager';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ResponseObject } from 'src/app/core/model/response-object';
@@ -19,13 +19,13 @@ import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 
-@Component({  
+@Component({
   selector: 'app-work-calendar-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzCrudButtonGroupComponent, NzInputSimpleColorPickerComponent, NzInputSelectComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -98,10 +98,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         [isSavePopupConfirm]="false"
         (closeClick)="closeForm()"
         (saveClick)="save()"
-        (deleteClick)="remove(fg.get('workCalendarId')?.value)">
+        (deleteClick)="remove(fg.controls.workCalendarId.value!)">
       </app-nz-crud-button-group>
     </div>
-  
+
   `,
   styles: [`
     .footer {
@@ -126,17 +126,15 @@ export class WorkCalendarFormComponent extends FormBase implements OnInit, After
 
   @ViewChild('workCalendarName') workCalendarName?: NzInputTextComponent;
 
-  constructor(private fb: FormBuilder,
-              private workGroupService: WorkCalendarService) {
-    super();
+  private fb = inject(FormBuilder);
+  private workGroupService = inject(WorkCalendarService);
 
-    this.fg = this.fb.group({
-      workCalendarId    : new FormControl<number | null>({value: null, disabled: true}, { validators: [Validators.required] }),
-      workCalendarName  : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      color             : new FormControl<string | null>(null),
-      memberList        : new FormControl<any | null>(null),
+  override fg = this.fb.group({
+    workCalendarId    : new FormControl<number | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+    workCalendarName  : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    color             : new FormControl<string | null>(null),
+    memberList        : new FormControl<any | null>(null)
   });
-  }
 
   ngOnInit(): void {
     this.getAllMember();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -16,15 +16,17 @@ import { MenuGroup } from '../menu/menu-group.model';
 import { GlobalProperty } from 'src/app/core/global-property';
 import { Role } from '../role/role.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService extends DataService {
 
   private AUTHORITY_API_URI = '/api/system/role';
 
   private MENU_GROUP_API_URI = '/api/system/menugroup';
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/user', http, tokenExtractor);
+  constructor() {
+    super('/api/system/user');
   }
 
   checkUser(id: string): Observable<ResponseObject<boolean>> {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -59,10 +59,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location,
-              private service: WebResourceService) {
-    super(location);
-  }
+  private service = inject(WebResourceService);
 
   ngOnInit(): void {
   }

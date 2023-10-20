@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { formatDate, Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -34,11 +34,9 @@ export class HolidayComponent extends AppBase implements OnInit, AfterViewInit {
     initLoadId: null
   }
 
-  constructor(location: Location,
-              private service: HolidayService,
-              private appAlarmService: AppAlarmService) {
-    super(location);
-  }
+  private service = inject(HolidayService);
+  private appAlarmService = inject(AppAlarmService);
+
   ngAfterViewInit(): void {
     this.getHolidayList();
   }

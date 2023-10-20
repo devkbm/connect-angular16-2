@@ -35,10 +35,7 @@ export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor() {
-
-    super();
-
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -71,9 +68,6 @@ export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
     this.getRowId = function(params: any) {
       return params.data.typeId;
     };
-  }
-
-  ngOnInit() {
   }
 
   onEditButtonClick(e: any) {

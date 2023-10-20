@@ -63,8 +63,6 @@ export class DutyDateListComponent implements OnInit {
 
   ];
 
-  constructor() { }
-
   ngOnInit() {
     this._data[0].isSelected
   }

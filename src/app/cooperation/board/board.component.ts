@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { ArticleGridComponent } from './component/article-grid.component';
 import { BoardTreeComponent } from './component/board-tree.component';
 import { Article } from './component/article.model';
@@ -44,8 +44,8 @@ export class BoardComponent implements OnInit {
    */
   queryValue: any;
 
-  constructor(private message: NzMessageService,
-              public viewContainerRef: ViewContainerRef) { }
+  private message = inject(NzMessageService);
+  public viewContainerRef = inject(ViewContainerRef);
 
   ngOnInit() {
     this.getBoardTree();

@@ -7,7 +7,6 @@ import { AppLayoutComponent } from '../app-layout/app-layout.component';
 import { AuthGuardService } from '../core/service/auth-guard.service';
 import { TeamComponent } from './team/team.component';
 import { BoardComponent } from './board/board.component';
-import { SurveyFormComponent } from './survey/component/survey-form.component';
 import { TodosComponent } from './todo/todos.component';
 import { WorkCalendarComponent } from './work-calendar/work-calendar.component';
 
@@ -18,7 +17,6 @@ const routes: Routes = [
       /* 협업시스템 */
       {path: 'team',          component: TeamComponent},
       {path: 'board',         component: BoardComponent},
-      {path: 'surveyform',    component: SurveyFormComponent},
       {path: 'todo',          component: TodosComponent},
       {path: 'workcalendar',  component: WorkCalendarComponent},
     ]

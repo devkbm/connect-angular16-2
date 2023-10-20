@@ -42,8 +42,6 @@ export class WorkCalendarComponent implements OnInit {
     selectedScheduleId: -1
   }
 
-  constructor() { }
-
   ngOnInit(): void {
     this.getMyWorkGroupList();
   }

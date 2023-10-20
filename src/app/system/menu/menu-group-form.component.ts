@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -95,6 +95,10 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   @ViewChild('menuGroupCode') menuGroupCode!: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private menuService = inject(MenuService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     /*
     menuGroupId     : new FormControl<string | null>(null, {
@@ -106,12 +110,6 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
     description     : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private menuService: MenuService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
   }

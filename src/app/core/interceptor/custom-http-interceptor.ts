@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpInterceptor, HttpHeaders, HttpRequest, HttpHandler, HttpEvent, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     'http://localhost:8090/api/hrm/staff/changeimage'   // 직원 사진 url
   ];
 
-  constructor(private tokenExtractor: HttpXsrfTokenExtractor) { }
+  private tokenExtractor = inject(HttpXsrfTokenExtractor);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const headerName = 'XSRF-TOKEN';

@@ -10,7 +10,7 @@ import { DutyDateListComponent } from './duty-date-list.component';
 import { NzInputSelectStaffComponent } from 'src/app/shared/nz-input-select-staff/nz-input-select-staff.component';
 
 import { formatDate } from '@angular/common';
-import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -155,6 +155,11 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
    */
   dutyCodeList: HrmCode[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(DutyApplicationService);
+  private hrmCodeService = inject(HrmCodeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     dutyId            : new FormControl<string | null>(null, { validators: Validators.required }),
     staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -165,11 +170,6 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     selectedDate      : new FormControl<DutyDate[] | null>(null),
     dutyTime          : new FormControl<number | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: DutyApplicationService,
-              private hrmCodeService: HrmCodeService,
-              private appAlarmService: AppAlarmService) {  super(); }
 
   ngOnInit() {
     this.getDutyCodeList();

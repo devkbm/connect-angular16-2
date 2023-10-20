@@ -5,7 +5,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -24,7 +24,7 @@ import { HtmlSelectOption } from 'src/app/shared/nz-input-select/html-select-opt
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent, NzCrudButtonGroupComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}}
     {{fg.valid}}
@@ -118,6 +118,10 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
 
   @ViewChild('domainName') domainName?: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(DataDomainService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     domainId      : new FormControl<string | null>(null, { validators: Validators.required }),
     domainName    : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -125,12 +129,6 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
     dataType      : new FormControl<string | null>(null),
     comment       : new FormControl<string | null>(null)
   });
-  
-  constructor(private fb: FormBuilder,
-              private service: DataDomainService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
   }

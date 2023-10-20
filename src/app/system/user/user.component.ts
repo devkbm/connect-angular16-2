@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -63,10 +63,7 @@ export class UserComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
-  constructor(location: Location,
-              private service: UserService) {
-    super(location);
-  }
+  private service = inject(UserService);
 
   ngOnInit() {
   }

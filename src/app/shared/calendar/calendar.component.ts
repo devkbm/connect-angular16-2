@@ -1,4 +1,4 @@
-import {Component, ViewChild, AfterViewInit} from "@angular/core";
+import {Component, ViewChild, AfterViewInit, inject} from "@angular/core";
 import {DayPilot, DayPilotCalendarComponent} from "@daypilot/daypilot-lite-angular";
 import {DataService} from "./data.service";
 import {forkJoin} from "rxjs";
@@ -36,8 +36,7 @@ export class CalendarComponent implements AfterViewInit {
     }
   };
 
-  constructor(private ds: DataService) {
-  }
+  private ds = inject(DataService);
 
   ngAfterViewInit(): void {
 

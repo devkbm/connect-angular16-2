@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -41,10 +41,10 @@ export class StaffFamilyGridComponent extends AggridFunction implements OnInit, 
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private appAlarmService: AppAlarmService,
-              private service: StaffFamilyService) {
-    super();
+  private appAlarmService = inject(AppAlarmService);
+  private service = inject(StaffFamilyService);
 
+  ngOnInit() {
     this.columnDefs = [
       {
         headerName: '',
@@ -80,9 +80,6 @@ export class StaffFamilyGridComponent extends AggridFunction implements OnInit, 
       return params.data.staffId + params.data.seq;
     };
 
-  }
-
-  ngOnInit() {
     //this.setWidthAndHeight('100%', '600px');
   }
 

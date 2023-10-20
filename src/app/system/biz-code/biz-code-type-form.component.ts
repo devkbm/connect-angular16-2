@@ -6,7 +6,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -19,13 +19,13 @@ import { BizCodeTypeService } from './biz-code-type.service';
 import { SelectControlModel } from 'src/app/core/model/select-control.model.ts';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-@Component({  
+@Component({
   selector: 'app-biz-code-type-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzInputTextComponent, NzInputTextareaComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent, NzInputSelectComponent
-  ],  
+  ],
   template: `
     {{fg.getRawValue() | json}} - {{fg.valid}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -136,6 +136,10 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   bizTypeList: SelectControlModel[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(BizCodeTypeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     typeId    : new FormControl<string | null>(null, { validators: [Validators.required] }),
     typeName  : new FormControl<string | null>(null, { validators: [Validators.required] }),
@@ -143,12 +147,6 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     bizType   : new FormControl<string | null>(null, { validators: [Validators.required] }),
     comment   : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: BizCodeTypeService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.getSystemList();

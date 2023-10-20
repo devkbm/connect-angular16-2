@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -16,6 +16,8 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent extends AppBase implements AfterViewInit {
+
+  private service = inject(RoleService);
 
   @ViewChild(RoleGridComponent) grid!: RoleGridComponent;
 
@@ -55,11 +57,6 @@ export class RoleComponent extends AppBase implements AfterViewInit {
     }
   }];
 
-  constructor(private location: Location,
-              private service: RoleService) {
-    super(location);
-    this.appId = "COM002";
-  }
 
   ngOnInit(): void {
   }

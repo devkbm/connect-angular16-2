@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -14,8 +13,8 @@ import { StaffAppointmentRecord } from './staff-appointment-record.model';
 })
 export class StaffAppointmentRecordService extends DataService {
 
-  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/hrm/staff', http, tokenExtractor);
+  constructor() {
+    super('/api/hrm/staff');
   }
 
   getList(staffId: string): Observable<ResponseList<StaffAppointmentRecord>> {

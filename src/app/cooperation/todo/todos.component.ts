@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TodoService } from './todo.service';
 import { TodoModel } from './todo.model';
 import { ResponseList } from 'src/app/core/model/response-list';
@@ -19,7 +19,9 @@ export class TodosComponent implements OnInit {
   selectedPkTodoGroup: string = '';
   newText: string = '';
 
-  constructor(private service: TodoService) {
+  private service = inject(TodoService);
+
+  constructor() {
     this.todos = [
 
       // {isCompleted: false, todo: '할일1'},

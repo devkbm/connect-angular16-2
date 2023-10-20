@@ -6,7 +6,7 @@ import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -21,7 +21,7 @@ import { style } from '@angular/animations';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
     NzCrudButtonGroupComponent, NzInputTextComponent, NzInputTextareaComponent, NzInputDateComponent
-  ],  
+  ],
   template: `
     {{fg.value | json}} - {{fg.valid}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
@@ -111,17 +111,15 @@ import { style } from '@angular/animations';
 })
 export class HolidayFormComponent extends FormBase implements OnInit, AfterViewInit {
 
+  private fb = inject(FormBuilder);
+  private service = inject(HolidayService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     date          : new FormControl<Date | null>(null, { validators: Validators.required }),
     holidayName   : new FormControl<string | null>(null, { validators: Validators.required }),
     comment       : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: HolidayService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.initLoadId) {

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CooperationRoutingModule } from './cooperation-routing.module';
 
 import { BoardModule } from './board/board.module';
-import { SurveyModule } from './survey/survey.module';
 import { TeamModule } from './team/team.module';
 import { TodoModule } from './todo/todo.module';
 import { WorkCalendarModule } from './work-calendar/work-calendar.module';
@@ -13,7 +12,6 @@ import { WorkCalendarModule } from './work-calendar/work-calendar.module';
     CommonModule,
     CooperationRoutingModule,
     BoardModule,
-    SurveyModule,
     TeamModule,
     TodoModule,
     WorkCalendarModule

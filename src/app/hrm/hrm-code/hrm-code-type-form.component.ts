@@ -9,7 +9,7 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
 import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -21,11 +21,11 @@ import { HrmType } from './hrm-type.model';
 import { existingHrmTypeValidator } from './hrm-code-type-duplication-validator';
 
 @Component({
-  selector: 'app-hrm-code-type-form',  
+  selector: 'app-hrm-code-type-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent, 
+    NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent,
     NzInputSelectComponent, NzInputDateComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent
   ],
   template: `
@@ -179,6 +179,10 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   @ViewChild('typeId') typeId!: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(HrmCodeTypeService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     typeId          : new FormControl<string | null>(null, {
                         validators: Validators.required,
@@ -194,12 +198,6 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     the4AddInfoDesc : new FormControl<string | null>(null),
     the5AddInfoDesc : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: HrmCodeTypeService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
 
