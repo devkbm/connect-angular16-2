@@ -6,7 +6,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 import { NzListRoadAddressComponent } from 'src/app/shared/nz-list-road-address/nz-list-road-address.component';
 
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -149,6 +149,10 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
 
   //@ViewChild('domainName') domainName?: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(StaffContactService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     //staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
     staffNo           : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -160,12 +164,6 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
     extensionNumber   : new FormControl<string | null>(null),
     mobileNumber      : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: StaffContactService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['staff'].currentValue) {

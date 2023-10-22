@@ -23,8 +23,8 @@ const layoutroutes: Routes = [
     children: [
       /* 공통 시스템 */
       {path: 'user',          component: UserComponent},
-      {path: 'auth',          component: RoleComponent},
-      {path: 'program',       component: WebResourceComponent},
+      {path: 'role',          component: RoleComponent},
+      {path: 'webresource',   component: WebResourceComponent},
       {path: 'menu',          component: MenuComponent},
       {path: 'commoncode',    component: CommonCodeComponent},
       {path: 'dept',          component: DeptComponent},

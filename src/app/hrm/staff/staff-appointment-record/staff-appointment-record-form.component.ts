@@ -8,7 +8,7 @@ import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 import { NzDeptTreeSelectComponent } from 'src/app/shared/nz-dept-tree-select/nz-dept-tree-select.component';
 
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -306,6 +306,12 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
    */
   dutyResponsibilityCodeList: HrmCode[] = [];
 
+  private fb = inject(FormBuilder);
+  private service = inject(StaffAppointmentRecordService);
+  private hrmCodeService = inject(HrmCodeService);
+  private deptService = inject(DeptService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
       staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffName               : new FormControl<string | null>(null),
@@ -325,15 +331,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       payStepCode             : new FormControl<string | null>(null),
       jobCode                 : new FormControl<string | null>(null),
       dutyResponsibilityCode  : new FormControl<string | null>(null)
-    });
-
-  constructor(private fb: FormBuilder,
-              private service: StaffAppointmentRecordService,
-              private hrmCodeService: HrmCodeService,
-              private deptService: DeptService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
+  });
 
   ngOnInit(): void {
     this.getHrmTypeDetailCodeList('HR0000', "appointmentTypeList");

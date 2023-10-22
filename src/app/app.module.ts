@@ -63,7 +63,4 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
 })
 export class AppModule {
 
-  constructor(injector: Injector) {
-    AppInjector.injector = injector;
-  }
 }

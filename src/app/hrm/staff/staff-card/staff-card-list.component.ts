@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { StaffCardComponent } from './staff-card.component';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { StaffCardModel } from './staff-card.model';
 import { StaffCardService } from './staff-card.service';
@@ -25,7 +25,7 @@ export class StaffCardListComponent implements OnInit {
 
   trackByItem = (index: number, item: StaffCardModel): string => item.staffId!;
 
-  constructor(private service: StaffCardService) { }
+  private service = inject(StaffCardService);
 
   ngOnInit() {
     this.getStaffCardList();

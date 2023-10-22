@@ -5,7 +5,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -93,6 +93,10 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
 
   @ViewChild('staffNo') staffNo?: NzInputTextComponent;
 
+  private fb = inject(FormBuilder);
+  private service = inject(StaffService);
+  private appAlarmService = inject(AppAlarmService);
+
   override fg = this.fb.group({
     staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
     name                        : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -100,12 +104,6 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
     nameEng                     : new FormControl<string | null>(null),
     nameChi                     : new FormControl<string | null>(null)
   });
-
-  constructor(private fb: FormBuilder,
-              private service: StaffService,
-              private appAlarmService: AppAlarmService) {
-    super();
-  }
 
   ngOnInit() {
   }

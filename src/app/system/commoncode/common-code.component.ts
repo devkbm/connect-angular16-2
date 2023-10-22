@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -59,9 +59,7 @@ export class CommonCodeComponent extends AppBase implements OnInit {
     }
   }];
 
-  constructor(private commonCodeService: CommonCodeService) {
-      super();
-  }
+  private commonCodeService = inject(CommonCodeService);
 
   ngOnInit(): void {
     this.getSystemTypeCode();

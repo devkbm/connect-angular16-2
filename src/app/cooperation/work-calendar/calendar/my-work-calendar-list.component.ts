@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 
@@ -41,8 +41,8 @@ export class MyWorkCalendarListComponent implements OnInit {
   @Output() rowSelected = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
 
-  constructor(private appAlarmService: AppAlarmService,
-              private workGroupService: WorkCalendarService) { }
+  private appAlarmService = inject(AppAlarmService);
+  private workGroupService = inject(WorkCalendarService);
 
   ngOnInit() {
     this.getMyWorkGroupList();
