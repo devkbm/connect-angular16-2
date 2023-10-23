@@ -5,15 +5,12 @@ import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/service/data.service';
-
+import { GlobalProperty } from 'src/app/core/global-property';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { UserNotFoundError } from 'src/app/core/error/user-not-found-error';
 
 import { User } from './user.model';
-
-import { MenuGroup } from '../menu/menu-group.model';
-import { GlobalProperty } from 'src/app/core/global-property';
 import { Role } from '../role/role.model';
 
 @Injectable({
@@ -22,7 +19,6 @@ import { Role } from '../role/role.model';
 export class UserService extends DataService {
 
   private AUTHORITY_API_URI = '/api/system/role';
-
   private MENU_GROUP_API_URI = '/api/system/menugroup';
 
   constructor() {
@@ -193,21 +189,6 @@ export class UserService extends DataService {
       .delete<ResponseObject<Role>>(url, options)
       .pipe(
         catchError(this.handleError<ResponseObject<Role>>('deleteAuthority', undefined))
-      );
-  }
-
-  getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {
-    const url = GlobalProperty.serverUrl + `${this.MENU_GROUP_API_URI}`;
-    const options = {
-      headers: this.getAuthorizedHttpHeaders(),
-      withCredentials: true,
-      params: params
-    };
-
-    return this.http
-      .get<ResponseList<MenuGroup>>(url, options)
-      .pipe(
-        catchError(this.handleError<ResponseList<MenuGroup>>('getMenuGroupList', undefined))
       );
   }
 

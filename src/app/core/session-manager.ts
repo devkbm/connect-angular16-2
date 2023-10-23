@@ -23,7 +23,7 @@ export class SessionManager {
     sessionStorage.setItem('imageUrl', data.imageUrl);
     sessionStorage.setItem('ipAddress', data.ipAddress);
     sessionStorage.setItem('menuGroupList', JSON.stringify(data.menuGroupList));
-    sessionStorage.setItem('authorityList', JSON.stringify(data.authorities));
+    sessionStorage.setItem('roleList', JSON.stringify(data.roleList));
   }
 
   static getOrganizationCode(): string | null {

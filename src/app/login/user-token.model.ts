@@ -10,6 +10,6 @@ export interface UserToken {
   email: string;
   imageUrl: string;
   ipAddress: string;
-  authorities: Role[];
+  roleList: Role[];
   menuGroupList: MenuGroup[];
 }

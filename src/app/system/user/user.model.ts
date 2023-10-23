@@ -9,6 +9,5 @@ export interface User {
   email: string | null;
   imageBase64: string | null;
   enabled: boolean | null;
-  authorityList: string[] | null;
-  menuGroupList: string[] | null;
+  roleList: string[] | null;
 }

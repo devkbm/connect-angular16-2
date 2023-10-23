@@ -128,19 +128,10 @@ import { GlobalProperty } from 'src/app/core/global-property';
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <app-nz-input-select
-            formControlName="authorityList" itemId="formauth"
+            formControlName="roleList" itemId="formauth"
             [options]="authList" [opt_value]="'roleCode'" [opt_label]="'description'" [mode]="'tags'"
             [placeholder]="'Please select'"
             [nzErrorTip]="errorTpl" [required]="true">권한
-          </app-nz-input-select>
-        </div>
-
-        <div nz-col nzSpan="12">
-          <app-nz-input-select
-            formControlName="menuGroupList" itemId="menuGroupList"
-            [options]="menuGroupList" [opt_value]="'menuGroupCode'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
-            [placeholder]="'Please select'"
-            [nzErrorTip]="errorTpl" [required]="true">메뉴그룹
           </app-nz-input-select>
         </div>
 
@@ -180,7 +171,6 @@ import { GlobalProperty } from 'src/app/core/global-property';
 export class UserFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   public authList: any;
-  public menuGroupList: any;
   public deptHierarchy: DeptHierarchy[] = [];
 
   passwordConfirm: string = '';
@@ -224,8 +214,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     mobileNum: new FormControl<string | null>(null),
     email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
     imageBase64: new FormControl<string | null>(null),
-    authorityList: new FormControl<string[] | null>({ value: null, disabled: false }, { validators: Validators.required }),
-    menuGroupList: new FormControl<string[] | null>(null)
+    roleList: new FormControl<string[] | null>({ value: null, disabled: false }, { validators: Validators.required })
   });
 
   ngOnInit(): void {
@@ -236,7 +225,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     }
 
     this.getAuthorityList();
-    this.getMenuGroupList();
     this.getDeptHierarchy();
   }
 
@@ -344,18 +332,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
           (model: ResponseList<Role>) => {
             if (model.total > 0) {
               this.authList = model.data;
-            }
-          }
-        );
-  }
-
-  getMenuGroupList(): void {
-    this.service
-        .getMenuGroupList()
-        .subscribe(
-          (model: ResponseList<MenuGroup>) => {
-            if (model.total > 0) {
-              this.menuGroupList = model.data;
             }
           }
         );

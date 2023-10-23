@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('token', model.sessionId);
               sessionStorage.setItem('imageUrl', model.imageUrl);
               sessionStorage.setItem('menuGroupList', JSON.stringify(model.menuGroupList));
-              sessionStorage.setItem('authorityList', JSON.stringify(model.authorities));
+              sessionStorage.setItem('roleList', JSON.stringify(model.roleList));
 
               this.router.navigate(['/home']);
             }
