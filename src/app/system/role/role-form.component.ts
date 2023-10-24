@@ -177,7 +177,7 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 })
 export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
+  @ViewChild('roleCode') roleCode!: NzInputTextComponent;
 
   private fb = inject(FormBuilder);
   private service = inject(RoleService);
@@ -201,7 +201,7 @@ export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    this.focus();
+    this.roleCode.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -210,10 +210,6 @@ export class RoleFormComponent extends FormBase implements OnInit, AfterViewInit
       this.getAuthority(changes['initLoadId'].currentValue);
     }
     */
-  }
-
-  focus() {
-    this.authorityCode.focus();
   }
 
   newForm(): void {

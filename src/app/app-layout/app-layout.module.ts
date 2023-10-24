@@ -20,7 +20,7 @@ import { AppLayoutComponent } from './app-layout.component';
 import { UserPopupComponent } from 'src/app/system/user/user-popup.component';
 import { UserProfileComponent } from 'src/app/system/user/user-profile.component';
 import { UserModule } from 'src/app/system/user/user.module';
-import { SideMenuComponent } from './side-menu/side-menu.component';
+import { SideMenuComponent } from './side-menu.component';
 
 
 @NgModule({
@@ -36,11 +36,11 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     NzIconModule,
     NzSelectModule,
     NzDropDownModule,
-    UserProfileComponent
+    UserProfileComponent,
+    SideMenuComponent
   ],
   declarations: [
-    AppLayoutComponent,
-    SideMenuComponent
+    AppLayoutComponent
   ],
   /*
   entryComponents: [

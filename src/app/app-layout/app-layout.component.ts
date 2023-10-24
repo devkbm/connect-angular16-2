@@ -39,6 +39,8 @@ export class AppLayoutComponent implements OnInit  {
 
   footerMessage: string = '';
 
+  sideMenu : {menuGroupCode: string, url: string} = {menuGroupCode: '', url: ''};
+
   private appAlarmService = inject(AppAlarmService);
   private sessionService = inject(UserSessionService);
   private service = inject(AppLayoutService);
@@ -73,6 +75,8 @@ export class AppLayoutComponent implements OnInit  {
   selectMenuGroup(menuGroupId: string, moveUrl: string | null): void {
     sessionStorage.setItem('selectedMenuGroup', menuGroupId);
 
+    this.sideMenu.menuGroupCode = menuGroupId;
+
     this.service
         //.getMenuHierarchy(menuGroupId)
         .getUserMenuHierarchy(SessionManager.getUserId() as string, menuGroupId)
@@ -96,8 +100,11 @@ export class AppLayoutComponent implements OnInit  {
   }
 
   moveToUrl(url: string) {
+    this.sideMenu.url = url;
+    /*
     sessionStorage.setItem('selectedMenu', url);
     this.router.navigate([url]);
+    */
   }
 
   moveToMenuGroupUrl(menuGroupCode: string) {
@@ -112,11 +119,14 @@ export class AppLayoutComponent implements OnInit  {
     this.moveToUrl(menuGroupUrls[menuGroupCode]);
   }
 
+  /*
   selectMenu(event: NzFormatEmitEvent): void {
     const node = event.node?.origin as NzTreeNodeOptions;
     sessionStorage.setItem('selectedMenu', node.key);
     this.router.navigate([node['url']]);
   }
+  */
+
 
   setAvatar(): void {
     // this.profileAvatarSrc = `http://localhost:8090/static/${url}`;
