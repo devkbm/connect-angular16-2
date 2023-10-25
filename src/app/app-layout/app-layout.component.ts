@@ -27,6 +27,7 @@ export class AppLayoutComponent implements OnInit  {
     selectedId: ''
   }
 
+  /*
   menuInfo: {theme: NzMenuThemeType, mode: NzMenuModeType, inline_indent: number, isCollapsed: boolean, menuItems: MenuHierarchy[]} = {
     theme: 'dark',
     mode: 'inline',
@@ -34,12 +35,14 @@ export class AppLayoutComponent implements OnInit  {
     isCollapsed: false,
     menuItems: []
   }
+  */
+
   // 기본 SIDER 메뉴 트리거 숨기기위해 사용
   triggerTemplate: TemplateRef<void> | null = null;
 
   footerMessage: string = '';
 
-  sideMenu : {menuGroupCode: string, url: string} = {menuGroupCode: '', url: ''};
+  sideMenu : {menuGroupCode: string, url: string, isCollapsed: boolean} = {menuGroupCode: '', url: '', isCollapsed: false};
 
   private appAlarmService = inject(AppAlarmService);
   private sessionService = inject(UserSessionService);
@@ -77,37 +80,6 @@ export class AppLayoutComponent implements OnInit  {
 
     this.sideMenu.menuGroupCode = menuGroupId;
 
-    this.service
-        //.getMenuHierarchy(menuGroupId)
-        .getUserMenuHierarchy(SessionManager.getUserId() as string, menuGroupId)
-        .subscribe(
-          (model: ResponseList<MenuHierarchy>) => {
-            if ( model.total > 0 ) {
-              this.menuInfo.menuItems = model.data;
-              sessionStorage.setItem('menuList', JSON.stringify(model.data));
-            } else {
-              this.menuInfo.menuItems = [];
-              sessionStorage.setItem('menuList', '');
-            }
-
-            if (moveUrl) {
-              this.moveToUrl(moveUrl);
-            } else {
-              this.moveToMenuGroupUrl(menuGroupId);
-            }
-          }
-        );
-  }
-
-  moveToUrl(url: string) {
-    this.sideMenu.url = url;
-    /*
-    sessionStorage.setItem('selectedMenu', url);
-    this.router.navigate([url]);
-    */
-  }
-
-  moveToMenuGroupUrl(menuGroupCode: string) {
     type mapType = {
       [key: string]: string;
     }
@@ -116,7 +88,15 @@ export class AppLayoutComponent implements OnInit  {
       'GRP': '/grw',
       'COM': '/system'
     }
-    this.moveToUrl(menuGroupUrls[menuGroupCode]);
+    if (moveUrl) {
+      this.moveToUrl(moveUrl);
+    } else {
+      this.moveToUrl(menuGroupUrls[menuGroupId]);
+    }
+  }
+
+  moveToUrl(url: string) {
+    this.sideMenu.url = url;
   }
 
   /*

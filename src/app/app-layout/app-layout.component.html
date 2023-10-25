@@ -3,7 +3,7 @@
   <nz-sider
     class="sidebar"
     nzCollapsible
-    [(nzCollapsed)]="menuInfo.isCollapsed"
+    [(nzCollapsed)]="sideMenu.isCollapsed"
     [nzCollapsedWidth]="0"
     [nzWidth]="200"
     [nzTrigger]="triggerTemplate">
@@ -13,7 +13,7 @@
 
   <nz-layout>
     <nz-header class="header">
-      <span nz-icon class="collapse-icon" [nzType]="menuInfo.isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="menuInfo.isCollapsed=!menuInfo.isCollapsed"></span>
+      <span nz-icon class="collapse-icon" [nzType]="sideMenu.isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="sideMenu.isCollapsed=!sideMenu.isCollapsed"></span>
 
       <nz-select
         class="sidemenugroup"

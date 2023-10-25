@@ -100,7 +100,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
       this.getMenuList(changes['menuGroupCode'].currentValue);
     }
 
-    if (changes['menuUrl'].currentValue) {
+    if (changes['menuUrl']?.currentValue) {
       this.moveToUrl(changes['menuUrl'].currentValue);
     }
   }
