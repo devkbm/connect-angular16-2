@@ -98,7 +98,6 @@ import { GlobalProperty } from 'src/app/core/global-property';
 
       <!-- 3 row -->
       <div nz-row nzGutter="8">
-
         <div nz-col nzSpan="4">
           <app-nz-input-switch formControlName="enabled" >
             사용여부
@@ -126,21 +125,24 @@ import { GlobalProperty } from 'src/app/core/global-property';
       <!--<nz-divider nzPlain nzText="기타정보" nzOrientation="left"></nz-divider>-->
 
       <div nz-row nzGutter="8">
-        <div nz-col nzSpan="12">
+        <div nz-col nzSpan="24">
+          <app-nz-dept-tree-select
+            formControlName="deptCode"
+            placeholder="부서 없음">부서
+          </app-nz-dept-tree-select>
+        </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
           <app-nz-input-select
             formControlName="roleList" itemId="formauth"
             [options]="authList" [opt_value]="'roleCode'" [opt_label]="'description'" [mode]="'tags'"
             [placeholder]="'Please select'"
-            [nzErrorTip]="errorTpl" [required]="true">권한
+            [nzErrorTip]="errorTpl" [required]="true">롤
           </app-nz-input-select>
         </div>
-
       </div>
-
-        <app-nz-dept-tree-select
-          formControlName="deptCode"
-          placeholder="부서 없음">부서
-        </app-nz-dept-tree-select>
     </form>
 
     <div class="footer">

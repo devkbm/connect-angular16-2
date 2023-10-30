@@ -27,6 +27,7 @@ import { DataDomainFormComponent } from './data-domain-form.component';
 import { WordFormComponent } from './word-form.component';
 import { DataDomainGridComponent } from './data-domain-grid.component';
 import { WordGridComponent } from './word-grid.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   imports: [
@@ -34,8 +35,8 @@ import { WordGridComponent } from './word-grid.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),    
-    
+    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
+
     NzDrawerModule,
     NzTabsModule,
     NzGridModule,
@@ -43,7 +44,8 @@ import { WordGridComponent } from './word-grid.component';
     NzSelectModule,
     NzInputModule,
     NzButtonModule,
-    
+    NzIconModule,
+
     NzPageHeaderCustomComponent,
     NzSearchAreaComponent,
 
@@ -54,8 +56,8 @@ import { WordGridComponent } from './word-grid.component';
     WordFormComponent,
     WordGridComponent
   ],
-  declarations: [    
-    TermComponent    
+  declarations: [
+    TermComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
