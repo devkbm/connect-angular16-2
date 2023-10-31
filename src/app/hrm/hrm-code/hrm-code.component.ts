@@ -38,6 +38,7 @@ export class HrmCodeComponent extends AppBase implements OnInit {
   private hrmCodeTypeService = inject(HrmCodeTypeService);
 
   ngOnInit() {
+    this.getGridHrmCodeType();
   }
 
   getGridHrmCodeType(): void {
