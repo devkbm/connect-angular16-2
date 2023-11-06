@@ -52,7 +52,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         <div nz-col nzSpan="8">
           <app-nz-input-select
             formControlName="memberList" itemId="memberList"
-            [options]="members" [opt_value]="'id'" [opt_label]="'name'" [mode]="'multiple'"
+            [options]="members" [opt_value]="'userId'" [opt_label]="'name'" [mode]="'multiple'"
             placeholder="팀원을 선택해주세요."
             [nzErrorTip]="errorTpl">팀원
           </app-nz-input-select>
