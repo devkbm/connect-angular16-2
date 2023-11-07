@@ -52,6 +52,14 @@ import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-in
             [required]="true" [nzErrorTip]="errorTpl">메뉴그룹명
           </app-nz-input-text>
         </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            formControlName="menuGroupUrl" itemId="menuGroupUrl"
+            placeholder="메뉴그룹URL을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">메뉴그룹URL
+          </app-nz-input-text>
+        </div>
       </div>
 
       <!-- 2 row -->
@@ -108,6 +116,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     }),*/
     menuGroupCode   : new FormControl<string | null>(null, { validators: Validators.required }),
     menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
+    menuGroupUrl    : new FormControl<string | null>(null, { validators: Validators.required }),
     description     : new FormControl<string | null>(null)
   });
 

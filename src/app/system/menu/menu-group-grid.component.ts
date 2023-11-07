@@ -79,6 +79,11 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
         width: 150
       },
       {
+        headerName: '메뉴그룹URL',
+        field: 'menuGroupUrl',
+        width: 150
+      },
+      {
         headerName: '설명',
         field: 'description',
         width: 300,

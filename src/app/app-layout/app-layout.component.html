@@ -22,8 +22,8 @@
         (ngModelChange)="selectMenuGroup($event, null)">
           <nz-option
             *ngFor="let menuGroup of menuGroupInfo.list"
-            [nzValue]="menuGroup.value"
-            [nzLabel]="menuGroup.label">
+            [nzValue]="menuGroup.menuGroupCode"
+            [nzLabel]="menuGroup.menuGroupName">
           </nz-option>
       </nz-select>
 

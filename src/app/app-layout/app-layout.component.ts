@@ -22,7 +22,7 @@ export class AppLayoutComponent implements OnInit  {
 
   profileAvatarSrc: string = '';
 
-  menuGroupInfo: {list: SelectControlModel[], selectedId: string} = {
+  menuGroupInfo: {list: {menuGroupCode: string, menuGroupName: string, menuGroupUrl: string}[], selectedId: string} = {
     list: [],
     selectedId: ''
   }
@@ -70,8 +70,8 @@ export class AppLayoutComponent implements OnInit  {
       const LAST_VISIT_URL = sessionStorage.getItem('selectedMenu') as string;
       this.selectMenuGroup(sessionMenuGroup, LAST_VISIT_URL);
     } else {
-      this.menuGroupInfo.selectedId = this.menuGroupInfo.list[0].value;
-      this.selectMenuGroup(this.menuGroupInfo.list[0].value, null);
+      this.menuGroupInfo.selectedId = this.menuGroupInfo.list[0].menuGroupCode;
+      this.selectMenuGroup(this.menuGroupInfo.list[0].menuGroupCode, null);
     }
   }
 
@@ -79,6 +79,8 @@ export class AppLayoutComponent implements OnInit  {
     sessionStorage.setItem('selectedMenuGroup', menuGroupId);
 
     this.sideMenu.menuGroupCode = menuGroupId;
+
+    console.log(this.menuGroupInfo);
 
     type mapType = {
       [key: string]: string;
@@ -88,10 +90,20 @@ export class AppLayoutComponent implements OnInit  {
       'GRP': '/grw',
       'COM': '/system'
     }
+
+    const menuGroupUrl = '';
+
     if (moveUrl) {
       this.moveToUrl(moveUrl);
     } else {
-      this.moveToUrl(menuGroupUrls[menuGroupId]);
+      //this.moveToUrl(menuGroupUrls[menuGroupId]);
+
+      for (const menuGroup of this.menuGroupInfo.list) {
+        if (menuGroup.menuGroupCode === menuGroupId) {
+          console.log(menuGroup.menuGroupUrl);
+          this.moveToUrl(menuGroup.menuGroupUrl);
+        }
+      }
     }
   }
 
