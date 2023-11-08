@@ -3,7 +3,7 @@
 <app-nz-search-area>
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getAuthorityList()">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getRoleList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
       <nz-select [(ngModel)]="queryKey">
@@ -35,13 +35,13 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px'}"
   [nzMaskClosable]="true"
   [nzWidth]="720"
-  [nzVisible]="drawerAuthority.visible"
-  nzTitle="권한 등록"
+  [nzVisible]="drawerRole.visible"
+  nzTitle="롤 등록"
   (nzOnClose)="closeDrawer()">
     <app-authority-form #form *nzDrawerContent
-      [initLoadId]="drawerAuthority.initLoadId"
-      (formSaved)="getAuthorityList()"
-      (formDeleted)="getAuthorityList()"
+      [initLoadId]="drawerRole.initLoadId"
+      (formSaved)="getRoleList()"
+      (formDeleted)="getRoleList()"
       (formClosed)="closeDrawer()">
     </app-authority-form>
 </nz-drawer>

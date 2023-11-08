@@ -28,7 +28,7 @@ export class RoleComponent extends AppBase implements AfterViewInit {
   queryKey = 'authorityCode';
   queryValue = '';
 
-  drawerAuthority: { visible: boolean, initLoadId: any } = {
+  drawerRole: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
   }
@@ -37,7 +37,7 @@ export class RoleComponent extends AppBase implements AfterViewInit {
     text: '조회',
     nzType: 'search',
     click: (e: MouseEvent) => {
-      this.getAuthorityList();
+      this.getRoleList();
     }
   },{
     text: '신규',
@@ -52,7 +52,7 @@ export class RoleComponent extends AppBase implements AfterViewInit {
     popConfirm: {
       title: '삭제하시겠습니까?',
       confirmClick: () => {
-        this.deleteAuthority();
+        this.delete();
       }
     }
   }];
@@ -65,23 +65,23 @@ export class RoleComponent extends AppBase implements AfterViewInit {
   }
 
   openDrawer(): void {
-    this.drawerAuthority.visible = true;
+    this.drawerRole.visible = true;
   }
 
   closeDrawer(): void {
-    this.drawerAuthority.visible = false;
+    this.drawerRole.visible = false;
   }
 
   selectedItem(data: any): void {
     if (data) {
-      this.drawerAuthority.initLoadId = data.authorityCode;
+      this.drawerRole.initLoadId = data.authorityCode;
     } else {
-      this.drawerAuthority.initLoadId = null;
+      this.drawerRole.initLoadId = null;
     }
   }
 
   initForm(): void {
-    this.drawerAuthority.initLoadId = null;
+    this.drawerRole.initLoadId = null;
 
     this.openDrawer();
   }
@@ -90,7 +90,7 @@ export class RoleComponent extends AppBase implements AfterViewInit {
     this.openDrawer();
   }
 
-  getAuthorityList(): void {
+  getRoleList(): void {
     let params: any = new Object();
     if ( this.queryValue !== '') {
       params[this.queryKey] = this.queryValue;
@@ -100,14 +100,14 @@ export class RoleComponent extends AppBase implements AfterViewInit {
     this.grid?.getList(params);
   }
 
-  deleteAuthority(): void {
+  delete(): void {
     const id = this.grid.getSelectedRows()[0].authorityCode;
 
     this.service
         .deleteRole(id)
         .subscribe(
           (model: ResponseObject<Role>) => {
-            this.getAuthorityList();
+            this.getRoleList();
           }
         );
   }

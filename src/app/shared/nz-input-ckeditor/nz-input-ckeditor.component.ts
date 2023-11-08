@@ -40,7 +40,7 @@ import { MyUploadAdapter } from './my-upload-adapter';
     </nz-form-item>
   `,
   styles: [`
-    :host ::ng-deep .ck-editor__editable {
+    :host /*::ng-deep*/ .ck-editor__editable {
       color: black;
       height: var(--height);
     }

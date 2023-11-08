@@ -1,17 +1,10 @@
 import { Component, OnInit, ViewChild, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { AppLayoutService } from './app-layout.service';
 
-import { ResponseList } from 'src/app/core/model/response-list';
 import { UserSessionService } from 'src/app/core/service/user-session.service';
-import { SelectControlModel } from 'src/app/core/model/select-control.model.ts';
-import { MenuHierarchy } from './app-layout.model';
-import { NzMenuModeType, NzMenuThemeType } from 'ng-zorro-antd/menu';
-
-import { SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-app-layout',
@@ -26,16 +19,6 @@ export class AppLayoutComponent implements OnInit  {
     list: [],
     selectedId: ''
   }
-
-  /*
-  menuInfo: {theme: NzMenuThemeType, mode: NzMenuModeType, inline_indent: number, isCollapsed: boolean, menuItems: MenuHierarchy[]} = {
-    theme: 'dark',
-    mode: 'inline',
-    inline_indent: 12,
-    isCollapsed: false,
-    menuItems: []
-  }
-  */
 
   // 기본 SIDER 메뉴 트리거 숨기기위해 사용
   triggerTemplate: TemplateRef<void> | null = null;
@@ -61,48 +44,32 @@ export class AppLayoutComponent implements OnInit  {
    */
   setInitMenuGroup(): void {
     const stringMenuGroupList = sessionStorage.getItem('menuGroupList') as string;
-    const sessionMenuGroup   = sessionStorage.getItem('selectedMenuGroup') as string;
+    const sessionMenuGroup    = sessionStorage.getItem('selectedMenuGroup') as string;
 
     this.menuGroupInfo.list = JSON.parse(stringMenuGroupList);
 
     if (sessionMenuGroup) {
       this.menuGroupInfo.selectedId = sessionMenuGroup;
+      this.sideMenu.menuGroupCode = sessionMenuGroup;
+
       const LAST_VISIT_URL = sessionStorage.getItem('selectedMenu') as string;
-      this.selectMenuGroup(sessionMenuGroup, LAST_VISIT_URL);
+      this.moveToUrl(LAST_VISIT_URL);
+
     } else {
       this.menuGroupInfo.selectedId = this.menuGroupInfo.list[0].menuGroupCode;
-      this.selectMenuGroup(this.menuGroupInfo.list[0].menuGroupCode, null);
+      this.moveToMenuGroupUrl(this.menuGroupInfo.selectedId);
     }
   }
 
-  selectMenuGroup(menuGroupId: string, moveUrl: string | null): void {
-    sessionStorage.setItem('selectedMenuGroup', menuGroupId);
+  moveToMenuGroupUrl(menuGroupCode: string) {
+    sessionStorage.setItem('selectedMenuGroup', menuGroupCode);
 
-    this.sideMenu.menuGroupCode = menuGroupId;
+    this.sideMenu.menuGroupCode = menuGroupCode;
 
-    console.log(this.menuGroupInfo);
-
-    type mapType = {
-      [key: string]: string;
-    }
-    const menuGroupUrls: mapType = {
-      'HRM': '/hrm',
-      'GRP': '/grw',
-      'COM': '/system'
-    }
-
-    const menuGroupUrl = '';
-
-    if (moveUrl) {
-      this.moveToUrl(moveUrl);
-    } else {
-      //this.moveToUrl(menuGroupUrls[menuGroupId]);
-
-      for (const menuGroup of this.menuGroupInfo.list) {
-        if (menuGroup.menuGroupCode === menuGroupId) {
-          console.log(menuGroup.menuGroupUrl);
-          this.moveToUrl(menuGroup.menuGroupUrl);
-        }
+    for (const menuGroup of this.menuGroupInfo.list) {
+      if (menuGroup.menuGroupCode === menuGroupCode) {
+        // MenuGroup Default Url
+        this.moveToUrl(menuGroup.menuGroupUrl);
       }
     }
   }
@@ -111,24 +78,11 @@ export class AppLayoutComponent implements OnInit  {
     this.sideMenu.url = url;
   }
 
-  /*
-  selectMenu(event: NzFormatEmitEvent): void {
-    const node = event.node?.origin as NzTreeNodeOptions;
-    sessionStorage.setItem('selectedMenu', node.key);
-    this.router.navigate([node['url']]);
-  }
-  */
-
-
   setAvatar(): void {
-    // this.profileAvatarSrc = `http://localhost:8090/static/${url}`;
-
     const profilePictureUrl: string | null = this.sessionService.getAvartarImageString();
     if (profilePictureUrl) {
       this.profileAvatarSrc = profilePictureUrl as string;
     }
   }
-
-
 
 }

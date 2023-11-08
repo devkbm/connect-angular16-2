@@ -39,7 +39,7 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
       height:100%
     }
     /** nz-spin component 하위 엘리먼트 크기 조정 */
-    ::ng-deep .ant-spin-container.ng-star-inserted {
+    :host .ant-spin-container.ng-star-inserted {
       height: 100%;
     }
 

@@ -42,19 +42,14 @@ import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-rende
       height: 100%;
     }
 
-    ::ng-deep .header-center .ag-cell-label-container { flex-direction: row; justify-content: center; }
-    ::ng-deep .header-center .ag-header-cell-label { flex-direction: row; justify-content: center; }
+    /* 헤더 텍스트를 중앙으로 변경 - ::ng-deep대신 다른 방법이 있는지 확인 필요 */
+    :host::ng-deep .header-center .ag-cell-label-container { flex-direction: row; justify-content: center; }
+    :host::ng-deep .header-center .ag-header-cell-label { flex-direction: row; justify-content: center; }
 
-    ::ng-deep .header-right .ag-cell-label-container { flex-direction: row; }
-    ::ng-deep .header-right .ag-header-cell-label { flex-direction: row-reverse; }
-    /*
-    ::ng-deep .ag-theme-balham-dark .ag-header {
-      font-family: cursive;
-    }
-    ::ng-deep .ag-theme-balham-dark .ag-header-cell {
-      font-size: 18px;
-    }
-    */
+    /* 헤더 텍스트를 우측으로 변경 - ::ng-deep대신 다른 방법이 있는지 확인 필요 */
+    :host::ng-deep .header-right .ag-cell-label-container { flex-direction: row; }
+    :host::ng-deep .header-right .ag-header-cell-label { flex-direction: row-reverse; }
+
   `]
 })
 export class RoleGridComponent extends AggridFunction implements OnInit {
@@ -89,7 +84,7 @@ export class RoleGridComponent extends AggridFunction implements OnInit {
         },
         {
           headerName: 'No',
-          headerClass: 'header-center',
+          headerClass: 'header-right',
           valueGetter: 'node.rowIndex + 1',
           suppressSizeToFit: true,
           width: 70,
@@ -97,6 +92,7 @@ export class RoleGridComponent extends AggridFunction implements OnInit {
         },
         {
           headerName: '권한코드',
+          headerClass: 'header-center',
           field: 'roleCode',
           suppressSizeToFit: true,
           width: 100

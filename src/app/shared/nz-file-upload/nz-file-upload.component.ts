@@ -26,7 +26,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
   </div>
   `,
   styles: [`
-    :host ::ng-deep .upload-list-inline .ant-upload-list-item {
+    :host /*::ng-deep*/ .upload-list-inline .ant-upload-list-item {
       float: left;
       width: 200px;
       margin-right: 8px;
