@@ -6,16 +6,12 @@
     <button nz-button (click)="getBoardTree()">
       <span nz-icon nzType="search" nzTheme="outline"></span>조회
     </button>
-    <button nz-button (click)="newBoard()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>게시판 등록
-    </button>
     <button nz-button (click)="newArticle()">
       <span nz-icon nzType="form" nzTheme="outline"></span>게시글 등록
     </button>
   </div>
 </div>
 
-{{drawerBoard | json}}
 <div class="tree">
   <h3 class="pgm-title">게시판 목록</h3>
   <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
@@ -26,8 +22,7 @@
   </ng-template>
   <app-board-tree id="boardTree" #boardTree
     [searchValue]="queryValue"
-    (itemSelected)="setBoardSelect($event)"
-    (itemDbClicked)="modifyBoard($event)">
+    (itemSelected)="setBoardSelect($event)">
   </app-board-tree>
 </div>
 
@@ -47,22 +42,6 @@
     </app-article-view>
   </nz-tab>
 </nz-tabset>
-
-
-<nz-drawer
-    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-    [nzMaskClosable]="true"
-    [nzWidth]="'80%'"
-    [nzVisible]="drawerBoard.visible"
-    nzTitle="게시판 등록"
-    (nzOnClose)="drawerBoard.visible = false">
-    <app-board-form #boardForm *nzDrawerContent
-      [initLoadId]="this.drawerBoard.initLoadId"
-      (formSaved)="getBoardTree()"
-      (formDeleted)="getBoardTree()"
-      (formClosed)="drawerBoard.visible = false">
-    </app-board-form>
-</nz-drawer>
 
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"

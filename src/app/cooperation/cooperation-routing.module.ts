@@ -1,3 +1,4 @@
+import { BoardManagementComponent } from './board/board-management/board-management.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
       /* 협업시스템 */
       {path: 'team',          component: TeamComponent},
       {path: 'board',         component: BoardComponent},
+      {path: 'boardm',        component: BoardManagementComponent},
       {path: 'todo',          component: TodosComponent},
       {path: 'workcalendar',  component: WorkCalendarComponent},
     ]

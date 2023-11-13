@@ -10,11 +10,11 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/
 import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { BoardService } from './board.service';
+import { BoardService } from '../component/board.service';
 
 import { ResponseObject } from 'src/app/core/model/response-object';
-import { Board } from './board.model';
-import { BoardHierarchy } from './board-hierarchy.model';
+import { Board } from '../component/board.model';
+import { BoardHierarchy } from '../component/board-hierarchy.model';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 

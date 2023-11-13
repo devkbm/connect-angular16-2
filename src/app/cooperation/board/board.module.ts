@@ -17,13 +17,14 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* Inner Compononet */
 import { BoardTreeComponent } from './component/board-tree.component';
-import { BoardFormComponent } from './component/board-form.component';
+import { BoardFormComponent } from './board-management/board-form.component';
 import { ArticleFormComponent } from './component/article-form.component';
 import { BoardComponent } from './board.component';
 import { ArticleGridComponent } from './component/article-grid.component';
 import { ArticleViewComponent } from './component/article-view.component';
 
 import { BoardService } from './component/board.service';
+import { BoardManagementComponent } from './board-management/board-management.component';
 
 @NgModule({
   imports: [
@@ -39,14 +40,15 @@ import { BoardService } from './component/board.service';
     NzTreeModule,
     NzDividerModule,
     NzIconModule,
-    
+
     ArticleGridComponent,
     BoardTreeComponent,
     ArticleViewComponent,
     ArticleFormComponent,
-    BoardFormComponent
+    BoardFormComponent,
+    BoardManagementComponent
   ],
-  declarations: [    
+  declarations: [
     BoardComponent
   ],
   providers: [
@@ -55,7 +57,7 @@ import { BoardService } from './component/board.service';
     NzModalService,
     NzMessageService
   ],
-  exports: [    
+  exports: [
     BoardTreeComponent
   ]
 })

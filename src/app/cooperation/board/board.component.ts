@@ -65,15 +65,6 @@ export class BoardComponent implements OnInit {
     this.articleGrid.getArticleList(this.drawerBoard.initLoadId);
   }
 
-  newBoard(): void {
-    this.drawerBoard.initLoadId = null;
-    this.drawerBoard.visible = true;
-  }
-
-  modifyBoard(item: any): void {
-    this.drawerBoard.visible = true;
-  }
-
   getBoardTree(): void {
     this.drawerBoard.visible = false;
     this.boardTree.getboardHierarchy();

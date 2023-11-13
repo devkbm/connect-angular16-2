@@ -5,8 +5,30 @@
     "ckeditor5": {
       "name": "ckeditor5",
       "isOrdered": true,
-      "folders": {},
-      "files": {}
+      "folders": {
+        "build": {
+          "name": "build",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "sample": {
+          "name": "sample",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "src": {
+          "name": "src",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        }
+      },
+      "files": {
+        "README": 0,
+        "LICENSE": 1
+      }
     },
     "src": {
       "name": "src",
