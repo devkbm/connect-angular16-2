@@ -7,7 +7,7 @@ import { NzInputTreeSelectComponent } from 'src/app/shared/nz-input-tree-select/
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
 
-import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BoardService } from '../component/board.service';
@@ -27,7 +27,19 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
     NzInputTreeSelectComponent, NzCrudButtonGroupComponent
   ],
   template: `
-    {{fg.getRawValue() | json}}
+    <div>{{fg.getRawValue() | json}}</div>
+
+    <app-nz-crud-button-group
+      [isSavePopupConfirm]="false"
+      (searchClick)="get(this.fg.value.boardId!)"
+      (closeClick)="closeForm()"
+      (saveClick)="save()"
+      (deleteClick)="remove()">
+    </app-nz-crud-button-group>
+
+    <button nz-button (click)="newForm()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규
+    </button>
 
     <form nz-form [formGroup]="fg" nzLayout="vertical">
       <!-- ERROR TEMPLATE-->
@@ -83,6 +95,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 
     </form>
 
+    <!--
     <div class="footer">
       <app-nz-crud-button-group
         [isSavePopupConfirm]="false"
@@ -92,7 +105,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
         (deleteClick)="remove()">
       </app-nz-crud-button-group>
     </div>
-
+    -->
   `,
   styles: [`
     [nz-button] {
@@ -119,7 +132,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 
   `]
 })
-export class BoardFormComponent extends FormBase implements OnInit, AfterViewInit {
+export class BoardFormComponent extends FormBase implements OnInit, OnChanges, AfterViewInit {
 
   @ViewChild('boardName', { static: true }) boardName!: NzInputTextComponent;
 
@@ -153,19 +166,25 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     this.boardName.focus();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['initLoadId']?.currentValue) {
+      console.log(this.initLoadId);
+      this.get(this.initLoadId);
+    }
+  }
+
   newForm(): void {
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('boardId')?.enable();
-
-    this.fg.get('boardType')?.setValue('BOARD');
+    this.fg.controls.boardId.enable();
+    this.fg.controls.boardType.setValue('BOARD');
   }
 
   modifyForm(formData: Board): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('boardId')?.disable();
+    this.fg.controls.boardId.disable();
 
     this.fg.patchValue(formData);
   }

@@ -4,6 +4,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { BoardFormComponent } from './board-form.component';
 import { BoardTreeComponent } from '../component/board-tree.component';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Component({
   selector: 'app-board-management',
@@ -22,6 +23,7 @@ import { BoardTreeComponent } from '../component/board-tree.component';
     <div class="app-layout">
       <app-board-tree id="boardTree" #boardTree
         [searchValue]="queryValue"
+        (itemSelected)="boardTreeItemClick($event)"
         (itemDbClicked)="modifyBoard($event)">
       </app-board-tree>
 
@@ -93,6 +95,8 @@ export class BoardManagementComponent implements OnInit {
     this.drawerBoard.visible = true;
   }
 
-
+  boardTreeItemClick(item: NzTreeNodeOptions) {
+    this.drawerBoard.initLoadId = item.key;
+  }
 
 }
