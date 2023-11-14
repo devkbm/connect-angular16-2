@@ -12,15 +12,28 @@ import { BoardTreeComponent } from '../component/board-tree.component';
     CommonModule, NzButtonModule, NzDrawerModule, BoardTreeComponent, BoardFormComponent
   ],
   template: `
+    <button nz-button (click)="getBoardTree()">
+      <span nz-icon nzType="search" nzTheme="outline"></span>조회
+    </button>
     <button nz-button (click)="newBoard()">
       <span nz-icon nzType="form" nzTheme="outline"></span>게시판 등록
     </button>
 
-    <app-board-tree id="boardTree" #boardTree
-      [searchValue]="queryValue"
-      (itemDbClicked)="modifyBoard($event)">
-    </app-board-tree>
+    <div class="app-layout">
+      <app-board-tree id="boardTree" #boardTree
+        [searchValue]="queryValue"
+        (itemDbClicked)="modifyBoard($event)">
+      </app-board-tree>
 
+      <app-board-form #boardForm
+        [initLoadId]="this.drawerBoard.initLoadId"
+        (formSaved)="getBoardTree()"
+        (formDeleted)="getBoardTree()"
+        (formClosed)="drawerBoard.visible = false">
+      </app-board-form>
+    </div>
+
+    <!--
     <nz-drawer
       [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
       [nzMaskClosable]="true"
@@ -35,8 +48,15 @@ import { BoardTreeComponent } from '../component/board-tree.component';
           (formClosed)="drawerBoard.visible = false">
         </app-board-form>
     </nz-drawer>
+-->
   `,
-  styles: [``]
+  styles: [`
+    .app-layout {
+      display: grid;
+      grid-template-rows: 24px 1fr;
+      grid-template-columns: 200px 1fr;
+    }
+  `]
 
 })
 export class BoardManagementComponent implements OnInit {
@@ -56,6 +76,7 @@ export class BoardManagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.getBoardTree();
   }
 
   getBoardTree(): void {
