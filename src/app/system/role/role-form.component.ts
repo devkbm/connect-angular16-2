@@ -10,9 +10,9 @@ import { Role } from './role.model';
 import { existingRoleValidator } from './role-duplication-validator.directive';
 import { RoleService } from './role.service';
 
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
 
 
 @Component({

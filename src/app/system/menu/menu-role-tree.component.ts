@@ -9,7 +9,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { MenuService } from './menu.service';
 import { MenuRoleHierarchy } from './menu-role-hierarchy.model';
 import { MenuRoleMapping } from './menu-role-mapping.model';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
 import { UserService } from '../user/user.service';
 import { Role } from '../role/role.model';
 import { MenuGroup } from './menu-group.model';

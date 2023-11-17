@@ -8,7 +8,7 @@ import { WebResourceGridComponent } from './web-resource-grid.component';
 import { WebResourceService } from './web-resource.service';
 import { WebResource } from './web-resource.model';
 
-import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
+import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-web-resource',

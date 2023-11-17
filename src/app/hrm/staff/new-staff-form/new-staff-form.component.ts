@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzInputRregnoComponent } from 'src/app/shared-component/nz-input-rregno/nz-input-rregno.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
 
 import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';

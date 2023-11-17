@@ -15,7 +15,7 @@ import { BizCodeGridComponent } from './biz-code-grid.component';
 import { BizCodeTypeService } from './biz-code-type.service';
 import { BizCodeService } from './biz-code.service';
 
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 

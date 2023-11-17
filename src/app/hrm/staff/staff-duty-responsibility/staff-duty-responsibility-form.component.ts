@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputCheckboxComponent } from 'src/app/shared/nz-input-checkbox/nz-input-checkbox.component';
-import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputCheckboxComponent } from 'src/app/shared-component/nz-input-checkbox/nz-input-checkbox.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
 
 import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';

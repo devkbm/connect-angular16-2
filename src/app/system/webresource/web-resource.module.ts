@@ -17,9 +17,9 @@ import { WebResourceComponent } from './web-resource.component';
 import { WebResourceFormComponent } from './web-resource-form.component';
 import { WebResourceGridComponent } from './web-resource-grid.component';
 import { WebResourceService } from './web-resource.service';
-import { NzButtonsComponent } from 'src/app/shared/nz-buttons/nz-buttons.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
-import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
+import { NzButtonsComponent } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
+import { NzSearchAreaComponent } from 'src/app/shared-component/nz-search-area/nz-search-area.component';
 
 @NgModule({
   imports: [

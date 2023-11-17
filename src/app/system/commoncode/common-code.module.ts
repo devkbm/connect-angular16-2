@@ -16,9 +16,9 @@ import { CommonCodeComponent } from './common-code.component';
 import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeGridComponent } from './common-code-grid.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
-import { NzButtonsComponent } from 'src/app/shared/nz-buttons/nz-buttons.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
-import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
+import { NzButtonsComponent } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
+import { NzSearchAreaComponent } from 'src/app/shared-component/nz-search-area/nz-search-area.component';
 
 @NgModule({
   imports: [

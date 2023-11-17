@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
-import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
 import { DutyDateListComponent } from './duty-date-list.component';
-import { NzInputSelectStaffComponent } from 'src/app/shared/nz-input-select-staff/nz-input-select-staff.component';
+import { NzInputSelectStaffComponent } from 'src/app/shared-component/nz-input-select-staff/nz-input-select-staff.component';
 
 import { formatDate } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, inject } from '@angular/core';

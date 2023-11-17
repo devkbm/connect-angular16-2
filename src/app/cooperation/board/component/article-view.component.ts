@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzFileUploadComponent } from 'src/app/shared/nz-file-upload/nz-file-upload.component';
+import { NzFileUploadComponent } from 'src/app/shared-component/nz-file-upload/nz-file-upload.component';
 
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Article } from './article.model';

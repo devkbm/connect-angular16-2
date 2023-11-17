@@ -18,7 +18,7 @@ import { HrmTypeCodeFormComponent } from './hrm-code-form.component';
 import { HrmCodeComponent } from './hrm-code.component';
 import { HrmCodeService } from './hrm-code.service';
 
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({

@@ -1,11 +1,11 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
+import { CalendarModule } from 'src/app/shared-component/calendar/calendar.module';
 
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit, inject } from '@angular/core';
 
 import { ResponseList } from 'src/app/core/model/response-list';
 
-import { DaypilotCalendarComponent, ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
+import { DaypilotCalendarComponent, ModeChangedArgs } from 'src/app/shared-component/calendar/daypilot-calendar.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
 import { WorkCalendarEventService } from '../event/work-calendar-event.service';
 import { WorkCalendarEvent } from '../event/work-calendar-event.model';

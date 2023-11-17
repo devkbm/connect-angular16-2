@@ -5,10 +5,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputRadioGroupComponent } from 'src/app/shared/nz-input-radio-group/nz-input-radio-group.component';
-import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
-import { NzInputRregnoComponent } from 'src/app/shared/nz-input-rregno/nz-input-rregno.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzInputRadioGroupComponent } from 'src/app/shared-component/nz-input-radio-group/nz-input-radio-group.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
+import { NzInputRregnoComponent } from 'src/app/shared-component/nz-input-rregno/nz-input-rregno.component';
 
 import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';

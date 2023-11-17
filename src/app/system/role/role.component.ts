@@ -8,7 +8,7 @@ import { RoleGridComponent } from './role-grid.component';
 import { RoleService } from './role.service';
 import { Role } from './role.model';
 
-import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
+import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-authority',

@@ -1,6 +1,6 @@
 
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from "@angular/router";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChildFn, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs/internal/Observable";
 import { LoginService } from "src/app/login/login.service";
 import { UserToken } from "src/app/login/user-token.model";
@@ -45,3 +45,46 @@ export class AuthGuardService implements CanActivate,CanActivateChild {
   }
 
 }
+
+
+export const AuthGuardFunction: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => new Observable<boolean>(e => {
+    const loginService: LoginService = inject(LoginService);
+    const router: Router = inject(Router);
+
+    return loginService.getAuthToken()
+                .subscribe((model: UserToken) => {
+                  const session_token = sessionStorage.getItem('token') as string;
+
+                  if (session_token === model.sessionId) {
+                    e.next(true);
+                  } else {
+                    router.createUrlTree(['/login']);
+                    e.next(false);
+                  }
+                });
+});
+
+export const AuthGuardChildFunction: CanActivateChildFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => new Observable<boolean>(e => {
+    const loginService: LoginService = inject(LoginService);
+    const router: Router = inject(Router);
+
+    return loginService.getAuthToken()
+                .subscribe((model: UserToken) => {
+                  const session_token = sessionStorage.getItem('token') as string;
+
+                  if (session_token === model.sessionId) {
+                    e.next(true);
+                  } else {
+                    router.createUrlTree(['/login']);
+                    e.next(false);
+                  }
+                });
+});
+
+

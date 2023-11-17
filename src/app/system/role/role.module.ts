@@ -21,9 +21,9 @@ import { RoleFormComponent } from './role-form.component';
 import { RoleGridComponent } from './role-grid.component';
 
 /* Shared Component */
-import { NzButtonsComponent } from 'src/app/shared/nz-buttons/nz-buttons.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
-import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
+import { NzButtonsComponent } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
+import { NzSearchAreaComponent } from 'src/app/shared-component/nz-search-area/nz-search-area.component';
 
 @NgModule({
   imports: [

@@ -17,11 +17,11 @@ const nzModules = [
 
 import { TeamComponent } from './team.component';
 import { TeamFormComponent } from './team-form.component';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
 import { TeamGridComponent } from './team-grid.component';
-import { NzPageHeaderCustomComponent } from "../../shared/nz-page-header-custom/nz-page-header-custom.component";
+import { NzPageHeaderCustomComponent } from "../../shared-component/nz-page-header-custom/nz-page-header-custom.component";
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 

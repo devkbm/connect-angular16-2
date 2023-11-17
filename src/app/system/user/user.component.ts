@@ -8,7 +8,7 @@ import { UserGridComponent } from './user-grid.component';
 import { UserService } from './user.service';
 import { User } from './user.model';
 
-import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
+import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-user',

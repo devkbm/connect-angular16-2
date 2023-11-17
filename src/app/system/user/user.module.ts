@@ -21,8 +21,8 @@ import { UserPopupComponent } from './user-popup.component';
 import { UserImageUploadComponent } from './user-image-upload.component';
 import { UserService } from './user.service';
 import { UserProfileComponent } from './user-profile.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
-import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
+import { NzSearchAreaComponent } from 'src/app/shared-component/nz-search-area/nz-search-area.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({

@@ -21,9 +21,9 @@ import { MenuFormComponent } from './menu-form.component';
 import { MenuGroupFormComponent } from './menu-group-form.component';
 import { MenuGroupGridComponent } from './menu-group-grid.component';
 import { MenuGridComponent } from './menu-grid.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
-import { NzSearchAreaComponent } from 'src/app/shared/nz-search-area/nz-search-area.component';
-import { NzTreeSelectCustomComponent } from 'src/app/shared/nz-tree-select-custom/nz-tree-select-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
+import { NzSearchAreaComponent } from 'src/app/shared-component/nz-search-area/nz-search-area.component';
+import { NzTreeSelectCustomComponent } from 'src/app/shared-component/nz-tree-select-custom/nz-tree-select-custom.component';
 import { MenuRoleTreeComponent } from "./menu-role-tree.component";
 
 

@@ -28,12 +28,12 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { DutyApplicationComponent } from './duty-application.component';
 import { DutyApplicationFormComponent } from './duty-application-form.component';
 import { DutyDateListComponent } from './duty-date-list.component';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
-import { NzInputSelectStaffComponent } from 'src/app/shared/nz-input-select-staff/nz-input-select-staff.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
+import { NzInputSelectStaffComponent } from 'src/app/shared-component/nz-input-select-staff/nz-input-select-staff.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 import { DutyApplicationGridComponent } from './duty-application-grid.component';
 
 const nzModules = [
@@ -75,7 +75,7 @@ const nzModules = [
     DutyApplicationGridComponent,
     DutyApplicationFormComponent
   ],
-  declarations: [        
+  declarations: [
     DutyApplicationComponent
   ],
   providers: [

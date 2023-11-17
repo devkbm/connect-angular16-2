@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppLayoutModule } from '../app-layout/app-layout.module';
 import { AppLayoutComponent } from '../app-layout/app-layout.component';
-import { AuthGuardService } from '../core/service/auth-guard.service';
+import { AuthGuardChildFunction, AuthGuardService } from '../core/service/auth-guard.service';
 
 import { DutyApplicationComponent } from './duty-application/duty-application.component';
 import { HrmCodeComponent } from './hrm-code/hrm-code.component';

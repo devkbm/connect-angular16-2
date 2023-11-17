@@ -7,10 +7,10 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { TeamService } from './team.service';
 import { TeamJoinableUserModel, TeamModel } from './team.model';
 import { ResponseList } from 'src/app/core/model/response-list';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
 import { CommonModule } from '@angular/common';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 @Component({

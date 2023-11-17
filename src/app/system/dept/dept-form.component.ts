@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
-import { NzInputNumberCustomComponent } from 'src/app/shared/nz-input-number-custom/nz-input-number-custom.component';
-import { NzInputDateComponent } from 'src/app/shared/nz-input-date/nz-input-date.component';
+import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
+import { NzInputNumberCustomComponent } from 'src/app/shared-component/nz-input-number-custom/nz-input-number-custom.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
@@ -17,7 +17,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { Dept } from './dept.model';
 import { DeptHierarchy } from './dept-hierarchy.model';
 import { ResponseList } from 'src/app/core/model/response-list';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
 
 
 @Component({

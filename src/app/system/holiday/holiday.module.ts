@@ -18,7 +18,7 @@ import { HolidayService } from './holiday.service';
 import { HolidayComponent } from './holiday.component';
 import { HolidayFormComponent } from './holiday-form.component';
 import { HolidayGridComponent } from './holiday-grid.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 
 @NgModule({
   imports: [

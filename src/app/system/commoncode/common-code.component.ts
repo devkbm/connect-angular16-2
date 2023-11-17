@@ -8,7 +8,7 @@ import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
 import { CommonCodeService } from './common-code.service';
 import { SystemTypeEnum } from './system-type-enum.model';
-import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
+import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-common-code',

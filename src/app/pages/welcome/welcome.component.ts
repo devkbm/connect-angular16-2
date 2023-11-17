@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
+import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-welcome',

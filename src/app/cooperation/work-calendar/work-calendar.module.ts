@@ -7,7 +7,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
+import { CalendarModule } from 'src/app/shared-component/calendar/calendar.module';
 
 /* Inner Component */
 import { WorkCalendarComponent } from './work-calendar.component';

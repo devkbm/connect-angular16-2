@@ -19,7 +19,7 @@ import { DeptFormComponent } from './dept-form.component';
 import { DeptTreeComponent } from './dept-tree.component';
 import { DeptSelectComponent } from './dept-select.component';
 import { CheckableDeptTreeComponent } from './checkable-dept-tree.component';
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 
 @NgModule({
   imports: [

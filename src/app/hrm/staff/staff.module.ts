@@ -12,7 +12,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* Shared Component */
-import { NzPageHeaderCustomComponent } from 'src/app/shared/nz-page-header-custom/nz-page-header-custom.component';
+import { NzPageHeaderCustomComponent } from 'src/app/shared-component/nz-page-header-custom/nz-page-header-custom.component';
 
 /* Inner Component */
 import { StaffRegistFormComponent } from './staff-regist-form.component';
@@ -49,7 +49,7 @@ import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component
     NzGridModule,
     NzButtonModule,
     NzIconModule,
-    
+
     NzPageHeaderCustomComponent,
 
     StaffAppointmentRecordGridComponent,

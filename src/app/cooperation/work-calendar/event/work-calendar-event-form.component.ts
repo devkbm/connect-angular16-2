@@ -11,17 +11,17 @@ import { WorkCalendarEventService } from './work-calendar-event.service';
 import { WorkCalendarService } from '../calendar/work-calendar.service';
 import { WorkCalendar } from '../calendar/work-calendar.model';
 
-import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
-import { NzInputDateTimeComponent, TimeFormat } from 'src/app/shared/nz-input-datetime/nz-input-datetime.component';
+import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
+import { NzInputDateTimeComponent, TimeFormat } from 'src/app/shared-component/nz-input-datetime/nz-input-datetime.component';
 
 import * as dateFns from "date-fns";
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputSimpleColorPickerComponent } from 'src/app/shared/nz-input-color-picker/nz-input-simple-color-picker.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzInputCheckboxComponent } from 'src/app/shared/nz-input-checkbox/nz-input-checkbox.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputSimpleColorPickerComponent } from 'src/app/shared-component/nz-input-color-picker/nz-input-simple-color-picker.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzInputCheckboxComponent } from 'src/app/shared-component/nz-input-checkbox/nz-input-checkbox.component';
 
 export interface NewFormValue {
   workCalendarId: number;

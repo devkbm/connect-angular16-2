@@ -12,10 +12,10 @@ import { WorkCalendar } from './work-calendar.model';
 import { WorkCalendarMember } from './work-calendar-member.model';
 import { WorkCalendarService } from './work-calendar.service';
 
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { NzCrudButtonGroupComponent } from 'src/app/shared/nz-crud-button-group/nz-crud-button-group.component';
-import { NzInputSimpleColorPickerComponent } from 'src/app/shared/nz-input-color-picker/nz-input-simple-color-picker.component';
-import { NzInputSelectComponent } from 'src/app/shared/nz-input-select/nz-input-select.component';
+import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
+import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzInputSimpleColorPickerComponent } from 'src/app/shared-component/nz-input-color-picker/nz-input-simple-color-picker.component';
+import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 

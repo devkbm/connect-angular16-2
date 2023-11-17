@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { DaypilotCalendarNavigatorComponent } from 'src/app/shared/calendar/daypilot-calendar-navigator.component';
+import { DaypilotCalendarNavigatorComponent } from 'src/app/shared-component/calendar/daypilot-calendar-navigator.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
-import { ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
+import { ModeChangedArgs } from 'src/app/shared-component/calendar/daypilot-calendar.component';
 
 import { NewDateSelectedArgs, WorkCalendarViewComponent } from './calendar-view/work-calendar-view.component';
 import { NewFormValue, WorkCalendarEventFormComponent } from './event/work-calendar-event-form.component';
