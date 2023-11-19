@@ -1,24 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+
 import { BoardFormComponent } from './board-form.component';
 import { BoardTreeComponent } from '../component/board-tree.component';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+
 
 @Component({
   selector: 'app-board-management',
   standalone: true,
   imports: [
-    CommonModule, NzButtonModule, NzDrawerModule, BoardTreeComponent, BoardFormComponent
+    CommonModule, NzButtonModule, NzIconModule, NzGridModule,
+    BoardTreeComponent, BoardFormComponent
   ],
   template: `
-    <button nz-button (click)="getBoardTree()">
-      <span nz-icon nzType="search" nzTheme="outline"></span>조회
-    </button>
+    <div nz-row class="search-div">
+      <div nz-col [nzSpan]="24" style="text-align: right;">
+        <button nz-button (click)="getBoardTree()">
+          <span nz-icon nzType="search" nzTheme="outline"></span>조회
+        </button>
+      </div>
+    </div>
+
+    <!--
     <button nz-button (click)="newBoard()">
       <span nz-icon nzType="form" nzTheme="outline"></span>게시판 등록
     </button>
+    -->
 
     <div class="app-layout">
       <app-board-tree id="boardTree" #boardTree
@@ -53,6 +64,21 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 -->
   `,
   styles: [`
+    .search-div {
+      padding: 6px;
+      /*background: #fbfbfb;*/
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      padding-left: auto;
+      padding-right: 5;
+
+      text-align: right;
+    }
+
+    .btn-search {
+      text-align: right;
+    }
+
     .app-layout {
       display: grid;
       grid-template-rows: 24px 1fr;
@@ -61,7 +87,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
   `]
 
 })
-export class BoardManagementComponent implements OnInit {
+export class BoardManagementComponent implements AfterViewInit {
 
   @ViewChild(BoardTreeComponent) boardTree!: BoardTreeComponent;
 
@@ -77,7 +103,7 @@ export class BoardManagementComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     this.getBoardTree();
   }
 

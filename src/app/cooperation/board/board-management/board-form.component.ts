@@ -6,6 +6,9 @@ import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select
 import { NzInputTreeSelectComponent } from 'src/app/shared-component/nz-input-tree-select/nz-input-tree-select.component';
 import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,11 +27,37 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     NzFormModule, NzInputTextComponent, NzInputTextareaComponent, NzInputSelectComponent,
-    NzInputTreeSelectComponent, NzCrudButtonGroupComponent
+    NzInputTreeSelectComponent, NzCrudButtonGroupComponent,
+    NzButtonModule, NzDividerModule, NzIconModule
   ],
   template: `
     <div>{{fg.getRawValue() | json}}</div>
 
+    <!--
+    <button nz-button (click)="get(this.fg.value.boardId!)">
+      <span nz-icon nzType="search"></span>조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+-->
+    <button nz-button (click)="newForm()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="save()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <!--
+    <button nz-button (click)="closeForm()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>닫기
+    </button>
+-->
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger (click)="remove()">
+      <span nz-icon nzType="delete" nzTheme="outline"></span>삭제
+    </button>
+
+    <!--
     <app-nz-crud-button-group
       [isSavePopupConfirm]="false"
       (searchClick)="get(this.fg.value.boardId!)"
@@ -36,10 +65,8 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
       (saveClick)="save()"
       (deleteClick)="remove()">
     </app-nz-crud-button-group>
+    -->
 
-    <button nz-button (click)="newForm()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>신규
-    </button>
 
     <form nz-form [formGroup]="fg" nzLayout="vertical">
       <!-- ERROR TEMPLATE-->
@@ -211,7 +238,6 @@ export class BoardFormComponent extends FormBase implements OnInit, OnChanges, A
         .saveBoard(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Board>) => {
-            console.log(model);
             this.formSaved.emit(this.fg.getRawValue());
           }
         );
