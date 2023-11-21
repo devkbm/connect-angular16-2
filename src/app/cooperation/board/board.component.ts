@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { ArticleGridComponent } from './component/article-grid.component';
 import { BoardTreeComponent } from './component/board-tree.component';
 import { Article } from './component/article.model';
@@ -15,7 +15,7 @@ export interface TabArticle {
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements AfterViewInit {
 
   @ViewChild(BoardTreeComponent) boardTree!: BoardTreeComponent;
   @ViewChild(ArticleGridComponent) articleGrid!: ArticleGridComponent;
@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
   private message = inject(NzMessageService);
   public viewContainerRef = inject(ViewContainerRef);
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     this.getBoardTree();
   }
 

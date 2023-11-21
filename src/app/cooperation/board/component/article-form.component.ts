@@ -108,13 +108,13 @@ import { Article } from './article.model';
       z-index: 900;
     }
 
-    :host /*::ng-deep*/ .ck-editor__editable {
+    :host ::ng-deep .ck-editor__editable {
       height: 45vh;
       color: black;
       /*min-height: calc(100% - 300px) !important;*/
     }
 
-    :host /*::ng-deep*/ .upload-list-inline .ant-upload-list-item {
+    :host ::ng-deep .upload-list-inline .ant-upload-list-item {
       float: left;
       width: 200px;
       margin-right: 8px;
