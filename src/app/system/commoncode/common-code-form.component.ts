@@ -7,6 +7,9 @@ import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-
 import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
 import { NzInputTreeSelectComponent } from 'src/app/shared-component/nz-input-tree-select/nz-input-tree-select.component';
 import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select/nz-input-select.component';
+import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
+import { NzInputNumberCustomComponent } from 'src/app/shared-component/nz-input-number-custom/nz-input-number-custom.component';
+
 
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -21,13 +24,15 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { SystemTypeEnum } from './system-type-enum.model';
 
+
 @Component({
   selector: 'app-common-code-form',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    NzFormModule, NzInputModule, NzInputNumberModule,
-    NzInputTextComponent, NzInputTextareaComponent, NzInputTreeSelectComponent, NzInputSelectComponent
+    NzFormModule, NzInputModule, NzInputNumberModule, NzInputDateComponent,
+    NzInputTextComponent, NzInputTextareaComponent, NzInputTreeSelectComponent,
+    NzInputSelectComponent, NzInputNumberCustomComponent
   ],
   template: `
     {{fg.getRawValue() | json}}
@@ -63,23 +68,6 @@ import { SystemTypeEnum } from './system-type-enum.model';
             [nodes]="nodeItems"
             [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="false">상위 공통코드
           </app-nz-input-tree-select>
-
-          <!--
-          <nz-form-item class="form-item">
-            <nz-form-label nzFor="parentId" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">상위 공통코드</nz-form-label>
-            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-              <nz-tree-select
-                  style="width: 250px"
-                  [nzNodes]="nodeItems"
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Please select"
-                  formControlName="parentId"
-                  (ngModelChange)="true">
-              </nz-tree-select>
-            </nz-form-control>
-          </nz-form-item>
-          -->
         </div>
 
       </div>
@@ -116,39 +104,33 @@ import { SystemTypeEnum } from './system-type-enum.model';
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="5">
           <!--시작일 필드-->
-          <nz-form-item class="form-item">
-            <nz-form-label nzFor="fromDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">시작일</nz-form-label>
-            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
-              <nz-date-picker id="fromDate" formControlName="fromDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
-            </nz-form-control>
-          </nz-form-item>
+          <app-nz-input-date
+            formControlName="fromDate" itemId="fromDate"
+            [required]="true" [nzErrorTip]="errorTpl">시작일
+          </app-nz-input-date>
         </div>
         <div nz-col nzSpan="5">
           <!--종료일 필드-->
-          <nz-form-item class="form-item">
-            <nz-form-label nzFor="toDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">종료일</nz-form-label>
-            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
-              <nz-date-picker id="toDate" formControlName="toDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
-            </nz-form-control>
-          </nz-form-item>
+          <app-nz-input-date
+            formControlName="toDate" itemId="toDate"
+            [required]="true" [nzErrorTip]="errorTpl">종료일
+          </app-nz-input-date>
         </div>
 
         <div nz-col nzSpan="5">
-          <nz-form-item class="form-item">
-            <nz-form-label nzFor="seq" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">출력 순번</nz-form-label>
-            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
-              <nz-input-number id="seq" formControlName="seq" [nzMin]="0" [nzMax]="9999" [nzStep]="1"></nz-input-number>
-            </nz-form-control>
-          </nz-form-item>
+        <app-nz-input-number-custom
+            formControlName="seq" itemId="seq"
+            [required]="true"
+            [nzErrorTip]="errorTpl">출력 순번
+          </app-nz-input-number-custom>
         </div>
 
         <div nz-col nzSpan="5">
-          <nz-form-item class="form-item">
-              <nz-form-label nzFor="lowLevelCodeLength" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">하위 코드 길이</nz-form-label>
-              <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-                <nz-input-number id="lowLevelCodeLength" formControlName="lowLevelCodeLength" [nzMax]="255" [nzStep]="1"></nz-input-number>
-              </nz-form-control>
-          </nz-form-item>
+        <app-nz-input-number-custom
+            formControlName="lowLevelCodeLength" itemId="lowLevelCodeLength"
+            [required]="false"
+            [nzErrorTip]="errorTpl">하위 코드 길이
+          </app-nz-input-number-custom>
         </div>
       </div>
 

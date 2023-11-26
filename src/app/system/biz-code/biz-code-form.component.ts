@@ -4,6 +4,7 @@ import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-but
 import { NzInputTextComponent } from 'src/app/shared-component/nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
 import { NzInputNumberCustomComponent } from 'src/app/shared-component/nz-input-number-custom/nz-input-number-custom.component';
+import { NzInputCheckboxComponent } from 'src/app/shared-component/nz-input-checkbox/nz-input-checkbox.component';
 
 import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -18,12 +19,14 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
 
 
+
 @Component({
   selector: 'app-biz-code-form',
   standalone: true,
   imports:  [
     CommonModule, FormsModule, ReactiveFormsModule, NzFormModule,
-    NzInputTextComponent, NzInputTextareaComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent
+    NzInputTextComponent, NzInputTextareaComponent, NzInputNumberCustomComponent,
+    NzInputCheckboxComponent, NzCrudButtonGroupComponent
   ],
   template: `
     {{fg.getRawValue() | json}}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -15,7 +15,7 @@ import { ButtonTemplate } from 'src/app/shared-component/nz-buttons/nz-buttons.c
   templateUrl: './common-code.component.html',
   styleUrls: ['./common-code.component.css']
 })
-export class CommonCodeComponent extends AppBase implements OnInit {
+export class CommonCodeComponent extends AppBase implements OnInit, AfterViewInit {
 
   @ViewChild(CommonCodeTreeComponent) tree!: CommonCodeTreeComponent;
   @ViewChild(CommonCodeFormComponent) form!: CommonCodeFormComponent;
@@ -62,7 +62,12 @@ export class CommonCodeComponent extends AppBase implements OnInit {
   private commonCodeService = inject(CommonCodeService);
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
     this.getSystemTypeCode();
+    this.getCommonCodeTree();
   }
 
   getCommonCodeTree(): void {

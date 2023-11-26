@@ -60,15 +60,15 @@ export class BizCodeTypeGridComponent extends AggridFunction implements OnInit {
         width: 65,
         cellStyle: {'text-align': 'center'}
       },
+      { headerName: '시스템',       field: 'bizType',       width: 80 },
       { headerName: '분류ID',       field: 'typeId',        width: 100 },
       { headerName: '분류명',       field: 'typeName',      width: 200 },
-      { headerName: '시스템',       field: 'bizType',       width: 200 },
       { headerName: '순번',         field: 'sequence',      width: 50 },
       { headerName: '비고',         field: 'comment',       width: 400 }
     ];
 
     this.getRowId = (params: any) => {
-        return params.data.typeId;
+      return params.data.typeId;
     };
 
     this.getList();

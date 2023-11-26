@@ -7,6 +7,7 @@ import { NzInputSelectComponent } from 'src/app/shared-component/nz-input-select
 import { NzInputDateComponent } from 'src/app/shared-component/nz-input-date/nz-input-date.component';
 import { NzInputTextareaComponent } from 'src/app/shared-component/nz-input-textarea/nz-input-textarea.component';
 import { NzInputNumberCustomComponent } from 'src/app/shared-component/nz-input-number-custom/nz-input-number-custom.component';
+import { NzInputCheckboxComponent } from 'src/app/shared-component/nz-input-checkbox/nz-input-checkbox.component';
 import { NzCrudButtonGroupComponent } from 'src/app/shared-component/nz-crud-button-group/nz-crud-button-group.component';
 
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, inject } from '@angular/core';
@@ -22,6 +23,7 @@ import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-valid
 
 
 
+
 @Component({
   selector: 'app-hrm-code-form',
   standalone: true,
@@ -29,6 +31,7 @@ import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-valid
     CommonModule, FormsModule, ReactiveFormsModule,
     NzFormModule, NzDividerModule, NzInputTextComponent, NzInputTextareaComponent,
     NzInputSelectComponent, NzInputDateComponent, NzInputNumberCustomComponent, NzCrudButtonGroupComponent,
+    NzInputCheckboxComponent
   ],
   template: `
     {{fg.getRawValue() | json}}
